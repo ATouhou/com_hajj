@@ -24,6 +24,8 @@ class HajjControllerHajj extends JControllerLegacy
     $second_name   = $jinput->get('second_name','','STRING');
     $third_name    = $jinput->get('third_name','','STRING');
     $familly_name  = $jinput->get('familly_name','','STRING');
+    $sexe          = $jinput->get('sexe','','STRING');
+    $nationality   = $jinput->get('nationality','','STRING');
     $id_number     = $jinput->get('id_number','','STRING');
     $birthday      = $jinput->get('birthday','','STRING');
     $job           = $jinput->get('job','','STRING');
@@ -36,8 +38,40 @@ class HajjControllerHajj extends JControllerLegacy
 
 
     require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
-    $userid = HajjFrontendHelper::register_user($id_number, $mobile, $email, $first_name);
-    var_dump($userid);
+    $id_user = HajjFrontendHelper::register_user($id_number, $mobile, $email, $first_name);
+    //var_dump($userid);
+
+    if ($id_user == 0) { // Problem
+      $app->redirect("index.php?option=com_hajj&view=newhajj", 
+      "عذرا..رقم الهوية مسجل لدينا",
+      'danger');
+    }
+
+    $result = $this->getModel('hajj')->setnewHajj(
+      $id_user,
+      $first_name,
+      $second_name,
+      $third_name,
+      $familly_name,
+      $sexe,
+      $nationality,
+      $id_number,
+      $birthday,
+      $job,
+      $rh,
+      $address,
+      $mobile,
+      $email,
+      $office_branch,
+      $hajj_program
+    );
+
+    // Auto login
+    HajjFrontendHelper::autologin($id_number, $mobile);
+
+    $app->redirect("index.php?option=com_hajj&view=newhajj", 
+      "شكرا لك على رغبتك في الحج معنا...رقم حجزك : $id_user <br>يمكنك تسجيل الدخول للموقع والاستفادة من خدماتنا باستخدما اسم المستخدم وكلمة السر: رقم الهوية و الجوال",
+      'success');
 
 
   }
