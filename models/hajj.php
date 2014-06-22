@@ -12,6 +12,11 @@ defined('_JEXEC') or die;
 
 class HajjModelHajj extends JModelLegacy {
 
+/*
+|------------------------------------------------------------------------------------
+| Set new Hajj
+|------------------------------------------------------------------------------------
+*/
   public function setnewHajj(
     $id_user,
     $first_name,
@@ -47,8 +52,62 @@ class HajjModelHajj extends JModelLegacy {
     $object->email         = $email;
     $object->office_branch = $office_branch;
     $object->hajj_program  = $hajj_program;
-    $result = JFactory::getDbo()->insertObject('#__hajj_users', $object);
-    return $result;
+
+    $db = JFactory::getDbo();
+    $result = $db->insertObject('#__hajj_users', $object);
+    return $db->insertid();
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Get Id number
+|------------------------------------------------------------------------------------
+*/
+  public function getIdNumber($ID){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);      
+    $query
+        ->select($db->quoteName(array('id')))
+        ->from($db->quoteName('#__hajj_users'))
+        ->where($db->quoteName('id_user') . ' = '. $ID);
+
+    $db->setQuery($query);
+    $results = $db->loadObject();
+    return $results->id;
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Set New Hajj Addon
+|------------------------------------------------------------------------------------
+*/
+  public function setNewHajjAddon($id_number, $addon, $email, $first_name, $mobile, $second_name, $office_branch, $third_name, $hajj_program, $familly_name){
+    $object = new stdClass();
+
+    $object->id_number     = $id_number; 
+    $object->addon         = $addon; 
+    $object->email         = $email; 
+    $object->first_name    = $first_name; 
+    $object->mobile        = $mobile; 
+    $object->second_name   = $second_name; 
+    $object->office_branch = $office_branch; 
+    $object->third_name    = $third_name; 
+    $object->hajj_program  = $hajj_program; 
+    $object->familly_name  = $familly_name; 
+
+    $db = JFactory::getDbo();
+    $result = $db->insertObject('#__hajj_users', $object);
+    return $db->insertid();
+  }
+
+
+/*
+|------------------------------------------------------------------------------------
+| Test
+|------------------------------------------------------------------------------------
+*/
+  public function test(){
+    echo "test";
   }
 
 }

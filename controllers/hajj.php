@@ -15,6 +15,11 @@ jimport('joomla.application.component.controller');
 class HajjControllerHajj extends JControllerLegacy
 {
 
+/*
+|------------------------------------------------------------------------------------
+| Set New Hajj
+|------------------------------------------------------------------------------------
+*/
   public function setNewHajj(){
 
     $app = JFactory::getApplication();
@@ -47,7 +52,7 @@ class HajjControllerHajj extends JControllerLegacy
       'danger');
     }
 
-    $result = $this->getModel('hajj')->setnewHajj(
+    $id = $this->getModel('hajj')->setnewHajj(
       $id_user,
       $first_name,
       $second_name,
@@ -69,11 +74,48 @@ class HajjControllerHajj extends JControllerLegacy
     // Auto login
     HajjFrontendHelper::autologin($id_number, $mobile);
 
-    $app->redirect("index.php?option=com_hajj&view=newhajj", 
+    $app->redirect("index.php?option=com_hajj&view=newhajjaddon", 
+      "شكرا لك على رغبتك في الحج معنا...رقم حجزك : $id <br>يمكنك تسجيل الدخول للموقع والاستفادة من خدماتنا باستخدما اسم المستخدم وكلمة السر: رقم الهوية و الجوال",
+      'success');
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Set Hajj Addon
+|------------------------------------------------------------------------------------
+*/
+  public function setnewHajjAddon(){
+    $app = JFactory::getApplication();
+    $jinput = $app->input;
+
+    $id_number     = $jinput->get('id_number', '', 'STRING');
+    $addon         = $jinput->get('addon', '', 'STRING');
+    $email         = $jinput->get('email', '', 'STRING');
+    $first_name    = $jinput->get('first_name', '', 'STRING');
+    $mobile        = $jinput->get('mobile', '', 'STRING');
+    $second_name   = $jinput->get('second_name', '', 'STRING');
+    $office_branch = $jinput->get('office_branch', '', 'STRING');
+    $third_name    = $jinput->get('third_name', '', 'STRING');
+    $hajj_program  = $jinput->get('hajj_program', '', 'STRING');
+    $familly_name  = $jinput->get('familly_name', '', 'STRING');
+
+    $id_user = $this->getModel('Hajj')->setNewHajjAddon($id_number,
+        $addon,
+        $email,
+        $first_name,
+        $mobile,
+        $second_name,
+        $office_branch,
+        $third_name,
+        $hajj_program,
+        $familly_name
+    );
+
+    $app->redirect("index.php?option=com_hajj&view=newhajjaddon", 
       "شكرا لك على رغبتك في الحج معنا...رقم حجزك : $id_user <br>يمكنك تسجيل الدخول للموقع والاستفادة من خدماتنا باستخدما اسم المستخدم وكلمة السر: رقم الهوية و الجوال",
       'success');
-
-
+    
   }
+  
 
 }
