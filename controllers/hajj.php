@@ -32,7 +32,9 @@ class HajjControllerHajj extends JControllerLegacy
     $sexe          = $jinput->get('sexe','','STRING');
     $nationality   = $jinput->get('nationality','','STRING');
     $id_number     = $jinput->get('id_number','','STRING');
-    $birthday      = $jinput->get('birthday','','STRING');
+    $birthday      = $jinput->get('birthday1','','STRING') . '/';
+    $birthday      .= $jinput->get('birthday2','','STRING') . '/';
+    $birthday      .= $jinput->get('birthday3','','STRING');
     $job           = $jinput->get('job','','STRING');
     $rh            = $jinput->get('rh','','STRING');
     $address       = $jinput->get('address','','STRING');

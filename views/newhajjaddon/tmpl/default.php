@@ -8,13 +8,16 @@
  */
 
 defined('_JEXEC') or die;
+
+// Call list fields
+require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 ?>
 
 <form action="index.php?option=com_hajj&task=hajj.setnewhajjaddon" method="post">
   <div class="row-fluid">
     <div class="span6">
       <label for="id_number">رقم الهوية</label>
-      <input type="text" name="id_number" id="id_number">
+      <input type="text" name="id_number" id="id_number" disabled>
     </div>
     <div class="span6">
       <label for="addon">رقم الحجز</label>
@@ -44,7 +47,7 @@ defined('_JEXEC') or die;
   <div class="row-fluid">
     <div class="span6">
       <label for="office_branch">فرع التسجيل</label>
-      <input type="text" name="office_branch" id="office_branch">
+      <?php HajjFieldHelper::GetOfficeBranch() ?>
     </div>
     <div class="span6">
       <label for="third_name">الاسم الثالث</label>
@@ -54,7 +57,7 @@ defined('_JEXEC') or die;
   <div class="row-fluid">
     <div class="span6">
       <label for="hajj_program">برنامج الحج</label>
-      <input type="text" name="hajj_program" id="hajj_program">
+      <?php HajjFieldHelper::getHajjProgram() ?>
     </div>
     <div class="span6">
       <label for="familly_name">العائلة</label>
