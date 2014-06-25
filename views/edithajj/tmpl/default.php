@@ -14,7 +14,7 @@ require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 //var_dump($this->data);
 $data = $this->data;
 ?>
-
+<h2>رقم حجزك <?php echo $data->id ?></h2>
 <form action="index.php?option=com_hajj&task=hajj.setedithajj" method="post">
   <input type="hidden" name="id_user" value="<?php echo $data->id_user ?>">
   <div class="row-fluid">
