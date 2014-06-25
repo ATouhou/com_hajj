@@ -88,4 +88,23 @@ class HajjModelHajj extends JModelLegacy {
     $userObject->password = md5($object->mobile);
     JFactory::getDbo()->updateObject('#__users', $userObject, 'id');
   }
+
+/*
+|------------------------------------------------------------------------------------
+| get Register Status
+|------------------------------------------------------------------------------------
+*/
+  public function getRegisterStatus($ID){
+
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+    $query
+        ->select($db->quoteName(array('register_status', 'id')))
+        ->from($db->quoteName('#__hajj_users'))
+        ->where($db->quoteName('id_user') . ' = '. $ID);
+    
+    $db->setQuery($query);
+    $results = $db->loadObject();
+    return $results; 
+  }
 }
