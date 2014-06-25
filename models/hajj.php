@@ -17,42 +17,7 @@ class HajjModelHajj extends JModelLegacy {
 | Set new Hajj
 |------------------------------------------------------------------------------------
 */
-  public function setnewHajj(
-    $id_user,
-    $first_name,
-    $second_name,
-    $third_name,
-    $familly_name,
-    $sexe,
-    $nationality,
-    $id_number,
-    $birthday,
-    $job,
-    $rh,
-    $address,
-    $mobile,
-    $email,
-    $office_branch,
-    $hajj_program)
-  {
-    $object = new stdClass();
-    $object->id_user       = $id_user;
-    $object->first_name    = $first_name;
-    $object->second_name   = $second_name;
-    $object->third_name    = $third_name;
-    $object->familly_name  = $familly_name;
-    $object->sexe          = $sexe;
-    $object->nationality   = $nationality;
-    $object->id_number     = $id_number;
-    $object->birthday      = $birthday;
-    $object->job           = $job;
-    $object->rh            = $rh;
-    $object->address       = $address;
-    $object->mobile        = $mobile;
-    $object->email         = $email;
-    $object->office_branch = $office_branch;
-    $object->hajj_program  = $hajj_program;
-
+  public function setNewHajj($object) {
     $db = JFactory::getDbo();
     $result = $db->insertObject('#__hajj_users', $object);
     return $db->insertid();
@@ -81,20 +46,7 @@ class HajjModelHajj extends JModelLegacy {
 | Set New Hajj Addon
 |------------------------------------------------------------------------------------
 */
-  public function setNewHajjAddon($id_number, $addon, $email, $first_name, $mobile, $second_name, $office_branch, $third_name, $hajj_program, $familly_name){
-    $object = new stdClass();
-
-    $object->id_number     = $id_number; 
-    $object->addon         = $addon; 
-    $object->email         = $email; 
-    $object->first_name    = $first_name; 
-    $object->mobile        = $mobile; 
-    $object->second_name   = $second_name; 
-    $object->office_branch = $office_branch; 
-    $object->third_name    = $third_name; 
-    $object->hajj_program  = $hajj_program; 
-    $object->familly_name  = $familly_name; 
-
+  public function setNewHajjAddon($object){
     $db = JFactory::getDbo();
     $result = $db->insertObject('#__hajj_users', $object);
     return $db->insertid();
@@ -103,11 +55,37 @@ class HajjModelHajj extends JModelLegacy {
 
 /*
 |------------------------------------------------------------------------------------
-| Test
+| Get info Hajj
 |------------------------------------------------------------------------------------
 */
-  public function test(){
-    echo "test";
+  public function getHajj($ID){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(true);        
+    $query
+        ->select('*')
+        ->from($db->quoteName('#__hajj_users'))
+        ->where($db->quoteName('id_user') . ' = '. $ID);
+    
+    $db->setQuery($query);
+    $results = $db->loadObject();
+    return $results;
   }
 
+
+
+/*
+|------------------------------------------------------------------------------------
+| Edit Hajj
+|------------------------------------------------------------------------------------
+*/
+  public function setEditHajj($object){
+
+    JFactory::getDbo()->updateObject('#__hajj_users', $object, 'id_user');
+
+    $userObject           = new stdClass();
+    $userObject->id       = $object->id_user;
+    $userObject->email    = $object->email;
+    $userObject->password = md5($object->mobile);
+    JFactory::getDbo()->updateObject('#__users', $userObject, 'id');
+  }
 }

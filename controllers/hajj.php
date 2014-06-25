@@ -25,27 +25,28 @@ class HajjControllerHajj extends JControllerLegacy
     $app = JFactory::getApplication();
     $jinput = $app->input;
 
-    $first_name    = $jinput->get('first_name','','STRING');
-    $second_name   = $jinput->get('second_name','','STRING');
-    $third_name    = $jinput->get('third_name','','STRING');
-    $familly_name  = $jinput->get('familly_name','','STRING');
-    $sexe          = $jinput->get('sexe','','STRING');
-    $nationality   = $jinput->get('nationality','','STRING');
-    $id_number     = $jinput->get('id_number','','STRING');
-    $birthday      = $jinput->get('birthday1','','STRING') . '/';
-    $birthday      .= $jinput->get('birthday2','','STRING') . '/';
-    $birthday      .= $jinput->get('birthday3','','STRING');
-    $job           = $jinput->get('job','','STRING');
-    $rh            = $jinput->get('rh','','STRING');
-    $address       = $jinput->get('address','','STRING');
-    $mobile        = $jinput->get('mobile','','STRING');
-    $email         = $jinput->get('email','','STRING');
-    $office_branch = $jinput->get('office_branch','','STRING');
-    $hajj_program  = $jinput->get('hajj_program','','STRING');
+    $obj                = new stdClass();
+    $obj->first_name    = $jinput->get('first_name','','STRING');
+    $obj->second_name   = $jinput->get('second_name','','STRING');
+    $obj->third_name    = $jinput->get('third_name','','STRING');
+    $obj->familly_name  = $jinput->get('familly_name','','STRING');
+    $obj->sexe          = $jinput->get('sexe','','STRING');
+    $obj->nationality   = $jinput->get('nationality','','STRING');
+    $obj->id_number     = $jinput->get('id_number','','STRING');
+    $obj->birthday      = $jinput->get('birthday1','','STRING') . '/';
+    $obj->birthday     .= $jinput->get('birthday2','','STRING') . '/';
+    $obj->birthday     .= $jinput->get('birthday3','','STRING');
+    $obj->job           = $jinput->get('job','','STRING');
+    $obj->rh            = $jinput->get('rh','','STRING');
+    $obj->address       = $jinput->get('address','','STRING');
+    $obj->mobile        = $jinput->get('mobile','','STRING');
+    $obj->email         = $jinput->get('email','','STRING');
+    $obj->office_branch = $jinput->get('office_branch','','STRING');
+    $obj->hajj_program  = $jinput->get('hajj_program','','STRING');
 
 
     require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
-    $id_user = HajjFrontendHelper::register_user($id_number, $mobile, $email, $first_name);
+    $id_user = HajjFrontendHelper::register_user($obj->id_number, $obj->mobile, $obj->email, $obj->first_name);
     //var_dump($userid);
 
     if ($id_user == 0) { // Problem
@@ -54,27 +55,11 @@ class HajjControllerHajj extends JControllerLegacy
       'danger');
     }
 
-    $id = $this->getModel('hajj')->setnewHajj(
-      $id_user,
-      $first_name,
-      $second_name,
-      $third_name,
-      $familly_name,
-      $sexe,
-      $nationality,
-      $id_number,
-      $birthday,
-      $job,
-      $rh,
-      $address,
-      $mobile,
-      $email,
-      $office_branch,
-      $hajj_program
-    );
+    $obj->id_user = $id_user;
+    $id = $this->getModel('hajj')->setNewHajj($obj);
 
     // Auto login
-    HajjFrontendHelper::autologin($id_number, $mobile);
+    HajjFrontendHelper::autologin($obj->id_number, $obj->mobile);
 
     $app->redirect("index.php?option=com_hajj&view=dashboard&id=".$id);
   }
@@ -88,34 +73,58 @@ class HajjControllerHajj extends JControllerLegacy
     $app = JFactory::getApplication();
     $jinput = $app->input;
 
-    $id_number     = $jinput->get('id_number', '', 'STRING');
-    $addon         = $jinput->get('addon', '', 'STRING');
-    $email         = $jinput->get('email', '', 'STRING');
-    $first_name    = $jinput->get('first_name', '', 'STRING');
-    $mobile        = $jinput->get('mobile', '', 'STRING');
-    $second_name   = $jinput->get('second_name', '', 'STRING');
-    $office_branch = $jinput->get('office_branch', '', 'STRING');
-    $third_name    = $jinput->get('third_name', '', 'STRING');
-    $hajj_program  = $jinput->get('hajj_program', '', 'STRING');
-    $familly_name  = $jinput->get('familly_name', '', 'STRING');
+    $obj                = new stdClass();
+    $obj->id_number     = $jinput->get('id_number', '', 'STRING');
+    $obj->addon         = $jinput->get('addon', '', 'STRING');
+    $obj->email         = $jinput->get('email', '', 'STRING');
+    $obj->first_name    = $jinput->get('first_name', '', 'STRING');
+    $obj->mobile        = $jinput->get('mobile', '', 'STRING');
+    $obj->second_name   = $jinput->get('second_name', '', 'STRING');
+    $obj->office_branch = $jinput->get('office_branch', '', 'STRING');
+    $obj->third_name    = $jinput->get('third_name', '', 'STRING');
+    $obj->hajj_program  = $jinput->get('hajj_program', '', 'STRING');
+    $obj->familly_name  = $jinput->get('familly_name', '', 'STRING');
 
-    $id_user = $this->getModel('Hajj')->setNewHajjAddon($id_number,
-        $addon,
-        $email,
-        $first_name,
-        $mobile,
-        $second_name,
-        $office_branch,
-        $third_name,
-        $hajj_program,
-        $familly_name
-    );
+    $id_user = $this->getModel('Hajj')->setNewHajjAddon($obj);
 
     $app->redirect("index.php?option=com_hajj&view=newhajjaddon", 
       "شكرا لك على رغبتك في الحج معنا...رقم حجزك : $id_user <br>يمكنك تسجيل الدخول للموقع والاستفادة من خدماتنا باستخدما اسم المستخدم وكلمة السر: رقم الهوية و الجوال",
       'success');
     
   }
-  
+
+/*
+|------------------------------------------------------------------------------------
+| Edit Hajj 
+|------------------------------------------------------------------------------------
+*/
+  public function setEditHajj(){
+    $app = JFactory::getApplication();
+    $jinput = $app->input;
+
+    $obj = new stdClass();
+    $obj->id_user       = $jinput->get('id_user','','STRING');
+    $obj->first_name    = $jinput->get('first_name','','STRING');
+    $obj->second_name   = $jinput->get('second_name','','STRING');
+    $obj->third_name    = $jinput->get('third_name','','STRING');
+    $obj->familly_name  = $jinput->get('familly_name','','STRING');
+    $obj->sexe          = $jinput->get('sexe','','STRING');
+    $obj->nationality   = $jinput->get('nationality','','STRING');
+    $obj->birthday      = $jinput->get('birthday1','','STRING') . '/';
+    $obj->birthday     .= $jinput->get('birthday2','','STRING') . '/';
+    $obj->birthday     .= $jinput->get('birthday3','','STRING');
+    $obj->job           = $jinput->get('job','','STRING');
+    $obj->rh            = $jinput->get('rh','','STRING');
+    $obj->address       = $jinput->get('address','','STRING');
+    $obj->mobile        = $jinput->get('mobile','','STRING');
+    $obj->email         = $jinput->get('email','','STRING');
+    $obj->office_branch = $jinput->get('office_branch','','STRING');
+    $obj->hajj_program  = $jinput->get('hajj_program','','STRING');
+
+    $this->getModel('Hajj')->setEditHajj($obj);
+    $app->redirect("index.php?option=com_hajj&view=edithajj", 
+      "تم التعديل بنجاح",
+      'success');
+  }
 
 }
