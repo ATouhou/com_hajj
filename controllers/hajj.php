@@ -76,9 +76,7 @@ class HajjControllerHajj extends JControllerLegacy
     // Auto login
     HajjFrontendHelper::autologin($id_number, $mobile);
 
-    $app->redirect("index.php?option=com_hajj&view=newhajjaddon", 
-      "شكرا لك على رغبتك في الحج معنا...رقم حجزك : $id <br>يمكنك تسجيل الدخول للموقع والاستفادة من خدماتنا باستخدما اسم المستخدم وكلمة السر: رقم الهوية و الجوال",
-      'success');
+    $app->redirect("index.php?option=com_hajj&view=dashboard&id=".$id);
   }
 
 /*
