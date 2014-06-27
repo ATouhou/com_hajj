@@ -21,7 +21,7 @@ $data = $this->data;
   <div class="span2">رقم الحجز</div>
 </div>
 <div class="row-fluid">
-  <div class="span10"><input type="text" name="" value="<?php echo $data->register_status ?>" disabled></div>
+  <div class="span10"><input type="text" name="" value="<?php echo HajjFieldHelper::status_register($data->register_status) ?>" disabled></div>
   <div class="span2">حالة الحجز</div>
 </div>
 
