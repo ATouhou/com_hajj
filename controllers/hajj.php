@@ -108,5 +108,22 @@ class HajjControllerHajj extends JControllerLegacy
       'success');
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Remove Hajj
+|------------------------------------------------------------------------------------
+*/
+  public function removeHajj(){
+    
+    $app = JFactory::getApplication();
+    $id = JFactory::getUser()->id;
+    $lol = $this->getModel('Hajj')->removeHajj($id);
+    
+
+    $app->redirect("index.php", 
+      "تم التعديل بنجاح",
+      'success');
+    
+  }
 
 }

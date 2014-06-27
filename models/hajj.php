@@ -112,8 +112,7 @@ class HajjModelHajj extends JModelLegacy {
 |------------------------------------------------------------------------------------
 | get List of addons
 |------------------------------------------------------------------------------------
-*/
-    
+*/ 
 public function getAddons($ID){
     $db = JFactory::getDBO();
     $query = $db->getQuery(TRUE);
@@ -127,5 +126,29 @@ public function getAddons($ID){
     return $results; 
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Remove Hajj
+|------------------------------------------------------------------------------------
+*/
+  public function removeHajj($ID){
 
+    // Delete user in Joomla
+    JUser::getInstance($ID)->delete();
+
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+    
+    $conditions = array(
+        $db->quoteName('id_user') . '=' . $ID
+    );
+    
+    $query->delete($db->quoteName('#__hajj_users'));
+    $query->where($conditions);
+     
+    $db->setQuery($query);
+     
+    $result = $db->query();
+    return $result;
+  }
 }
