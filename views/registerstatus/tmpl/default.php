@@ -14,8 +14,6 @@ require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 //var_dump($this->data);
 $data = $this->data;
 
-// If new register
-$data->register_status = ($data->register_status == "") ? "انتظار وقت اصدار التصاريح" : $data->register_status; 
 ?>
 
 <div class="row-fluid">
