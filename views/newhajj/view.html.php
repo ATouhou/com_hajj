@@ -23,7 +23,7 @@ class hajjViewNewHajj extends JViewLegacy
    */
   public function display($tpl = null)
   {   
-
+      $this->id = JFactory::getUser()->id;
       parent::display($tpl);
   }
 

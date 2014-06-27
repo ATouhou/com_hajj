@@ -12,5 +12,9 @@ defined('_JEXEC') or die;
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 
+if ($this->id) {// Alreay registred
+  $app = JFactory::getApplication();
+  $app->redirect("index.php?option=com_hajj&view=edithajj&Itemid=228","تم تسجيل دخولك للموقع..ويمكنك الاطلاع على بياناتكم من خدماتنا الاكترونية ","info");
+}
 
 HajjFieldHelper::getFormHajj();

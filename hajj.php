@@ -9,6 +9,10 @@
 
 defined('_JEXEC') or die;
 
+if (file_exists(JPATH_BASE."/media/jui/js/bootstrap.min.js")){
+    JHtml::_('bootstrap.framework');
+}
+
 // Include dependancies
 jimport('joomla.application.component.controller');
 

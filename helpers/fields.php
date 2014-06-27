@@ -248,7 +248,7 @@ class HajjFieldHelper {
 */
   public static function getRH($active = ""){
     ?>
-      <select name="rh" id="rh" required>
+      <select name="rh" id="rh">
         <option value=""></option>
         <option <?php echo ($active == 1) ? "selected" : "" ?> value="1">O+</option>
         <option <?php echo ($active == 2) ? "selected" : "" ?> value="2">O-</option>
@@ -383,7 +383,7 @@ public static function getFormHajj(){
       <div class="row-fluid">
         <div class="span4">
           <label for="email">البريد الالكتروني</label>
-          <input type="text" name="email" id="email" required>
+          <input type="text" name="email" id="email">
         </div>
         <div class="span4">
           <label for="office_branch">فرع التسجيل</label>

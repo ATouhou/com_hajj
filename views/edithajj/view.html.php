@@ -27,6 +27,9 @@ class hajjViewEditHajj extends JViewLegacy
       $ID = JFactory::getUser()->id;
       $model    = JModelLegacy::getInstance('Hajj', 'HajjModel');
       $this->data = $model->getHajj($ID);
+      if (strpos($this->data->email, "gmail.ww")) {
+        $this->data->email = "";
+      }
       parent::display($tpl);
   }
 

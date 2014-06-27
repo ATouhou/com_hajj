@@ -12,9 +12,7 @@ defined('_JEXEC') or die;
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 $data = $this->data;
-if (file_exists(JPATH_BASE."/media/jui/js/bootstrap.min.js")){
-    JHtml::_('bootstrap.framework');
-}
+
 ?>
 <div class="accordion" id="accordion2">
   <div class="accordion-group">

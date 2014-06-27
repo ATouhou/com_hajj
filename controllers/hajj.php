@@ -46,9 +46,14 @@ class HajjControllerHajj extends JControllerLegacy
     $obj->addon         = JFactory::getUser()->id;
 
 
+    // Check if empty adress
+    if ($obj->email == "") {
+        $obj->email = "L" . $obj->id_number . "@gmail.ww";
+    }
+
+
     require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
     $id_user = HajjFrontendHelper::register_user($obj->id_number, $obj->mobile, $obj->email, $obj->first_name);
-    //var_dump($userid);
 
     if ($id_user == 0) { // Problem
       $app->redirect("index.php?option=com_hajj&view=newhajj", 
