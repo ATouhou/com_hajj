@@ -43,6 +43,7 @@ class HajjControllerHajj extends JControllerLegacy
     $obj->email         = $jinput->get('email','','STRING');
     $obj->office_branch = $jinput->get('office_branch','','STRING');
     $obj->hajj_program  = $jinput->get('hajj_program','','STRING');
+    $obj->addon         = JFactory::getUser()->id;
 
 
     require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
@@ -58,39 +59,13 @@ class HajjControllerHajj extends JControllerLegacy
     $obj->id_user = $id_user;
     $id = $this->getModel('hajj')->setNewHajj($obj);
 
-    // Auto login
-    HajjFrontendHelper::autologin($obj->id_number, $obj->mobile);
-
-    $app->redirect("index.php?option=com_hajj&view=dashboard&id=".$id);
-  }
-
-/*
-|------------------------------------------------------------------------------------
-| Set Hajj Addon
-|------------------------------------------------------------------------------------
-*/
-  public function setnewHajjAddon(){
-    $app = JFactory::getApplication();
-    $jinput = $app->input;
-
-    $obj                = new stdClass();
-    $obj->id_number     = $jinput->get('id_number', '', 'STRING');
-    $obj->addon         = $jinput->get('addon', '', 'STRING');
-    $obj->email         = $jinput->get('email', '', 'STRING');
-    $obj->first_name    = $jinput->get('first_name', '', 'STRING');
-    $obj->mobile        = $jinput->get('mobile', '', 'STRING');
-    $obj->second_name   = $jinput->get('second_name', '', 'STRING');
-    $obj->office_branch = $jinput->get('office_branch', '', 'STRING');
-    $obj->third_name    = $jinput->get('third_name', '', 'STRING');
-    $obj->hajj_program  = $jinput->get('hajj_program', '', 'STRING');
-    $obj->familly_name  = $jinput->get('familly_name', '', 'STRING');
-
-    $id_user = $this->getModel('Hajj')->setNewHajjAddon($obj);
-
-    $app->redirect("index.php?option=com_hajj&view=newhajjaddon", 
-      "شكرا لك على رغبتك في الحج معنا...رقم حجزك : $id_user <br>يمكنك تسجيل الدخول للموقع والاستفادة من خدماتنا باستخدما اسم المستخدم وكلمة السر: رقم الهوية و الجوال",
-      'success');
-    
+    if ($obj->addon != 0) {// Addon
+        $app->redirect("index.php?option=com_hajj&view=addons", "تم إضافة المرافق بنجاح", "success");
+    }else{ // New hajj
+        // Auto login
+        HajjFrontendHelper::autologin($obj->id_number, $obj->mobile);
+        $app->redirect("index.php?option=com_hajj&view=dashboard&id=".$id);
+    }
   }
 
 /*
@@ -126,5 +101,6 @@ class HajjControllerHajj extends JControllerLegacy
       "تم التعديل بنجاح",
       'success');
   }
+
 
 }

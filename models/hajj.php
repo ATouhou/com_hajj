@@ -107,4 +107,25 @@ class HajjModelHajj extends JModelLegacy {
     $results = $db->loadObject();
     return $results; 
   }
+
+/*
+|------------------------------------------------------------------------------------
+| get List of addons
+|------------------------------------------------------------------------------------
+*/
+    
+public function getAddons($ID){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+    $query
+        ->select("*")
+        ->from($db->quoteName('#__hajj_users'))
+        ->where($db->quoteName('addon') . ' = '. $ID);
+    
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+    return $results; 
+  }
+
+
 }

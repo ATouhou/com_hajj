@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-  <layout title="بيانات الحجز">
+  <layout title="حالة الحجز">
     <message>
-      <![CDATA[بيانات الحجز]]>
+      <![CDATA[حالة الحجز]]>
     </message>
   </layout>
 </metadata>

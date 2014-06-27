@@ -15,7 +15,7 @@ jimport('joomla.application.component.view');
 /**
  * View class for a list of Weandlife.
  */
-class hajjViewNewHajjaddon extends JViewLegacy
+class hajjViewaddons extends JViewLegacy
 {
 
   /**
@@ -25,7 +25,7 @@ class hajjViewNewHajjaddon extends JViewLegacy
   {   
       $ID       = JFactory::getUser()->id;// Get th ID
       $model    = JModelLegacy::getInstance('Hajj', 'HajjModel');
-      $this->id = $model->getIdNumber($ID);
+      $this->data = $model->getAddons($ID);
       parent::display($tpl);
   }
 
