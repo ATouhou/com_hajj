@@ -8,9 +8,10 @@
  */
 
 defined('_JEXEC') or die;
-
+$user = $this->data;
 ?>
-<p>مرحبا هياس صالح الزهراني</p>
+
+<p>مرحبا <?php echo $user->first_name . " " . $user->second_name . " " . $user->familly_name; ?></p>
 <p>شكرا لك على اختيارك للشركة.</p>
-<p>.رقم حجزك : <?php echo $this->id ?></p>
+<p>.رقم حجزك : <?php echo $user->id ?></p>
 <p>تم تسجيل دخولك و.يمكنك الآن الاستفادة من خدماتنا الالكترونية.</p>

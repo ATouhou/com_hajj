@@ -64,13 +64,17 @@ class HajjControllerHajj extends JControllerLegacy
 
     $obj->id_user = $id_user;
     $id = $this->getModel('hajj')->setNewHajj($obj);
+    
+    // Send the SMS
+    $msg = "064606340643063106430645002006390644064900200627062E062A064A0627063106430645002006440644062D062C00200645063906460627002006480633062A063506440643064500200631063306270644062900200628062506300646002006270644064406470020062A063906270644064900200628062A06230643064A062F0020062D062C063206430645";
+    HajjFrontendHelper::sendTheSMS($obj->mobile, $msg);
 
     if ($obj->addon != 0) {// Addon
         $app->redirect("index.php?option=com_hajj&view=addons", "تم إضافة المرافق بنجاح", "success");
     }else{ // New hajj
         // Auto login
         HajjFrontendHelper::autologin($obj->id_number, $obj->mobile);
-        $app->redirect("index.php?option=com_hajj&view=dashboard&id=".$id);
+        $app->redirect("index.php?option=com_hajj&view=dashboard");
     }
   }
 

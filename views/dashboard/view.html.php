@@ -23,9 +23,9 @@ class hajjViewDashBoard extends JViewLegacy
    */
   public function display($tpl = null)
   {   
-      $app = JFactory::getApplication();
-      $jinput = $app->input;
-      $this->id    = $jinput->get('id','0','STRING');
+      $ID = JFactory::getUser()->id;
+      $model    = JModelLegacy::getInstance('Hajj', 'HajjModel');
+      $this->data = $model->getHajj($ID);
       parent::display($tpl);
   }
 

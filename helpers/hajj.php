@@ -5,7 +5,7 @@
  * @package     com_hajj
  * @copyright   Copyright (C) 2014. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
- * @author      Kouceyla Hadji <hadjikouceyla@gmail.com> - http://www.behance.net/kossa
+ * @author      Kouceyla Hadji <hadjikouceyla@gmail.com> - http
  */
 defined('_JEXEC') or die;
 
@@ -31,12 +31,12 @@ class HajjFrontendHelper {
     );
 
     $user = new JUser;
-    //Write to database
+
     if(!$user->bind($data)) {
       throw new Exception("Could not bind data. Error: " . $user->getError());
     }
     if (!$user->save()) {
-    //throw new Exception("Could not save user. Error: " . $user->getError());
+
     echo "<br>Could not save user $first_name - " . $user->getError();
     }
     return $user->id;
@@ -57,4 +57,51 @@ class HajjFrontendHelper {
     $app = JFactory::getApplication();
     $rslt = $app->login( $credentials, $options );
   }      
+
+/*
+|------------------------------------------------------------------------------------
+| Send SMS
+|------------------------------------------------------------------------------------
+*/
+  public function sendTheSMS($numbers = "966555882901", $msg = ""){
+
+    $mobile = "966555882901";
+    $password = "tebian8";
+    $sender = "Fawj Makkah";
+    $timeSend = 0;
+    $dateSend = 0;
+    $deleteKey = 0;
+    $resultType = 0;
+
+    //return sendSMS($mobile, $password, $numbers, $sender, $msg, $timeSend, $dateSend, $deleteKey, $resultType);
+    global $arraySendMsg;
+    $applicationType = "24";  
+    //$msg = convertToUnicode($msg);
+    $sender = urlencode($sender);
+    $domainName = $_SERVER['SERVER_NAME'];
+    $stringToPost = "mobile=".$mobile."&password=".$password."&numbers=".$numbers."&sender=".$sender."&msg=".$msg."&timeSend=".$timeSend."&dateSend=".$dateSend."&applicationType=".$applicationType."&domainName=".$domainName."&deleteKey=".$deleteKey;
+    $stringToPostLength = strlen($stringToPost);
+    $fsockParameter = "POST /api/msgSend.php HTTP/1.0 \r\n";
+    $fsockParameter.= "Host: www.mobily.ws \r\n";
+    $fsockParameter.= "Content-type: application/x-www-form-urlencoded \r\n";
+    $fsockParameter.= "Content-length: $stringToPostLength \r\n\r\n";
+    $fsockParameter.= "$stringToPost";
+
+    $errno = $errstr = "";
+    $fsockConn = fsockopen("www.mobily.ws", 80, $errno, $errstr, 30);
+    fputs($fsockConn, $fsockParameter);
+      
+    $result = ""; 
+    $clearResult = false; 
+    
+    while(!feof($fsockConn))
+    {
+      $line = fgets($fsockConn, 10240);
+      if($line == "\r\n" && !$clearResult) $clearResult = true;
+      
+      if($clearResult) $result .= trim($line);
+    }
+
+  }
+
 }
