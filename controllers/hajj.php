@@ -17,69 +17,6 @@ class HajjControllerHajj extends JControllerLegacy
 
 /*
 |------------------------------------------------------------------------------------
-| Set New Hajj
-|------------------------------------------------------------------------------------
-*/
-  public function setNewHajj(){
-
-    $app = JFactory::getApplication();
-    $jinput = $app->input;
-
-    $obj                  = new stdClass();
-    $obj->first_name      = $jinput->get('first_name','','STRING');
-    $obj->second_name     = $jinput->get('second_name','','STRING');
-    $obj->third_name      = $jinput->get('third_name','','STRING');
-    $obj->familly_name    = $jinput->get('familly_name','','STRING');
-    $obj->sexe            = $jinput->get('sexe','','STRING');
-    $obj->nationality     = $jinput->get('nationality','','STRING');
-    $obj->id_number       = $jinput->get('id_number','','STRING');
-    $obj->birthday        = $jinput->get('birthday1','','STRING') . '/';
-    $obj->birthday       .= $jinput->get('birthday2','','STRING') . '/';
-    $obj->birthday       .= $jinput->get('birthday3','','STRING');
-    $obj->job             = $jinput->get('job','','STRING');
-    $obj->rh              = $jinput->get('rh','','STRING');
-    $obj->address         = $jinput->get('address','','STRING');
-    $obj->mobile          = $jinput->get('mobile','','STRING');
-    $obj->email           = $jinput->get('email','','STRING');
-    $obj->office_branch   = $jinput->get('office_branch','','STRING');
-    $obj->hajj_program    = $jinput->get('hajj_program','','STRING');
-    $obj->register_status = 1;
-    $obj->addon           = JFactory::getUser()->id;
-
-
-    // Check if empty adress
-    if ($obj->email == "") {
-        $obj->email = "L" . $obj->id_number . "@gmail.ww";
-    }
-
-
-    require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
-    $id_user = HajjFrontendHelper::register_user($obj->id_number, $obj->mobile, $obj->email, $obj->first_name);
-
-    if ($id_user == 0) { // Problem
-      $app->redirect("index.php?option=com_hajj&view=newhajj", 
-      "عذرا..رقم الهوية مسجل لدينا",
-      'danger');
-    }
-
-    $obj->id_user = $id_user;
-    $id = $this->getModel('hajj')->setNewHajj($obj);
-    
-    // Send the SMS
-    $msg = "064606340643063106430645002006390644064900200627062E062A064A0627063106430645002006440644062D062C00200645063906460627002006480633062A063506440643064500200631063306270644062900200628062506300646002006270644064406470020062A063906270644064900200628062A06230643064A062F0020062D062C063206430645";
-    HajjFrontendHelper::sendTheSMS($obj->mobile, $msg);
-
-    if ($obj->addon != 0) {// Addon
-        $app->redirect("index.php?option=com_hajj&view=addons", "تم إضافة المرافق بنجاح", "success");
-    }else{ // New hajj
-        // Auto login
-        HajjFrontendHelper::autologin($obj->id_number, $obj->mobile);
-        $app->redirect("index.php?option=com_hajj&view=dashboard");
-    }
-  }
-
-/*
-|------------------------------------------------------------------------------------
 | Edit Hajj 
 |------------------------------------------------------------------------------------
 */

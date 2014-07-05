@@ -319,7 +319,7 @@ class HajjFieldHelper {
 */
 public static function getFormHajj(){
   ?>
-    <form action="index.php?option=com_hajj&task=hajj.setnewhajj" method="post">
+    <form action="index.php?option=com_hajj&task=public.setnewhajj" method="post">
       <div class="row-fluid">
         <div class="span4">
           <label for="third_name">الاسم الثالث</label>

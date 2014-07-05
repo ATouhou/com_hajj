@@ -26,12 +26,12 @@ class HajjController extends JControllerLegacy {
     public function display($cachable = false, $urlparams = false) {
         require_once JPATH_COMPONENT . '/helpers/hajj.php';
 
-        $view = JFactory::getApplication()->input->getCmd('view', 'users');
-        JFactory::getApplication()->input->set('view', $view);
-
-        parent::display($cachable, $urlparams);
-
-        return $this;
+        $app = JFactory::getApplication();
+        $user = JFactory::getUser();
+        if ($user->id == 0) {
+            $app->redirect("index.php?option=com_users&view=login", "يرجى تسجيل الدخول");
+        }
+        parent::display();
     }
 
 }
