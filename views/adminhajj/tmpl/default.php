@@ -11,11 +11,11 @@ defined('_JEXEC') or die;
 
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
-//var_dump($this->data);
 $data = $this->data;
+//var_dump($data);
 
 ?>
+<h1>تعديل <?php echo $data->id ?></h1>
 
-<h2>رقم حجزك <?php echo $data->id ?></h2>
 <?php 
-HajjFieldHelper::getEditFormHajj($data);
+HajjFieldHelper::getEditFormHajj($data, true); // True for Admin
