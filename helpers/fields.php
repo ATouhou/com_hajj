@@ -15,7 +15,7 @@ class HajjFieldHelper {
     public static $Months        = array("محرم", "صفر", "ربيع الأول", "ربيع الثاني", "جمادى الأول", "جمادى الآخر", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة");
     public static $RHS           = array("O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-");
     public static $hajjProgram   = array("برنامج الفرسان", "برنامج التميز", "برنامج الوسام", "برنامج الصفوة");
-    public static $officeBranch  = array("مكة المكرمة", "المدينة المنورة", "جدة", "الرياض", "الطائف");
+    public static $officeBranch  = array("مكة المكرمة", "المدينة المنورة", "جدة");
     public static $status        = array("تحت التدقيق والمراجعة", "مقبول", "مرفوض", "تم الدفع", "الغاء الحجز");
     public static $causeDisabled = array("محرم", "طبيب", "عصبة نساء", "مع محرمها", "اداري", "عامل في الحملة", "ممرضة", "حج عن متوفي");
 
@@ -43,7 +43,7 @@ class HajjFieldHelper {
 */
   public static function getNationnality($id){
     $id = (int)$id;
-    return self::$Nationnality[$id];
+    return self::$Nationnality[$id-1];
   }
 
 /*
@@ -331,7 +331,7 @@ public static function getEditFormHajj($data, $admin=false){
 
 /*
 |------------------------------------------------------------------------------------
-| Get List Statuc
+| Get List Status
 |------------------------------------------------------------------------------------
 */
   public static function getListStatus($active = ""){
