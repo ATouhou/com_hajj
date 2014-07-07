@@ -65,12 +65,13 @@ class HajjFrontendHelper {
 */
   public function sendTheSMS($numbers = "966555882901", $msg = ""){
 
-    $mobile = "966555882901";
-    $password = "tebian8";
-    $sender = "Fawj Makkah";
-    $timeSend = 0;
-    $dateSend = 0;
-    $deleteKey = 0;
+    $mobile     = "966555882901";
+    $password   = "tebian8";
+    $sender     = "FawjMakkah";
+    $numbers    = self::chechNumber($numbers);  //Recheck Numbers
+    $timeSend   = 0;
+    $dateSend   = 0;
+    $deleteKey  = 0;
     $resultType = 0;
 
     //return sendSMS($mobile, $password, $numbers, $sender, $msg, $timeSend, $dateSend, $deleteKey, $resultType);
@@ -102,6 +103,18 @@ class HajjFrontendHelper {
       if($clearResult) $result .= trim($line);
     }
 
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Recheck Mobile numbers
+|------------------------------------------------------------------------------------
+*/
+  public function chechNumber($num){
+    if ($num[0] == "0") {
+      $num = "966" . substr($num, 1);
+    }
+    return $num;
   }
 
 }
