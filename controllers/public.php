@@ -20,7 +20,6 @@ class HajjControllerPublic extends JControllerLegacy
 | Display view of new hajj
 |------------------------------------------------------------------------------------
 */
-
   public function newHajj(){ 
       $app = JFactory::getApplication();
       
@@ -80,6 +79,7 @@ class HajjControllerPublic extends JControllerLegacy
     $id = $this->getModel('hajj')->setNewHajj($obj);
     
     // Send the SMS
+    // نشكركم على اختياركم للحج معنا وستصلكم رسالة باذن الله بتأكيد حجزكم
     $msg = "064606340643063106430645002006390644064900200627062E062A064A0627063106430645002006440644062D062C00200645063906460627002006480633062A063506440643064500200631063306270644062900200628062506300646002006270644064406470020062A063906270644064900200628062A06230643064A062F0020062D062C063206430645";
     HajjFrontendHelper::sendTheSMS($obj->mobile, $msg);
 

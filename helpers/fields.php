@@ -188,7 +188,7 @@ public static function getFormHajj(){
       <div class="row-fluid">
         <div class="span4">
           <label for="id_number">رقم الهوية</label>
-          <input type="text" name="id_number" id="id_number" required>
+          <input type="text" name="id_number" id="id_number" required pattern="[0-9]{10}" placeholder="يجب أن يكون عشرة أرقام">
         </div>
         <div class="span4">
           <label for="birthday">تاريخ الميلاد</label>
@@ -274,7 +274,7 @@ public static function getEditFormHajj($data, $admin=false){
       <div class="row-fluid">
         <div class="span4">
           <label for="id_number">رقم الهوية</label>
-          <input type="text" name="id_number" id="id_number" value="<?php echo $data->id_number ?>" disabled>
+          <input type="text" name="id_number" id="id_number" value="<?php echo $data->id_number ?>" disabled pattern="[0-9]{10}" placeholder="يجب أن يكون عشرة أرقام">
         </div>
         <div class="span4">
           <label for="birthday">تاريخ الميلاد</label>
