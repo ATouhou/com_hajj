@@ -72,10 +72,6 @@ class HajjControllerPublic extends JControllerLegacy
         $app->redirect($_SERVER['HTTP_REFERER'], "خطأ في رقم الهوية", "error");
     }
 
-    echo "lol";
-    return;
-
-
     require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
     $id_user = HajjFrontendHelper::register_user($obj->id_number, $obj->mobile, $obj->email, $obj->first_name);
 
