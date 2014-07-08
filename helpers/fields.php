@@ -150,7 +150,7 @@ class HajjFieldHelper {
 | Get the Form of Hajj register
 |------------------------------------------------------------------------------------
 */
-public static function getFormHajj(){
+public static function getFormHajj($addon = false){
   ?>
     <form action="index.php?option=com_hajj&task=public.setnewhajj" method="post">
       <div class="row-fluid">
@@ -227,6 +227,7 @@ public static function getFormHajj(){
           <?php self::getHajjProgram() ?>
         </div>
       </div>
+      <?php if ($addon): ?>
       <div class="row-fluid">
         <div class="span4"></div>
         <div class="span4"></div>
@@ -235,6 +236,7 @@ public static function getFormHajj(){
           <?php self::getReasonException() ?>
         </div>
       </div>
+      <?php endif ?>
       <input type="submit" value="حجز و تسجيل" class="btn btn-success">
     </form>
   <?php

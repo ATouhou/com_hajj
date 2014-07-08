@@ -26,7 +26,7 @@ $data = $this->data;
       
       <?php
         require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
-        HajjFieldHelper::getFormHajj();
+        HajjFieldHelper::getFormHajj(true);
       ?>
       </div>
     </div>
