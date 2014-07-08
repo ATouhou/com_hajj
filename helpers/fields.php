@@ -187,7 +187,7 @@ public static function getFormHajj(){
       </div>
       <div class="row-fluid">
         <div class="span4">
-          <label for="id_number">رقم الهوية</label>
+          <label for="id_number">رقم الهوية / الإقامة</label>
           <input type="text" name="id_number" id="id_number" required pattern="[0-9]{10}" placeholder="يجب أن يكون عشرة أرقام">
         </div>
         <div class="span4">
@@ -210,7 +210,7 @@ public static function getFormHajj(){
         </div>
         <div class="span4">
           <label for="mobile">الجوال</label>
-          <input type="text" name="mobile" id="mobile" required>
+          <input type="text" name="mobile" id="mobile" required placeholder="05xxxxxxxx" pattern="05[0-9]{8}">
         </div>
       </div>
       <div class="row-fluid">
@@ -273,7 +273,7 @@ public static function getEditFormHajj($data, $admin=false){
       </div>
       <div class="row-fluid">
         <div class="span4">
-          <label for="id_number">رقم الهوية</label>
+          <label for="id_number">رقم الهوية / الإقامة</label>
           <input type="text" name="id_number" id="id_number" value="<?php echo $data->id_number ?>" disabled pattern="[0-9]{10}" placeholder="يجب أن يكون عشرة أرقام">
         </div>
         <div class="span4">
@@ -296,7 +296,7 @@ public static function getEditFormHajj($data, $admin=false){
         </div>
         <div class="span4">
           <label for="mobile">الجوال</label>
-          <input type="text" name="mobile" id="mobile" value="<?php echo $data->mobile ?>" required>
+          <input type="text" name="mobile" id="mobile" value="<?php echo $data->mobile ?>" required placeholder="05xxxxxxxx" pattern="05[0-9]{8}">
         </div>
       </div>
       <div class="row-fluid">

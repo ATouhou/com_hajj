@@ -101,9 +101,7 @@ class HajjControllerHajj extends JControllerLegacy
     $lol = $this->getModel('Hajj')->removeHajj($id);
     
 
-    $app->redirect("index.php", 
-      "تم التعديل بنجاح",
-      'success');
+    $app->redirect("index.php");
     
   }
 
