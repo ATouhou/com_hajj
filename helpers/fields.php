@@ -11,13 +11,13 @@ defined('_JEXEC') or die;
 
 class HajjFieldHelper {
 
-    public static $Nationnality  = array("سعودي", "مصري", "أمريكي", "باكستاني  ", "هندي", "أردني", "سوداني", "سوري", "أرجنتيني", "أسباني", "إسترالي", "أفغانستاني", "ألماني", "إماراتي", "اندونيسي", "ايطالي", "بحريني", "برازيلي", "بريطاني", "بنجلاديشي", "تركي", "تونسي", "جزائري", "جنوب أفريقي", "سنغافوري", "سويسري", "سيريلانكي", "صومالي", "صيني", "عراقي", "فرنسي", "فلسطيني", "فليبيني", "فيتنامي", "قطري", "كاميروني", "كندي", "كويتي", "لبناني", "ماليزي", "نيجيري", "نيوزلندي", "ياباني", "يمني", "يوناني", "كويتي بدون", "أزربيجان", "مغربي", "أخري");
-    public static $Months        = array("محرم", "صفر", "ربيع الأول", "ربيع الثاني", "جمادى الأول", "جمادى الآخر", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة");
-    public static $RHS           = array("O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-");
-    public static $hajjProgram   = array("برنامج الفرسان", "برنامج التميز", "برنامج الوسام", "برنامج الصفوة");
-    public static $officeBranch  = array("مكة المكرمة", "المدينة المنورة", "جدة");
-    public static $status        = array("تحت التدقيق والمراجعة", "مقبول", "مرفوض", "تم الدفع", "الغاء الحجز");
-    public static $causeDisabled = array("محرم", "طبيب", "عصبة نساء", "مع محرمها", "اداري", "عامل في الحملة", "ممرضة", "حج عن متوفي");
+    public static $Nationnality     = array("سعودي", "مصري", "أمريكي", "باكستاني  ", "هندي", "أردني", "سوداني", "سوري", "أرجنتيني", "أسباني", "إسترالي", "أفغانستاني", "ألماني", "إماراتي", "اندونيسي", "ايطالي", "بحريني", "برازيلي", "بريطاني", "بنجلاديشي", "تركي", "تونسي", "جزائري", "جنوب أفريقي", "سنغافوري", "سويسري", "سيريلانكي", "صومالي", "صيني", "عراقي", "فرنسي", "فلسطيني", "فليبيني", "فيتنامي", "قطري", "كاميروني", "كندي", "كويتي", "لبناني", "ماليزي", "نيجيري", "نيوزلندي", "ياباني", "يمني", "يوناني", "كويتي بدون", "أزربيجان", "مغربي", "أخري");
+    public static $Months           = array("محرم", "صفر", "ربيع الأول", "ربيع الثاني", "جمادى الأول", "جمادى الآخر", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة");
+    public static $RHS              = array("O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-");
+    public static $hajjProgram      = array("برنامج الفرسان", "برنامج التميز", "برنامج الوسام", "برنامج الصفوة");
+    public static $officeBranch     = array("مكة المكرمة", "المدينة المنورة", "جدة");
+    public static $status           = array("تحت التدقيق والمراجعة", "مقبول", "مرفوض", "تم الدفع", "الغاء الحجز");
+    public static $reason_exception = array("محرم", "طبيب", "عصبة نساء", "مع محرمها", "اداري", "عامل في الحملة", "ممرضة", "حج عن متوفي");
 
 /*
 |------------------------------------------------------------------------------------
@@ -108,7 +108,7 @@ class HajjFieldHelper {
       <select name="hajj_program" id="hajj_program" required>
         <option value=""></option>
         <?php foreach (self::$hajjProgram as $key => $value): ?>
-          <option <?php echo ($active == "$value") ? "selected" : "" ?> value="<?php echo $value ?>"><?php echo $value ?></option>
+          <option <?php echo ($active == $value) ? "selected" : "" ?> value="<?php echo $value ?>"><?php echo $value ?></option>
         <?php endforeach ?>
       </select>
     <?php
@@ -227,6 +227,14 @@ public static function getFormHajj(){
           <?php self::getHajjProgram() ?>
         </div>
       </div>
+      <div class="row-fluid">
+        <div class="span4"></div>
+        <div class="span4"></div>
+        <div class="span4">
+          <label for="email">سبب الاستثناء</label>
+          <?php self::getReasonException() ?>
+        </div>
+      </div>
       <input type="submit" value="حجز و تسجيل" class="btn btn-success">
     </form>
   <?php
@@ -327,7 +335,22 @@ public static function getEditFormHajj($data, $admin=false){
     </form>
   <?php
 }
-  
+
+/*
+|------------------------------------------------------------------------------------
+| Get Hajj Program
+|------------------------------------------------------------------------------------
+*/
+  public static function getReasonException($active = ""){
+    ?>
+      <select name="reason_exception" id="reason_exception" required>
+        <option value="0"></option>
+        <?php foreach (self::$reason_exception as $key => $value): ?>
+          <option <?php echo ($active == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>"><?php echo $value ?></option>
+        <?php endforeach ?>
+      </select>
+    <?php
+  }  
 
 /*
 |------------------------------------------------------------------------------------
