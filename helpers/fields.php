@@ -377,7 +377,7 @@ public static function getEditFormHajj($data, $admin=false){
 |------------------------------------------------------------------------------------
 */
   public static function status_register($id){
-    return self::$status[$id-1];
+    return isset(self::$status[$id-1]) ? self::$status[$id-1] : "" ;
   }
 
 

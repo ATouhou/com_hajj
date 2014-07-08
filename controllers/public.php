@@ -38,33 +38,42 @@ class HajjControllerPublic extends JControllerLegacy
     $app = JFactory::getApplication();
     $jinput = $app->input;
 
-    $obj                  = new stdClass();
-    $obj->first_name      = $jinput->get('first_name','','STRING');
-    $obj->second_name     = $jinput->get('second_name','','STRING');
-    $obj->third_name      = $jinput->get('third_name','','STRING');
-    $obj->familly_name    = $jinput->get('familly_name','','STRING');
-    $obj->sexe            = $jinput->get('sexe','','STRING');
-    $obj->nationality     = $jinput->get('nationality','','STRING');
-    $obj->id_number       = $jinput->get('id_number','','STRING');
-    $obj->birthday        = $jinput->get('birthday1','','STRING') . '/';
-    $obj->birthday       .= $jinput->get('birthday2','','STRING') . '/';
-    $obj->birthday       .= $jinput->get('birthday3','','STRING');
-    $obj->job             = $jinput->get('job','','STRING');
-    $obj->rh              = $jinput->get('rh','','STRING');
-    $obj->address         = $jinput->get('address','','STRING');
-    $obj->mobile          = $jinput->get('mobile','','STRING');
-    $obj->email           = $jinput->get('email','','STRING');
-    $obj->office_branch   = $jinput->get('office_branch','','STRING');
-    $obj->hajj_program    = $jinput->get('hajj_program','','STRING');
-    $obj->reason_exception    = $jinput->get('reason_exception','','STRING');
-    $obj->register_status = 1;
-    $obj->addon           = JFactory::getUser()->id;
+    $obj                   = new stdClass();
+    $obj->first_name       = $jinput->get('first_name','','STRING');
+    $obj->second_name      = $jinput->get('second_name','','STRING');
+    $obj->third_name       = $jinput->get('third_name','','STRING');
+    $obj->familly_name     = $jinput->get('familly_name','','STRING');
+    $obj->sexe             = $jinput->get('sexe','','STRING');
+    $obj->nationality      = $jinput->get('nationality','','STRING');
+    $obj->id_number        = $jinput->get('id_number','','STRING');
+    $obj->birthday         = $jinput->get('birthday1','','STRING') . '/';
+    $obj->birthday        .= $jinput->get('birthday2','','STRING') . '/';
+    $obj->birthday        .= $jinput->get('birthday3','','STRING');
+    $obj->job              = $jinput->get('job','','STRING');
+    $obj->rh               = $jinput->get('rh','','STRING');
+    $obj->address          = $jinput->get('address','','STRING');
+    $obj->mobile           = $jinput->get('mobile','','STRING');
+    $obj->email            = $jinput->get('email','','STRING');
+    $obj->office_branch    = $jinput->get('office_branch','','STRING');
+    $obj->hajj_program     = $jinput->get('hajj_program','','STRING');
+    $obj->reason_exception = $jinput->get('reason_exception','','STRING');
+    $obj->addon            = JFactory::getUser()->id;
+    $obj->register_status  = 1;
 
 
-    // Check if empty adress
+    // Check if empty mail adress
     if ($obj->email == "") {
         $obj->email = "L" . $obj->id_number . "@gmail.ww";
     }
+
+    // Chech id number
+    if (($obj->nationality == 1 && $obj->id_number[0] != "1") || ($obj->nationality != 1 && $obj->id_number[0] != "2")) {
+        echo $_SERVER['HTTP_REFERER'];
+        $app->redirect($_SERVER['HTTP_REFERER'], "خطأ في رقم الهوية", "error");
+    }
+
+    echo "lol";
+    return;
 
 
     require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
