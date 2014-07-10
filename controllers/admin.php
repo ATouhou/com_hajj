@@ -61,11 +61,16 @@ class HajjControllerAdmin extends JControllerLegacy
 
 /*
 |------------------------------------------------------------------------------------
-| 
+| Get SMS status
 |------------------------------------------------------------------------------------
 */
+  public function Sms(){
+    $result = $this->getModel("Admin")->getSMS();
 
+    $view   = $this->getView('adminsms', 'html'); //get the view
+    $view->assignRef('data', $result); // assign data from the model
+    $view->display(); // display the view
 
-
+  }
 
 }

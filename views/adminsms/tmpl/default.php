@@ -15,32 +15,31 @@ $data = $this->data;
 //var_dump($data);
 
 ?>
-<h1>طلبات الحجز</h1>
+<h1>حالة الرسائل</h1>
+
 <table class="allhajjs table table-condensed table-bordered ">
   <thead>
     <tr>
       <th>الحجز</th>
       <th>الاسم الاول</th>
       <th>العائلة</th>
-      <th>رقم الهوية</th>
-      <th>الجوال</th>
-      <th>فرع التسجيل</th>
-      <th>برنامج الحج</th>
-      <th>الجنسية</th>
       <th>حالة الحجز</th>
+      <th>الرسالة الأولى</th>
+      <th>الرسالة الثانية</th>
+      <th>الرسالة الثالثة</th>
+      <th>الرسالة الرابعة</th>
     </tr>
   </thead>
   <?php foreach ($data as $key => $value): ?>
     <tr>
-      <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $value->id ?>"><?php echo $value->id ?></a></td>
+      <td><?php echo $value->id ?></td>
       <td><?php echo $value->first_name ?></td>
       <td><?php echo $value->familly_name ?></td>
-      <td><?php echo $value->id_number ?></td>
-      <td><?php echo $value->mobile ?></td>
-      <td><?php echo $value->office_branch ?></td>
-      <td><?php echo $value->hajj_program ?></td>
-      <td><?php echo HajjFieldHelper::getNationnality($value->nationality) ?></td>
       <td><?php echo HajjFieldHelper::status_register($value->register_status) ?></td>
+      <td><?php echo ($value->sms1 != "")? "أرسل" : "" ?></td>
+      <td><?php echo ($value->sms2 != "")? "أرسل" : "" ?></td>
+      <td><?php echo ($value->sms3 != "")? "أرسل" : "" ?></td>
+      <td><?php echo ($value->sms4 != "")? "أرسل" : "" ?></td>
     </tr>
   <?php endforeach ?>
 </table>

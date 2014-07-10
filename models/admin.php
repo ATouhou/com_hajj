@@ -29,6 +29,7 @@ class HajjModelAdmin extends JModelLegacy {
     $results = $db->loadObjectList();
     return $results;
   }
+
 /*
 |------------------------------------------------------------------------------------
 | Get One Hajj
@@ -48,4 +49,21 @@ class HajjModelAdmin extends JModelLegacy {
     return $results;
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Get SMS Status
+|------------------------------------------------------------------------------------
+*/
+  public function getSMS(){
+    $db = JFactory::getDBO();
+    
+    $query = $db->getQuery(true);    
+    $query
+        ->select($db->quoteName(array('id', 'first_name', 'familly_name', 'register_status', 'sms1', 'sms2', 'sms3', 'sms4')))
+        ->from($db->quoteName('#__hajj_users'));
+    
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+    return $results;
+  }
 }

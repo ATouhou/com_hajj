@@ -47,7 +47,7 @@ class HajjFrontendHelper {
 | Auto login after register
 |------------------------------------------------------------------------------------
 */
-  public function autologin($username, $password){
+  public static function autologin($username, $password){
 
     $credentials = array();
     $credentials['username'] = $username;
@@ -63,7 +63,7 @@ class HajjFrontendHelper {
 | Send SMS
 |------------------------------------------------------------------------------------
 */
-  public function sendTheSMS($numbers = "966555882901", $msg = ""){
+  public static function sendTheSMS($numbers = "966555882901", $msg = ""){
 
     $mobile     = "966555882901";
     $password   = "tebian8";
@@ -91,17 +91,18 @@ class HajjFrontendHelper {
     $errno = $errstr = "";
     $fsockConn = fsockopen("www.mobily.ws", 80, $errno, $errstr, 30);
     fputs($fsockConn, $fsockParameter);
-      
+
     $result = ""; 
     $clearResult = false; 
-    
+
     while(!feof($fsockConn))
     {
       $line = fgets($fsockConn, 10240);
       if($line == "\r\n" && !$clearResult) $clearResult = true;
-      
+
       if($clearResult) $result .= trim($line);
     }
+    return $result;
 
   }
 
@@ -110,7 +111,7 @@ class HajjFrontendHelper {
 | Recheck Mobile numbers
 |------------------------------------------------------------------------------------
 */
-  public function chechNumber($num){
+  public static function chechNumber($num){
     if ($num[0] == "0") {
       $num = "966" . substr($num, 1);
     }
