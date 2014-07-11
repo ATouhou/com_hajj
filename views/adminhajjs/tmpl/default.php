@@ -28,6 +28,7 @@ $data = $this->data;
       <th>برنامج الحج</th>
       <th>الجنسية</th>
       <th>حالة الحجز</th>
+      <th>توقت التسجيل</th>
     </tr>
   </thead>
   <?php foreach ($data as $key => $value): ?>
@@ -41,6 +42,7 @@ $data = $this->data;
       <td><?php echo $value->hajj_program ?></td>
       <td><?php echo HajjFieldHelper::getNationnality($value->nationality) ?></td>
       <td><?php echo HajjFieldHelper::status_register($value->register_status) ?></td>
+      <td><?php echo $value->date_register ?></td>
     </tr>
   <?php endforeach ?>
 </table>

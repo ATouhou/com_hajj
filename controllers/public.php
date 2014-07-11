@@ -59,6 +59,7 @@ class HajjControllerPublic extends JControllerLegacy
     $obj->reason_exception = $jinput->get('reason_exception','','STRING');
     $obj->addon            = JFactory::getUser()->id;
     $obj->register_status  = 1;
+    $obj->date_register    = date("d/m/Y h:i A");
 
 
     // Check if empty mail adress
