@@ -133,22 +133,18 @@ public function getAddons($ID){
 */
   public function removeHajj($ID){
 
-    // Delete user in Joomla
-    JUser::getInstance($ID)->delete();
-
+    // Update the status of the HAJJ
     $db = JFactory::getDBO();
     $query = $db->getQuery(TRUE);
     
-    $conditions = array(
-        $db->quoteName('id_user') . '=' . $ID
-    );
+    $object = new stdClass();
+    $object->id_user = $ID;
+    $object->register_status = 5;
+    $result = JFactory::getDbo()->updateObject('#__hajj_users', $object, 'id_user');
     
-    $query->delete($db->quoteName('#__hajj_users'));
-    $query->where($conditions);
-     
-    $db->setQuery($query);
-     
-    $result = $db->query();
+    
+    // Delete user in Joomla
+    JUser::getInstance($ID)->delete();
     return $result;
   }
 }
