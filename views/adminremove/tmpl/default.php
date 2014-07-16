@@ -14,5 +14,5 @@ require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 
 ?>
 
-<h2>سيتم الغاء حجزك، هل انت موافق للمتابعة؟</h2>
-<a href="index.php?option=com_hajj&amp;task=admin.removehajj&<?php echo $this->id ?>" class="btn btn-danger">موافق</a>
+<h2>سيتم الغاء حجز رقم <?php echo $this->id ?>، هل انت موافق للمتابعة؟</h2>
+<a href="index.php?option=com_hajj&amp;task=admin.removehajj&id=<?php echo $this->id ?>" class="btn btn-danger">موافق</a>

@@ -131,7 +131,7 @@ public function getAddons($ID){
 | Remove Hajj
 |------------------------------------------------------------------------------------
 */
-  public function removeHajj($ID){
+  public function removeHajj($ID, $admin=false){ // If admin remove the hajj so we update SMS5
 
     // Update the status of the HAJJ
     $db = JFactory::getDBO();
@@ -140,6 +140,9 @@ public function getAddons($ID){
     $object = new stdClass();
     $object->id_user = $ID;
     $object->register_status = 5;
+    if ($admin) {
+      $object->sms5 = "تم إلغاء الحجز";
+    }
     $result = JFactory::getDbo()->updateObject('#__hajj_users', $object, 'id_user');
     
     
@@ -147,4 +150,5 @@ public function getAddons($ID){
     JUser::getInstance($ID)->delete();
     return $result;
   }
+
 }

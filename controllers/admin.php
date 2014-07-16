@@ -73,4 +73,30 @@ class HajjControllerAdmin extends JControllerLegacy
 
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Admin Remove Hajj
+|------------------------------------------------------------------------------------
+*/
+  public function removeHajj(){
+
+    $app = JFactory::getApplication();
+    $id = $app->input->get('id','','STRING');
+    $hajj = $this->getModel("admin")->getHajj($id);
+
+    $mobile = $hajj->mobile;
+    $id_user = $hajj->id_user;
+
+    $result = $this->getModel("hajj")->removeHajj($id_user, TRUE); // True for Admin
+
+    $msgcode = "062A0645002006250644063A06270621002006270644062D062C0632000A";
+    require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
+    HajjFrontendHelper::sendTheSMS($mobile, $msgcode);
+
+    $txt = "تم حذف الحجز رقم: " . $id ." بنجاح";
+    $app->redirect("index.php?option=com_hajj&task=admin.hajjs", $txt, "success");
+
+  }
+
+
 }

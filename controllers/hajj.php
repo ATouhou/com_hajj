@@ -45,7 +45,7 @@ class HajjControllerHajj extends JControllerLegacy
     $obj->register_status = $jinput->get('register_status','','STRING');
 
     //$this->getModel('Hajj')->setEditHajj($obj);
-    if (is_null($obj->register_status)) {// Not Admin
+    if ($obj->register_status == "") {// Not Admin
       // Save obejct and redirect
       $this->getModel('Hajj')->setEditHajj($obj);
       $redirect = "index.php?option=com_hajj&view=edithajj";
@@ -87,6 +87,12 @@ class HajjControllerHajj extends JControllerLegacy
     }
 
     $this->getModel('Hajj')->setEditHajj($obj);
+
+    // Check if delete User needed
+    if ($obj->register_status == 5) {// We delete the user
+      $id = $jinput->get('id','','STRING');
+      $app->redirect("index.php?option=com_hajj&view=adminremove&id=" . $id);
+    }
     
     $app->redirect($redirect, 
       "تم التعديل بنجاح",

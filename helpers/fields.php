@@ -210,7 +210,7 @@ public static function getFormHajj($addon = false){
         </div>
         <div class="span4">
           <label for="mobile">الجوال</label>
-          <input type="text" name="mobile" id="mobile" required placeholder="05xxxxxxxx" pattern="05[0-9]{8}">
+          <input type="text" name="mobile" id="mobile" required placeholder="05xxxxxxxx">  <!-- pattern="05[0-9]{8}" -->
         </div>
       </div>
       <div class="row-fluid">
@@ -306,13 +306,13 @@ public static function getEditFormHajj($data, $admin=false){
         </div>
         <div class="span4">
           <label for="mobile">الجوال</label>
-          <input type="text" name="mobile" id="mobile" value="<?php echo $data->mobile ?>" required placeholder="05xxxxxxxx" pattern="05[0-9]{8}">
+          <input type="text" name="mobile" id="mobile" value="<?php echo $data->mobile ?>" required placeholder="05xxxxxxxx"> <!-- pattern="05[0-9]{8}" -->
         </div>
       </div>
       <div class="row-fluid">
         <div class="span4">
           <label for="email">البريد الالكتروني</label>
-          <input type="text" name="email" id="email" value="<?php echo $data->email ?>" required>
+          <input type="text" name="email" id="email" value="<?php echo $data->email ?>">
         </div>
         <div class="span4">
           <label for="office_branch">فرع التسجيل</label>
@@ -338,6 +338,8 @@ public static function getEditFormHajj($data, $admin=false){
           <input class="date_register" type="text" disabled value="<?php echo $data->date_register ?>" placeholder="">
         </div>
       </div>
+
+      <input type="hidden" name="id" value="<?php echo $data->id ?>">
       <input type="submit" value="حفظ التعديل" class="btn btn-success">
     </form>
   <?php
@@ -366,9 +368,11 @@ public static function getEditFormHajj($data, $admin=false){
 */
   public static function getListStatus($active = ""){
     ?>
-      <select name="register_status" id="register_status" required>
+      <select name="register_status" id="register_status" required <?php echo ($active == 3 || $active == 5) ? "disabled":"" ?>>
         <?php foreach (self::$status as $key => $value): ?>
-            <option <?php echo ($active == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>"><?php echo $value ?></option>
+            <option <?php echo ($active == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>">
+              <?php echo $value ?>
+            </option>
         <?php endforeach ?>
       </select>
     <?php 
