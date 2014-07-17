@@ -98,5 +98,53 @@ class HajjControllerAdmin extends JControllerLegacy
 
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Admin set Program
+|------------------------------------------------------------------------------------
+*/
+  public function setProgram(){
+    $app = JFactory::getApplication();
+    $jinput = $app->input;
+
+    $obj = new stdClass();
+    $obj->id = $jinput->get('id','','STRING');
+    $obj->name = $jinput->get('name','','STRING');
+    $obj->status = $jinput->get('status','','STRING');
+
+    if ($obj->id != "") { // Edit
+      $this->getModel('admin')->setEditProgram($obj);
+    }else{ // New Program
+      $this->getModel('admin')->setProgram($obj);
+    }
+
+    
+    $app->redirect('index.php?option=com_hajj&view=adminPrograms', 'تم حفظ البيانات بنجاح', 'success');
+  }
+
+
+/*
+|------------------------------------------------------------------------------------
+| Admin set Program
+|------------------------------------------------------------------------------------
+*/
+  public function setBranch(){
+    $app = JFactory::getApplication();
+    $jinput = $app->input;
+
+    $obj = new stdClass();
+    $obj->id = $jinput->get('id','','STRING');
+    $obj->name = $jinput->get('name','','STRING');
+    $obj->status = $jinput->get('status','','STRING');
+
+    if ($obj->id != "") { // Edit
+      $this->getModel('admin')->setEditBranch($obj);
+    }else{ // New Branch
+      $this->getModel('admin')->setBranch($obj);
+    }
+    
+    $app->redirect('index.php?option=com_hajj&view=adminBranchs', 'تم حفظ البيانات بنجاح', 'success');
+  }
+
 
 }

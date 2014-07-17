@@ -390,5 +390,76 @@ public static function getEditFormHajj($data, $admin=false){
   }
 
 
+/*
+|------------------------------------------------------------------------------------
+| Get the Form of Programs
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormProgram($toEdit){
+    ?>
+
+    <form action="index.php?option=com_hajj&task=admin.setProgram" method="post">
+      <div class="row-fluid">
+        <div class="span4">
+        </div>
+        <div class="span4">
+          <label for="status">حالة البرنامج</label>
+          <select name="status">
+            <option value="1" <?php echo ($toEdit != "" && $toEdit->status == "1") ? "selected" : "" ?>>نشط</option>
+            <option value="0" <?php echo ($toEdit != "" && $toEdit->status == "0") ? "selected" : "" ?>>ايقاف</option>
+          </select>
+        </div>
+        <div class="span4">
+          <label for="name">اسم البرنامج</label>
+          <input type="text" name="name" id="name" value="<?php echo ($toEdit != "") ? $toEdit->name : "" ?>" required>
+        </div>
+        <input type="hidden" name="id" value="<?php echo ($toEdit != "") ? $toEdit->id : "" ?>">
+      </div>
+
+      <input type="submit" name="" value="حفظ" class="btn btn-success">
+
+    </form>
+
+    <?php
+
+  }
+
+
+/*
+|------------------------------------------------------------------------------------
+| Get the Form of Branchs
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormBranch($toEdit){
+    ?>
+
+    <form action="index.php?option=com_hajj&task=admin.setBranch" method="post">
+      <div class="row-fluid">
+        <div class="span4">
+        </div>
+        <div class="span4">
+          <label for="status">حالة الفرع</label>
+          <select name="status">
+            <option value="1" <?php echo ($toEdit != "" && $toEdit->status == "1") ? "selected" : "" ?>>نشط</option>
+            <option value="0" <?php echo ($toEdit != "" && $toEdit->status == "0") ? "selected" : "" ?>>ايقاف</option>
+          </select>
+        </div>
+        <div class="span4">
+          <label for="name">اسم الفرع</label>
+          <input type="text" name="name" id="name" value="<?php echo ($toEdit != "") ? $toEdit->name : "" ?>" required>
+        </div>
+        <input type="hidden" name="id" value="<?php echo ($toEdit != "") ? $toEdit->id : "" ?>">
+      </div>
+
+      <input type="submit" name="" value="حفظ" class="btn btn-success">
+
+    </form>
+
+    <?php
+
+  }
+
+
+
 }
 

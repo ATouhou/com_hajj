@@ -69,8 +69,91 @@ class HajjModelAdmin extends JModelLegacy {
 
 /*
 |------------------------------------------------------------------------------------
-| Get SMS Status
+| Get All Programs
 |------------------------------------------------------------------------------------
 */  
+    public function getPrograms(){
+      $db = JFactory::getDBO();
+    
+      $query = $db->getQuery(true);    
+      $query
+          ->select('*')
+          ->from($db->quoteName('#__hajj_program'));
+      
+      $db->setQuery($query);
+      $results = $db->loadObjectList();
+      return $results;
+    }
+   
+/*
+|------------------------------------------------------------------------------------
+| set New Program
+|------------------------------------------------------------------------------------
+*/   
+  public function setProgram($obj){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+    
+    $result = JFactory::getDbo()->insertObject('#__hajj_program', $obj);
+    return $result;
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| set edit Program
+|------------------------------------------------------------------------------------
+*/   
+  public function setEditProgram($obj){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+
+    $result = JFactory::getDbo()->updateObject('#__hajj_program', $obj, 'id');
+    return $result;
+  }
+
+
+/*
+|------------------------------------------------------------------------------------
+| Get All Branch
+|------------------------------------------------------------------------------------
+*/  
+    public function getBranchs(){
+      $db = JFactory::getDBO();
+    
+      $query = $db->getQuery(true);    
+      $query
+          ->select('*')
+          ->from($db->quoteName('#__hajj_branch'));
+      
+      $db->setQuery($query);
+      $results = $db->loadObjectList();
+      return $results;
+    }
+   
+/*
+|------------------------------------------------------------------------------------
+| set New Program
+|------------------------------------------------------------------------------------
+*/   
+  public function setBranch($obj){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+    
+    $result = JFactory::getDbo()->insertObject('#__hajj_branch', $obj);
+    return $result;
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| set edit Branch
+|------------------------------------------------------------------------------------
+*/   
+  public function setEditBranch($obj){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+
+    $result = JFactory::getDbo()->updateObject('#__hajj_branch', $obj, 'id');
+    return $result;
+  }
 
 }
