@@ -13,6 +13,9 @@ defined('_JEXEC') or die;
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 $data = $this->data;
 //var_dump($data);
+$ProgramList = HajjFieldHelper::getHajjProgramList();
+$OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
+
 
 ?>
 <h1>طلبات الحجز</h1>
@@ -38,8 +41,8 @@ $data = $this->data;
       <td><?php echo $value->familly_name ?></td>
       <td><?php echo $value->id_number ?></td>
       <td><?php echo $value->mobile ?></td>
-      <td><?php echo $value->office_branch ?></td>
-      <td><?php echo $value->hajj_program ?></td>
+      <td><?php echo $OfficeBranchList[$value->office_branch] ?></td>
+      <td><?php echo $ProgramList[$value->hajj_program] ?></td>
       <td><?php echo HajjFieldHelper::getNationnality($value->nationality) ?></td>
       <td><?php echo HajjFieldHelper::status_register($value->register_status) ?></td>
       <td><?php echo $value->date_register ?></td>

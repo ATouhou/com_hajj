@@ -18,6 +18,49 @@ class HajjFieldHelper {
     public static $officeBranch     = array("مكة المكرمة", "المدينة المنورة", "جدة");
     public static $status           = array("تحت التدقيق والمراجعة", "مقبول", "مرفوض", "تم الدفع", "الغاء الحجز");
     public static $reason_exception = array("محرم", "طبيب", "عصبة نساء", "مع محرمها", "اداري", "عامل في الحملة", "ممرضة", "حج عن متوفي");
+  
+
+/*
+|------------------------------------------------------------------------------------
+| Get list of Programs
+|------------------------------------------------------------------------------------
+*/
+  public static function getPrograms(){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+    $query
+        ->select($db->quoteName(array('id', 'name')))
+        ->from($db->quoteName('#__hajj_program'))
+        ->where('status=1');
+    
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+    
+    return ($results);
+    
+  } 
+
+
+/*
+|------------------------------------------------------------------------------------
+| Get list of Branchs
+|------------------------------------------------------------------------------------
+*/
+  public static function getBranchs(){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+    $query
+        ->select($db->quoteName(array('id', 'name')))
+        ->from($db->quoteName('#__hajj_branch'))
+        ->where('status=1');
+    
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+    
+    return ($results);
+    
+  } 
+
 
 /*
 |------------------------------------------------------------------------------------
@@ -104,14 +147,29 @@ class HajjFieldHelper {
 |------------------------------------------------------------------------------------
 */
   public static function getHajjProgram($active = ""){    
+
     ?>
       <select name="hajj_program" id="hajj_program" required>
         <option value=""></option>
-        <?php foreach (self::$hajjProgram as $key => $value): ?>
-          <option <?php echo ($active == $value) ? "selected" : "" ?> value="<?php echo $value ?>"><?php echo $value ?></option>
+        <?php foreach (self::getPrograms() as $key => $value): ?>
+          <option <?php echo ($active == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
         <?php endforeach ?>
       </select>
     <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Get Hajj Program List
+|------------------------------------------------------------------------------------
+*/
+  public static function getHajjProgramList(){    
+      $array = array();
+      foreach (self::getPrograms() as $key => $value){
+        $array[$value->id] = $value->name;
+      }
+
+      return($array);
   }
 
 /*
@@ -123,11 +181,25 @@ class HajjFieldHelper {
     ?>
       <select name="office_branch" id="office_branch" required>
         <option value=""></option>
-        <?php foreach (self::$officeBranch as $key => $value): ?>
-          <option <?php echo ($active == "$value") ? "selected" : "" ?> value="<?php echo $value ?>"><?php echo $value ?></option>
+        <?php foreach (self::getBranchs() as $key => $value): ?>
+          <option <?php echo ($active == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
         <?php endforeach ?>
       </select>
     <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Get Office Branch List
+|------------------------------------------------------------------------------------
+*/
+  public static function getHajjOfficeBranchList(){    
+      $array = array();
+      foreach (self::getBranchs() as $key => $value){
+        $array[$value->id] = $value->name;
+      }
+
+      return($array);
   }
 
 /*
