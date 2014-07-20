@@ -32,6 +32,7 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
       <th>الجنسية</th>
       <th>حالة الحجز</th>
       <th>توقت التسجيل</th>
+      <th>رقم حجز المرافق</th>
     </tr>
   </thead>
   <?php foreach ($data as $key => $value): ?>
@@ -46,6 +47,7 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
       <td><?php echo HajjFieldHelper::getNationnality($value->nationality) ?></td>
       <td><?php echo HajjFieldHelper::status_register($value->register_status) ?></td>
       <td><?php echo $value->date_register ?></td>
+      <td><?php echo $value->addon ?></td>
     </tr>
   <?php endforeach ?>
 </table>
