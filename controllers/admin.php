@@ -36,7 +36,7 @@ class HajjControllerAdmin extends JControllerLegacy
 */
   public function Hajjs(){
     $result = $this->getModel("Admin")->getHajjs();
-
+    //var_dump($result[8]);
     $view   = $this->getView('adminhajjs', 'html'); //get the view
     $view->assignRef('data', $result); // assign data from the model
     $view->display(); // display the view

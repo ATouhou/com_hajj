@@ -11,11 +11,11 @@ defined('_JEXEC') or die;
 
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
+require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
 $data = $this->data;
 //var_dump($data);
 $ProgramList = HajjFieldHelper::getHajjProgramList();
 $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
-
 
 ?>
 <h1>طلبات الحجز</h1>
@@ -47,7 +47,7 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
       <td><?php echo HajjFieldHelper::getNationnality($value->nationality) ?></td>
       <td><?php echo HajjFieldHelper::status_register($value->register_status) ?></td>
       <td><?php echo $value->date_register ?></td>
-      <td><?php echo $value->addon ?></td>
+      <td><?php echo HajjFrontendHelper::getIdUserById($value->addon, $data) ?></td>
     </tr>
   <?php endforeach ?>
 </table>
