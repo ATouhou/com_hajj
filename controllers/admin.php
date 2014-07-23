@@ -110,6 +110,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $obj = new stdClass();
     $obj->id = $jinput->get('id','','STRING');
     $obj->name = $jinput->get('name','','STRING');
+    $obj->price_program = $jinput->get('price_program','','STRING');
     $obj->status = $jinput->get('status','','STRING');
 
     if ($obj->id != "") { // Edit

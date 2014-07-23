@@ -31,7 +31,7 @@ $toEdit = $this->toEdit;
         
         <?php
           require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
-          HajjFieldHelper::getFormProgram("");
+          HajjFieldHelper::getFormProgram();
         ?>
         </div>
       </div>
@@ -50,6 +50,7 @@ $toEdit = $this->toEdit;
     <tr>
       <th>رقم البرنامج</th>
       <th>اسم البرنامج</th>
+      <th>سعر البرنامج</th>
       <th>حالة البرنامج</th>
     </tr>
   </thead>
@@ -57,6 +58,7 @@ $toEdit = $this->toEdit;
     <tr>
       <td><a href="index.php?option=com_hajj&view=adminPrograms&id=<?php echo $value->id ?>"><?php echo $value->id ?></a></td>
       <td><?php echo $value->name ?></td>
+      <td><?php echo $value->price_program ?></td>
       <td><?php echo ($value->status == 0) ? "ايقاف" : "نشط" ?></td>
     </tr>
   <?php endforeach ?>
