@@ -31,7 +31,7 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
       <th>برنامج الحج</th>
       <th>الجنسية</th>
       <th>حالة الحجز</th>
-      <th>توقت التسجيل</th>
+      <th>توقيت التسجيل</th>
       <th>رقم حجز المرافق</th>
     </tr>
   </thead>
