@@ -13,6 +13,10 @@ defined('_JEXEC') or die;
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 $data = $this->data;
 
+$ProgramList = HajjFieldHelper::getHajjProgramList();
+$OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
+
+
 ?>
 <div class="accordion" id="accordion2">
   <div class="accordion-group">
@@ -51,8 +55,8 @@ $data = $this->data;
     <td><?php echo $hajj->familly_name ?></td>
     <td><?php echo $hajj->id_number ?></td>
     <td><?php echo $hajj->mobile ?></td>
-    <td><?php echo $hajj->office_branch ?></td>
-    <td><?php echo $hajj->hajj_program ?></td>
+    <td><?php echo $OfficeBranchList[$hajj->office_branch] ?></td>
+    <td><?php echo $ProgramList[$hajj->hajj_program] ?></td>
   </tr>
 <?php endforeach ?>
 

@@ -118,20 +118,5 @@ class HajjFrontendHelper {
     return $num;
   }
 
-/*
-|------------------------------------------------------------------------------------
-| Get Id from ID_USER
-|------------------------------------------------------------------------------------
-*/
-  public static function getIdUserById($id, $data){
-    if ($id == 0) {
-      return 0;
-    }
-    foreach ($data as $key => $value) {
-      if ($value->id_user == $id) {
-        return $value->id;
-      }
-    }
-  }
 
 }

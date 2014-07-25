@@ -156,4 +156,27 @@ class HajjModelAdmin extends JModelLegacy {
     return $result;
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Get All Benefits
+|------------------------------------------------------------------------------------
+*/
+  public function getBenefits(){
+    $db = JFactory::getDBO();    
+
+    $query = $db->getQuery(true);    
+    $query
+        ->select($db->quoteName(array('HU.id', 'HU.first_name', 'HU.familly_name', 'HP.name')), 'COUNT(HP.id) AS Count')
+        ->from($db->quoteName('#__hajj_users', 'HU'))
+        ->join('INNER', $db->quoteName('#__hajj_program', 'HP') . 
+          ' ON (' . $db->quoteName('HP.id') . ' = ' . $db->quoteName('HU.hajj_program') . ')')
+        ->group($db->quoteName('HU.addon'))
+        ->where($db->quoteName('HP.id'));
+    
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+    return $results;
+  }
+
+
 }

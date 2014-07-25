@@ -47,7 +47,7 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
       <td><?php echo HajjFieldHelper::getNationnality($value->nationality) ?></td>
       <td><?php echo HajjFieldHelper::status_register($value->register_status) ?></td>
       <td><?php echo $value->date_register ?></td>
-      <td><?php echo HajjFrontendHelper::getIdUserById($value->addon, $data) ?></td>
+      <td><?php echo $value->addon ?></td>
     </tr>
   <?php endforeach ?>
 </table>

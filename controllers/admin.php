@@ -24,7 +24,7 @@ class HajjControllerAdmin extends JControllerLegacy
    
     if (!JFactory::getUser()->authorise('core.manage', 'com_hajj'))
     {
-      return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+      return JError::raiseWarning(404, "JText::_('JERROR_ALERTNOAUTHOR')");
     }
     parent::__construct();
   }
@@ -36,7 +36,7 @@ class HajjControllerAdmin extends JControllerLegacy
 */
   public function Hajjs(){
     $result = $this->getModel("Admin")->getHajjs();
-    //var_dump($result[8]);
+
     $view   = $this->getView('adminhajjs', 'html'); //get the view
     $view->assignRef('data', $result); // assign data from the model
     $view->display(); // display the view
@@ -147,5 +147,16 @@ class HajjControllerAdmin extends JControllerLegacy
     $app->redirect('index.php?option=com_hajj&view=adminBranchs', 'تم حفظ البيانات بنجاح', 'success');
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Admin set Program
+|------------------------------------------------------------------------------------
+*/
+  public function benefits(){
+    $result = $this->getModel("Admin")->getBenefits();
 
+    $view   = $this->getView('adminbenefits', 'html'); //get the view
+    $view->assignRef('data', $result); // assign data from the model
+    $view->display(); // display the view
+  }
 }

@@ -57,7 +57,7 @@ class HajjControllerPublic extends JControllerLegacy
     $obj->office_branch    = $jinput->get('office_branch','','STRING');
     $obj->hajj_program     = $jinput->get('hajj_program','','STRING');
     $obj->reason_exception = $jinput->get('reason_exception','','STRING');
-    $obj->addon            = JFactory::getUser()->id;
+    $obj->addon            = $this->getModel("Hajj")->getIdNumber(JFactory::getUser()->id);
     $obj->register_status  = 1;
     $obj->date_register    = date("d/m/Y h:i A");
 
