@@ -396,8 +396,11 @@ public static function getEditFormHajj($data, $admin=false){
         </div>
       </div>
       <div class="row-fluid">
-        <div class="span4"></div>
       <?php if ($admin): ?>
+        <div class="span4">
+          <label for="topay">المبلغ المطلوب</label>
+          <input type="text" name="topay" id="topay" value="<?php echo $data->topay ?>" required>
+        </div>
         <div class="span4">
           <label for="register_status">حالة الحجز</label>
           <?php HajjFieldHelper::getListStatus($data->register_status) ?>

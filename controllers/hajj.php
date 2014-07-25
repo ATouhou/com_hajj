@@ -6,7 +6,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  * @author      Kouceyla Hadji <hadjikouceyla@gmail.com> - http://www.behance.net/kossa
  */
- 
+
 // No direct access
 defined('_JEXEC') or die;
 
@@ -43,6 +43,7 @@ class HajjControllerHajj extends JControllerLegacy
     $obj->office_branch   = $jinput->get('office_branch','','STRING');
     $obj->hajj_program    = $jinput->get('hajj_program','','STRING');
     $obj->register_status = $jinput->get('register_status','','STRING');
+    $obj->topay = $jinput->get('topay','','STRING');
 
     //$this->getModel('Hajj')->setEditHajj($obj);
     if ($obj->register_status == "") {// Not Admin

@@ -69,7 +69,6 @@ class HajjControllerPublic extends JControllerLegacy
 
     // Check id number
     if (($obj->nationality == 1 && $obj->id_number[0] != "1") || ($obj->nationality != 1 && $obj->id_number[0] != "2")) {
-        echo $_SERVER['HTTP_REFERER'];
         $app->redirect($_SERVER['HTTP_REFERER'], "خطأ في رقم الهوية", "error");
     }
 

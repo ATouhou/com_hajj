@@ -166,12 +166,14 @@ class HajjModelAdmin extends JModelLegacy {
 
     $query = $db->getQuery(true);    
     $query
-        ->select($db->quoteName(array('HU.id', 'HU.first_name', 'HU.familly_name', 'HP.name')), 'COUNT(HP.id) AS Count')
+        ->select(array('HU.id', 'HU.first_name', 'HU.familly_name', 'HP.name', 'COUNT(fils.id) AS nb_addon', 'HU.topay', 'HU.paid'))
         ->from($db->quoteName('#__hajj_users', 'HU'))
         ->join('INNER', $db->quoteName('#__hajj_program', 'HP') . 
           ' ON (' . $db->quoteName('HP.id') . ' = ' . $db->quoteName('HU.hajj_program') . ')')
-        ->group($db->quoteName('HU.addon'))
-        ->where($db->quoteName('HP.id'));
+        ->leftJoin('sr28a_hajj_users as fils ON fils.addon = HU.id ')
+        ->group($db->quoteName('HU.id'))
+        ->where($db->quoteName('HU.addon') . ' = 0')
+        ->order($db->quoteName('HU.id'));
     
     $db->setQuery($query);
     $results = $db->loadObjectList();
