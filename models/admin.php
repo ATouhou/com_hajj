@@ -172,7 +172,7 @@ class HajjModelAdmin extends JModelLegacy {
           ' ON (' . $db->quoteName('HP.id') . ' = ' . $db->quoteName('HU.hajj_program') . ')')
         ->leftJoin('sr28a_hajj_users as fils ON fils.addon = HU.id ')
         ->group($db->quoteName('HU.id'))
-        ->where($db->quoteName('HU.addon') . ' = 0')
+        ->where($db->quoteName('HU.addon') . ' = 0 AND HU.register_status = 2')
         ->order($db->quoteName('HU.id'));
     
     $db->setQuery($query);
