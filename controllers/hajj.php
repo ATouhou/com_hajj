@@ -43,7 +43,7 @@ class HajjControllerHajj extends JControllerLegacy
     $obj->office_branch   = $jinput->get('office_branch','','STRING');
     $obj->hajj_program    = $jinput->get('hajj_program','','STRING');
     $obj->register_status = $jinput->get('register_status','','STRING');
-    $obj->topay = $jinput->get('topay','','STRING');
+    
 
     //$this->getModel('Hajj')->setEditHajj($obj);
     if ($obj->register_status == "") {// Not Admin
@@ -51,6 +51,7 @@ class HajjControllerHajj extends JControllerLegacy
       $this->getModel('Hajj')->setEditHajj($obj);
       $redirect = "index.php?option=com_hajj&view=edithajj";
     }else{// This is an admin
+      $obj->topay = $jinput->get('topay','','STRING');
       switch ($obj->register_status) {  // Switch to send SMS
         case '2':
           // Accepted

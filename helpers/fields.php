@@ -406,10 +406,10 @@ public static function getEditFormHajj($data, $admin=false){
           <?php HajjFieldHelper::getListStatus($data->register_status) ?>
         </div>
       <?php else : ?>
-        <div class="span4"></div>
+        <div class="span4"></div><div class="span4"></div>
       <?php endif ?>
         <div class="span4">
-        <label>توقيت التسجيل</label>
+          <label>توقيت التسجيل</label>
           <input class="date_register" type="text" disabled value="<?php echo $data->date_register ?>" placeholder="">
         </div>
       </div>

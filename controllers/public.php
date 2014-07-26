@@ -60,7 +60,9 @@ class HajjControllerPublic extends JControllerLegacy
     $obj->addon            = $this->getModel("Hajj")->getIdNumber(JFactory::getUser()->id);
     $obj->register_status  = 1;
     $obj->date_register    = date("d/m/Y h:i A");
+    $obj->topay            = $this->getModel('Admin')->getPriceProgram($obj->hajj_program);// Set the price of program 
 
+      
 
     // Check if empty mail adress
     if ($obj->email == "") {

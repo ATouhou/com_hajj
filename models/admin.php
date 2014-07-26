@@ -180,5 +180,23 @@ class HajjModelAdmin extends JModelLegacy {
     return $results;
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Get price of program
+|------------------------------------------------------------------------------------
+*/
+  public function getPriceProgram($ID){
+    $db = JFactory::getDBO();    
 
+    $query = $db->getQuery(true);    
+    $query
+        ->select($db->quoteName(array('price_program')))
+        ->from($db->quoteName('#__hajj_program'))
+        ->where($db->quoteName('id') . ' = '. $ID);
+    
+    $db->setQuery($query);
+    $results = $db->loadObject()->price_program;
+    
+    return $results;
+  }
 }
