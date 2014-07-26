@@ -27,7 +27,6 @@ $data = $this->data;
       <th>عدد المرافقين</th>
       <th>العدد الكلي</th>
       <th>المبلغ المطلوب</th>
-      <th>المبلغ المتبقي</th>
     </tr>
   </thead>
 
@@ -40,7 +39,6 @@ $data = $this->data;
       <td><?php echo $value->nb_addon ?></td>
       <td><?php echo $value->nb_addon+1 ?></td>
       <td><?php echo $value->topay ?></td>
-      <td><?php echo $value->paid ?></td>
     </tr>
   <?php endforeach ?>
   
