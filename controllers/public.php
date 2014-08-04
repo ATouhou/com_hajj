@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * @version     1.0.0
  * @package     com_hajj
@@ -62,19 +62,19 @@ class HajjControllerPublic extends JControllerLegacy
     $obj->date_register    = date("d/m/Y h:i A");
     $obj->topay            = $this->getModel('Admin')->getPriceProgram($obj->hajj_program);// Set the price of program 
 
-      
-
     // Check if empty mail adress
     if ($obj->email == "") {
         $obj->email = "L" . $obj->id_number . "@gmail.ww";
     }
+
+    require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
 
     // Check id number
     if (($obj->nationality == 1 && $obj->id_number[0] != "1") || ($obj->nationality != 1 && $obj->id_number[0] != "2")) {
         $app->redirect($_SERVER['HTTP_REFERER'], "خطأ في رقم الهوية", "error");
     }
 
-    require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
+    
     $id_user = HajjFrontendHelper::register_user($obj->id_number, $obj->mobile, $obj->email, $obj->first_name);
 
     if ($id_user == 0) { // Problem
@@ -102,5 +102,6 @@ class HajjControllerPublic extends JControllerLegacy
         $app->redirect("index.php?option=com_hajj&view=dashboard");
     }
   }
+
 
 }

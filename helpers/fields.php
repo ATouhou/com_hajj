@@ -224,7 +224,7 @@ class HajjFieldHelper {
 */
 public static function getFormHajj($addon = false){
   ?>
-    <form action="index.php?option=com_hajj&task=public.setnewhajj" method="post">
+    <form action="index.php?option=com_hajj&task=public.setnewhajj" method="post" accept-charset="utf-8">
       <div class="row-fluid">
         <div class="span4">
           <label for="third_name">الاسم الثالث</label>
@@ -260,7 +260,7 @@ public static function getFormHajj($addon = false){
       <div class="row-fluid">
         <div class="span4">
           <label for="id_number">رقم الهوية / الإقامة</label>
-          <input type="text" name="id_number" id="id_number" required pattern="[0-9]{10}" placeholder="يجب أن يكون عشرة أرقام">
+          <input type="text" name="id_number" id="id_number" required pattern="[0-9]{10}|[١-٩]{10}" placeholder="يجب أن يكون عشرة أرقام">
         </div>
         <div class="span4">
           <label for="birthday">تاريخ الميلاد</label>
@@ -323,7 +323,7 @@ public static function getFormHajj($addon = false){
 */
 public static function getEditFormHajj($data, $admin=false){
   ?>
-    <form action="index.php?option=com_hajj&task=hajj.setedithajj" method="post">
+    <form action="index.php?option=com_hajj&task=hajj.setedithajj" method="post" accept-charset="utf-8">
       <input type="hidden" name="id_user" value="<?php echo $data->id_user ?>">
       <div class="row-fluid">
         <div class="span4">
@@ -473,7 +473,7 @@ public static function getEditFormHajj($data, $admin=false){
   public static function getFormProgram($toEdit = ""){
     ?>
 
-    <form action="index.php?option=com_hajj&task=admin.setProgram" method="post">
+    <form action="index.php?option=com_hajj&task=admin.setProgram" method="post" accept-charset="utf-8">
       <div class="row-fluid">
         <div class="span4">
           <label for="status">حالة البرنامج</label>
@@ -502,6 +502,52 @@ public static function getEditFormHajj($data, $admin=false){
   }
 
 
+
+/*
+|------------------------------------------------------------------------------------
+| Get the Form of Camps
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormCamps($toEdit = ""){
+    ?>
+
+    <form action="index.php?option=com_hajj&task=admin.setCamps" method="post" accept-charset="utf-8">
+      <div class="row-fluid">
+        <div class="span6">
+          <label for="site">الموقع</label>
+          <input type="text" name="site" id="site" value="<?php echo ($toEdit != "") ? $toEdit->site : "" ?>">
+        
+          <label for="coordinates">الاحداثيات</label>
+          <input type="text" name="coordinates" id="coordinates" value="<?php echo ($toEdit != "") ? $toEdit->coordinates : "" ?>">
+          
+          <label for="status">حالة المخيم</label>
+          <select name="status">
+            <option value="1" <?php echo ($toEdit != "" && $toEdit->status == "1") ? "selected" : "" ?>>نشط</option>
+            <option value="0" <?php echo ($toEdit != "" && $toEdit->status == "0") ? "selected" : "" ?>>ايقاف</option>
+          </select>
+        </div>
+        <div class="span6">
+          <label for="group">الفئة</label>
+          <input type="text" name="group" id="group" value="<?php echo ($toEdit != "") ? $toEdit->group : "" ?>">
+        
+          <label for="box">المربع</label>
+          <input type="text" name="box" id="box" value="<?php echo ($toEdit != "") ? $toEdit->box : "" ?>">
+        
+          <label for="camp">المخيم</label>
+          <input type="text" name="camp" id="camp" value="<?php echo ($toEdit != "") ? $toEdit->camp : "" ?>">
+        </div>
+      </div>
+      <input type="hidden" name="id" value="<?php echo ($toEdit != "") ? $toEdit->id : "" ?>">
+
+      <input type="submit" name="" value="حفظ" class="btn btn-success">
+
+    </form>
+
+    <?php
+
+  }
+
+
 /*
 |------------------------------------------------------------------------------------
 | Get the Form of Branchs
@@ -510,7 +556,7 @@ public static function getEditFormHajj($data, $admin=false){
   public static function getFormBranch($toEdit){
     ?>
 
-    <form action="index.php?option=com_hajj&task=admin.setBranch" method="post">
+    <form action="index.php?option=com_hajj&task=admin.setBranch" method="post" accept-charset="utf-8">
       <div class="row-fluid">
         <div class="span4">
         </div>

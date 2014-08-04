@@ -118,5 +118,4 @@ class HajjFrontendHelper {
     return $num;
   }
 
-
 }

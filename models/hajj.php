@@ -38,7 +38,7 @@ class HajjModelHajj extends JModelLegacy {
 
     $db->setQuery($query);
     $results = $db->loadObject();
-    return $results->id;
+    return (isset($results->id)) ? $results->id : 0;
   }
 
 /*

@@ -85,6 +85,25 @@ class HajjModelAdmin extends JModelLegacy {
       return $results;
     }
    
+
+/*
+|------------------------------------------------------------------------------------
+| Get All Programs
+|------------------------------------------------------------------------------------
+*/  
+    public function getCamps(){
+      $db = JFactory::getDBO();
+    
+      $query = $db->getQuery(true);    
+      $query
+          ->select('*')
+          ->from($db->quoteName('#__hajj_camps'));
+      
+      $db->setQuery($query);
+      $results = $db->loadObjectList();
+      return $results;
+    }
+   
 /*
 |------------------------------------------------------------------------------------
 | set New Program
@@ -95,6 +114,19 @@ class HajjModelAdmin extends JModelLegacy {
     $query = $db->getQuery(TRUE);
     
     $result = JFactory::getDbo()->insertObject('#__hajj_program', $obj);
+    return $result;
+  }
+   
+/*
+|------------------------------------------------------------------------------------
+| set New Camps
+|------------------------------------------------------------------------------------
+*/   
+  public function setCamps($obj){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+    
+    $result = JFactory::getDbo()->insertObject('#__hajj_camps', $obj);
     return $result;
   }
 
@@ -108,6 +140,19 @@ class HajjModelAdmin extends JModelLegacy {
     $query = $db->getQuery(TRUE);
 
     $result = JFactory::getDbo()->updateObject('#__hajj_program', $obj, 'id');
+    return $result;
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| set edit Camps
+|------------------------------------------------------------------------------------
+*/   
+  public function setEditCamps($obj){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+
+    $result = JFactory::getDbo()->updateObject('#__hajj_camps', $obj, 'id');
     return $result;
   }
 
