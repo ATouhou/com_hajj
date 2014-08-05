@@ -63,10 +63,10 @@ class HajjFrontendHelper {
 | Send SMS
 |------------------------------------------------------------------------------------
 */
-  public static function sendTheSMS($numbers = "966555882901", $msg = ""){
+  public static function sendTheSMS($numbers = "966555528620", $msg = ""){
 
-    $mobile     = "966555882901";
-    $password   = "tebian8";
+    $mobile     = "966555528620";
+    $password   = "0555528620";
     $sender     = "FawjMakkah";
     $numbers    = self::chechNumber($numbers);  //Recheck Numbers
     $timeSend   = 0;
