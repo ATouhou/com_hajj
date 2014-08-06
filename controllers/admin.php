@@ -188,4 +188,35 @@ class HajjControllerAdmin extends JControllerLegacy
     $view->assignRef('data', $result); // assign data from the model
     $view->display(); // display the view
   }
+
+/*
+|------------------------------------------------------------------------------------
+| set Admin Information
+|------------------------------------------------------------------------------------
+*/
+  public function setAdminInfo(){
+
+    $app = JFactory::getApplication();
+    $jinput = $app->input;
+
+    $txt                      = new stdClass();
+    $txt->name                = $jinput->get('name','','STRING');
+    $txt->commercial_register = $jinput->get('commercial_register','','STRING');
+    $txt->address             = $jinput->get('address','','STRING');
+    $txt->email               = $jinput->get('email','','STRING');
+    $txt->tel                 = $jinput->get('tel','','STRING');
+    $txt->fax                 = $jinput->get('fax','','STRING');
+    $txt->mobile              = $jinput->get('mobile','','STRING');
+    $txt->logo                = $jinput->get('logo','','STRING');
+
+    $obj        = new stdClass();
+    $obj->name  = "adminInfo";
+    $obj->value = json_encode($txt);
+
+    $this->getModel('admin')->setAdminInfo($obj);
+
+    $app->redirect('index.php?option=com_hajj&view=administration', 'تم حفظ الإدارة العامة بنجاح', 'success');
+  }
+
+
 }

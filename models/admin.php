@@ -244,4 +244,36 @@ class HajjModelAdmin extends JModelLegacy {
     
     return $results;
   }
+
+/*
+|------------------------------------------------------------------------------------
+| set Admin Info
+|------------------------------------------------------------------------------------
+*/   
+  public function setAdminInfo($obj){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+
+    $result = JFactory::getDbo()->updateObject('#__hajj_options', $obj, 'name');
+    return $result;
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| get Admin Info
+|------------------------------------------------------------------------------------
+*/   
+  public function getAdminInfo(){
+    $db = JFactory::getDBO();
+    
+    $query = $db->getQuery(true);    
+    $query
+        ->select('value')
+        ->from($db->quoteName('#__hajj_options'))
+        ->where($db->quoteName('name') . ' = '. $db->quote('adminInfo'));
+
+    $db->setQuery($query);
+    $results = $db->loadObject();
+    return json_decode($results->value);
+  }
 }
