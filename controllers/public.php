@@ -103,5 +103,5 @@ class HajjControllerPublic extends JControllerLegacy
     }
   }
 
-
+    
 }

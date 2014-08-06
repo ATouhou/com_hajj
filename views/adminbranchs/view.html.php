@@ -28,7 +28,14 @@ class hajjViewAdminBranchs extends JViewLegacy
       $jinput       = JFactory::getApplication()->input;
       $id           = $jinput->get('id', 0);
       $this->toEdit = "";
-      
+
+      $this->Itemid = $jinput->get("Itemid", 0);
+      if ($this->Itemid == 245) {
+        $this->readonly = TRUE;
+      }else{
+        $this->readonly = FALSE;
+      }
+
       if ($id) { // Get the info to edit
         foreach ($this->data as $key => $value) {
           if ($value->id == $id) {

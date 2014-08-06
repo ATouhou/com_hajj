@@ -470,7 +470,7 @@ public static function getEditFormHajj($data, $admin=false){
 | Get the Form of Programs
 |------------------------------------------------------------------------------------
 */
-  public static function getFormProgram($toEdit = ""){
+  public static function getFormProgram($toEdit = "", $readonly = TRUE){
     ?>
 
     <form action="index.php?option=com_hajj&task=admin.setProgram" method="post" accept-charset="utf-8">
@@ -484,11 +484,11 @@ public static function getEditFormHajj($data, $admin=false){
         </div>
         <div class="span4">
           <label for="price_program">سعر البرنامج</label>
-          <input type="text" name="price_program" id="price_program" value="<?php echo ($toEdit != "") ? $toEdit->price_program : 0 ?>">
+          <input type="text" name="price_program" id="price_program" value="<?php echo ($toEdit != "") ? $toEdit->price_program : 0 ?>"  <?php echo ($readonly) ? "disabled" : "" ?>>
         </div>
         <div class="span4">
           <label for="name">اسم البرنامج</label>
-          <input type="text" name="name" id="name" value="<?php echo ($toEdit != "") ? $toEdit->name : "" ?>" required>
+          <input type="text" name="name" id="name" value="<?php echo ($toEdit != "") ? $toEdit->name : "" ?>" required <?php echo ($readonly) ? "disabled" : "" ?>>
         </div>
         <input type="hidden" name="id" value="<?php echo ($toEdit != "") ? $toEdit->id : "" ?>">
       </div>
@@ -553,7 +553,7 @@ public static function getEditFormHajj($data, $admin=false){
 | Get the Form of Branchs
 |------------------------------------------------------------------------------------
 */
-  public static function getFormBranch($toEdit){
+  public static function getFormBranch($toEdit = "", $readonly = TRUE){
     ?>
 
     <form action="index.php?option=com_hajj&task=admin.setBranch" method="post" accept-charset="utf-8">
@@ -569,7 +569,7 @@ public static function getEditFormHajj($data, $admin=false){
         </div>
         <div class="span4">
           <label for="name">اسم الفرع</label>
-          <input type="text" name="name" id="name" value="<?php echo ($toEdit != "") ? $toEdit->name : "" ?>" required>
+          <input type="text" name="name" id="name" value="<?php echo ($toEdit != "") ? $toEdit->name : "" ?>" required <?php echo ($readonly) ? "disabled" : "" ?>>
         </div>
         <input type="hidden" name="id" value="<?php echo ($toEdit != "") ? $toEdit->id : "" ?>">
       </div>
