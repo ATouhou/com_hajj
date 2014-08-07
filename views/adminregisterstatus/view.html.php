@@ -15,7 +15,7 @@ jimport('joomla.application.component.view');
 /**
  * View class for a list of Weandlife.
  */
-class hajjViewNewHajj extends JViewLegacy
+class hajjViewAdminRegisterStatus extends JViewLegacy
 {
 
   /**
@@ -23,8 +23,9 @@ class hajjViewNewHajj extends JViewLegacy
    */
   public function display($tpl = null)
   {   
-      
-      $this->id = JFactory::getUser()->id;
+      $model        = JModelLegacy::getInstance('Admin', 'HajjModel');
+      $this->status   = $model->getRegisterStatus();
+
       parent::display($tpl);
   }
 

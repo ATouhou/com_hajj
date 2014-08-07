@@ -22,8 +22,10 @@ class HajjControllerPublic extends JControllerLegacy
 */
   public function newHajj(){ 
       $app = JFactory::getApplication();
-      
+      $status = $this->getModel('Admin')->getRegisterStatus();
+
       $view   = $this->getView('newhajj', 'html'); //get the view
+      $view->assignRef('status', $status);
       $view->display(); // display the view
   }
 

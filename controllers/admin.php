@@ -218,5 +218,23 @@ class HajjControllerAdmin extends JControllerLegacy
     $app->redirect('index.php?option=com_hajj&view=administration', 'تم حفظ الإدارة العامة بنجاح', 'success');
   }
 
+/*
+|------------------------------------------------------------------------------------
+| set Register Status
+|------------------------------------------------------------------------------------
+*/
+  public function setRegisterStatus(){
+    $app = JFactory::getApplication();
+    $jinput = $app->input;
+
+    $obj        = new stdClass();
+    $obj->name  = "register_status";
+    $obj->value = $jinput->get("status", 0);
+
+    $this->getModel('admin')->setAdminRegisterStatus($obj);
+
+    $app->redirect('index.php?option=com_hajj&view=adminregisterstatus', 'تم حفظ حالة الحجز بنجاح', 'success');
+  }
+
 
 }

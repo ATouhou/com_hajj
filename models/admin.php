@@ -276,4 +276,37 @@ class HajjModelAdmin extends JModelLegacy {
     $results = $db->loadObject();
     return json_decode($results->value);
   }
+
+/*
+|------------------------------------------------------------------------------------
+| get Register Status
+|------------------------------------------------------------------------------------
+*/   
+  public function getRegisterStatus(){
+    $db = JFactory::getDBO();
+    
+    $query = $db->getQuery(true);    
+    $query
+        ->select('value')
+        ->from($db->quoteName('#__hajj_options'))
+        ->where($db->quoteName('name') . ' = '. $db->quote('register_status'));
+
+    $db->setQuery($query);
+    $result = $db->loadObject();
+    return $result->value;
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| set Admin Register Status
+|------------------------------------------------------------------------------------
+*/   
+  public function setAdminRegisterStatus($obj){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+
+    $result = JFactory::getDbo()->updateObject('#__hajj_options', $obj, 'name');
+    return $result;
+  }
+
 }

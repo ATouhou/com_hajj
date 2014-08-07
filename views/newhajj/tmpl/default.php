@@ -16,5 +16,11 @@ if ($this->id) {// Alreay registred
   $app = JFactory::getApplication();
   $app->redirect("index.php?option=com_hajj&view=edithajj&Itemid=228","تم تسجيل دخولك للموقع..ويمكنك الاطلاع على بياناتكم من خدماتنا الاكترونية ","info");
 }
-
-HajjFieldHelper::getFormHajj();
+if($this->status){ // Not Closed ^^ 
+  HajjFieldHelper::getFormHajj();
+}else{ // Closed :'(
+?>
+<h3>عزيزي الزائر..</h3>
+<h4>تم إيقاف الحجز الإلكتروني لحج هذا العام.</h4>
+<?php  
+}
