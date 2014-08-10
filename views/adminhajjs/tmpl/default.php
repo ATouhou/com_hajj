@@ -19,6 +19,10 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
 
 ?>
 <h1>طلبات الحجز</h1>
+<ul class="pager">
+  <li class="next <?php echo ($this->start-1 == 0) ? "hidden" : "" ?>"><a href="index.php?option=com_hajj&task=admin.hajjs&p=<?php echo $this->start-1 ?>">&rarr;سابق </a></li>
+  <li class="previous <?php echo (sizeof($data) < 20 || sizeof($data) == 0) ? "hidden" : "" ?>"><a href="index.php?option=com_hajj&task=admin.hajjs&p=<?php echo $this->start + 1 ?>">التالي &larr;</a></li>
+</ul>
 <table class="allhajjs table table-condensed table-bordered ">
   <thead>
     <tr>
@@ -55,5 +59,5 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
 
 <ul class="pager">
   <li class="next <?php echo ($this->start-1 == 0) ? "hidden" : "" ?>"><a href="index.php?option=com_hajj&task=admin.hajjs&p=<?php echo $this->start-1 ?>">&rarr;سابق </a></li>
-  <li class="previous"><a href="index.php?option=com_hajj&task=admin.hajjs&p=<?php echo $this->start + 1 ?>">التالي &larr;</a></li>
+  <li class="previous <?php echo (sizeof($data) < 20 || sizeof($data) == 0) ? "hidden" : "" ?>"><a href="index.php?option=com_hajj&task=admin.hajjs&p=<?php echo $this->start + 1 ?>">التالي &larr;</a></li>
 </ul>
