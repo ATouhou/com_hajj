@@ -118,4 +118,16 @@ class HajjFrontendHelper {
     return $num;
   }
 
+/*
+|------------------------------------------------------------------------------------
+| str TO Hex
+|------------------------------------------------------------------------------------
+*/
+  public function strtohexutf16($str){
+    $res = "";
+    for ($i=0; $i < strlen($str); $i++) { 
+      $res.= '00' . dechex(ord($str[$i]));
+    }
+    return $res;
+  }
 }

@@ -14,7 +14,7 @@ $data = $this->data;
 //var_dump($data);
 
 ?>
-<h1> ضم مرافق</h1>
+<h1>ضم/فصل مرافق</h1>
 <form action="index.php?option=com_hajj&task=admin.setCombineAddons" method="post" accept-charset="utf-8" class="mt30">
   <div class="row-fluid">
     <div class="span4 offset4">
