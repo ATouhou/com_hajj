@@ -309,4 +309,26 @@ class HajjModelAdmin extends JModelLegacy {
     return $result;
   }
 
+/*
+|------------------------------------------------------------------------------------
+| set Combine Addons
+|------------------------------------------------------------------------------------
+*/   
+  public function setCombineAddons($obj){
+
+    //UPDATE `sr28a_hajj_users` SET `addon`=101 WHERE `sr28a_hajj_users`.`id` in (102,103,104)
+    //UPDATE `sr28a_hajj_users` SET `addon = 101` WHERE `id in ( 102, 103, 104)`
+
+    $db = JFactory::getDbo();
+    $query = $db->getQuery(true);
+
+    $query->update($db->quoteName('#__hajj_users'))
+          ->set($db->quoteName('addon') . ' = '.$obj->original)
+          ->where($db->quoteName('id') .  'in ( ' . $obj->addons .')');
+
+    $db->setQuery($query);
+    $result = $db->query();
+    return($result);
+  }
+
 }

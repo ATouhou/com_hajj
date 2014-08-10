@@ -237,4 +237,26 @@ class HajjControllerAdmin extends JControllerLegacy
   }
 
 
+/*
+|------------------------------------------------------------------------------------
+| set Combine Addons
+|------------------------------------------------------------------------------------
+*/
+  public function setCombineAddons(){
+    $app = JFactory::getApplication();
+    $jinput = $app->input;
+
+    $obj           = new stdClass();
+    $obj->original = $jinput->get("original", '', 'STRING');
+    $addons        = $jinput->get("addons",  '', 'ARRAY');
+    $obj->addons   = implode(', ', $addons);
+
+    if($this->getModel('admin')->setCombineAddons($obj)){
+      $app->redirect('index.php?option=com_hajj&view=admincombineaddons', 'تم  تعديل المرافقين بنجاح', 'success');
+    }else{
+      $app->redirect('index.php?option=com_hajj&view=admincombineaddons', 'خطأ SQL', 'error');
+    }
+  }
+
+
 }
