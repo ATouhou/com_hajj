@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-  <layout title="ضم مرافق">
+  <layout title="ضم/فصل مرافق">
     <message>
-      <![CDATA[ضم مرافق]]>
+      <![CDATA[ضم/فصل مرافق]]>
     </message>
   </layout>
 </metadata>
