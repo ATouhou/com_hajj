@@ -17,7 +17,7 @@ class HajjModelAdmin extends JModelLegacy {
 | Get All Hajjs
 |------------------------------------------------------------------------------------
 */
-  public function getHajjs(){
+  public function getHajjs($offset=0, $limit=0){
     $db = JFactory::getDBO();
     
     $query = $db->getQuery(true);    
@@ -25,8 +25,9 @@ class HajjModelAdmin extends JModelLegacy {
         ->select('*')
         ->from($db->quoteName('#__hajj_users'));
     
-    $db->setQuery($query);
+    $db->setQuery($query, $offset, $limit);
     $results = $db->loadObjectList();
+    
     return $results;
   }
 

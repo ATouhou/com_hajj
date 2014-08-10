@@ -51,3 +51,9 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
     </tr>
   <?php endforeach ?>
 </table>
+
+
+<ul class="pager">
+  <li class="next <?php echo ($this->start-1 == 0) ? "hidden" : "" ?>"><a href="index.php?option=com_hajj&task=admin.hajjs&p=<?php echo $this->start-1 ?>">&rarr;سابق </a></li>
+  <li class="previous"><a href="index.php?option=com_hajj&task=admin.hajjs&p=<?php echo $this->start + 1 ?>">التالي &larr;</a></li>
+</ul>
