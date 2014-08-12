@@ -135,7 +135,8 @@ class HajjControllerHajj extends JControllerLegacy
     $obj->date          = $jinput->get('date', 0, 'DATE');
     $obj->account       = $jinput->get('account', "", 'STRING');
     $obj->account_owner = $jinput->get('account_owner', 0);
-    $attachment    = $jfiles->get('attachment');
+    $obj->status        = $jinput->get('status', 0);
+    $attachment         = $jfiles->get('attachment');
 
     // Define errorMSG
     $errorMSG = "";
@@ -200,16 +201,5 @@ class HajjControllerHajj extends JControllerLegacy
     
   }
 
-
-/*
-|------------------------------------------------------------------------------------
-| Test
-|------------------------------------------------------------------------------------
-*/
-  public function getAttachment($imgName){
-    header('Content-Type: application/jpeg');
-    readfile(JPATH_SITE.'/media/com_hajj/upload/img-' . $imgName);
-    exit;
-  }
 
 }

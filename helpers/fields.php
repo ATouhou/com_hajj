@@ -540,7 +540,7 @@ public static function getEditFormHajj($data, $admin=false){
 | Get the Form of Payment
 |------------------------------------------------------------------------------------
 */
-  public static function getFormPayment($data = "", $idHajj = 0, $idPayment = 0){
+  public static function getFormPayment($data = "", $idHajj = 0, $idPayment = 0, $is_admin = false){
     ?>
 
     <form action="index.php?option=com_hajj&task=hajj.setPayment"  enctype="multipart/form-data" method="post" accept-charset="utf-8">
@@ -563,7 +563,17 @@ public static function getEditFormHajj($data, $admin=false){
         </div>
       </div>
       <div class="row-fluid">
-        <div class="span4 offset4">
+        <?php if ($is_admin): ?>
+          <div class="span4">
+            <label for="account">حالة الدفعة</label>
+            <?php if ($data == ""): 
+              HajjFieldHelper::getListStatusPayment();
+            else: 
+              HajjFieldHelper::getListStatusPayment($data->status);
+            endif ?>
+          </div>
+        <?php endif ?>
+        <div class="span4 <?php echo (!$is_admin) ? "offset4" : "" ?>">
           <label for="attachment">ارفاق السند</label>
           <input type="file" name="attachment" id="attachment" value="" <?php echo ($data == "") ? "required" : "" ?>>
         </div>

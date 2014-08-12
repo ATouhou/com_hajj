@@ -15,6 +15,7 @@ $data = $this->data;
 $toEdit = $this->toEdit;
 
 //var_dump($data);
+
 ?>
 
 <?php if ($toEdit == ""): ?>
@@ -29,7 +30,7 @@ $toEdit = $this->toEdit;
         <div class="accordion-inner">
         
         <?php
-          HajjFieldHelper::getFormPayment($toEdit, $this->idHajj, $this->idPayment);
+          HajjFieldHelper::getFormPayment($toEdit, $this->idHajj, $this->idPayment, $this->is_admin);
         ?>
         </div>
       </div>
@@ -37,7 +38,7 @@ $toEdit = $this->toEdit;
   </div>
 <?php 
   else: 
-    HajjFieldHelper::getFormPayment($toEdit, $this->idHajj, $this->idPayment);
+    HajjFieldHelper::getFormPayment($toEdit, $this->idHajj, $this->idPayment, $this->is_admin);
   endif 
 ?>
 
@@ -52,6 +53,9 @@ $toEdit = $this->toEdit;
       <th>المبلغ</th>
       <th>التاريخ</th>
       <th>حالة الدفعة</th>
+      <?php if ($this->is_admin): ?>
+        <th>السند</th>
+      <?php endif ?>
     </tr>
   </thead>
   <?php foreach ($data as $key => $payment): ?>
@@ -63,6 +67,11 @@ $toEdit = $this->toEdit;
       <td><?php echo $payment->amount ?></td>
       <td><?php echo $payment->date ?></td>
       <td><?php echo HajjFieldHelper::$status_payment[$payment->status-1] ?></td>
+      <?php if ($this->is_admin): ?>
+        <td>
+          <a href="<?php echo 'index.php?option=com_hajj&task=admin.getImgPayment&img='.$payment->attachment; ?>">السند</a>
+        </td>
+      <?php endif ?>
      
     </tr>
   <?php endforeach ?>

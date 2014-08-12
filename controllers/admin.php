@@ -269,4 +269,18 @@ class HajjControllerAdmin extends JControllerLegacy
   }
 
 
+
+/*
+|------------------------------------------------------------------------------------
+| Get the attachment for payment in case of Admine
+|------------------------------------------------------------------------------------
+*/
+  public function getImgPayment(){
+    $app     = JFactory::getApplication();
+    $jinput  = $app->input;
+    $imgName = $jinput->get("img");
+    header('Content-Type: image/jpeg');
+    readfile(JPATH_SITE.'/media/com_hajj/upload/' . $imgName);
+    exit;
+  }
 }
