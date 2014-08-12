@@ -15,7 +15,7 @@ jimport('joomla.application.component.view');
 /**
  * View class for a list of Weandlife.
  */
-class hajjViewAdminPrograms extends JViewLegacy
+class hajjViewPayments extends JViewLegacy
 {
 
   /**
@@ -23,18 +23,20 @@ class hajjViewAdminPrograms extends JViewLegacy
    */
   public function display($tpl = null)
   {   
-      $model        = JModelLegacy::getInstance('Admin', 'HajjModel');
-      $this->data   = $model->getPrograms();
+      // Get the id of hajj
+      $idUser       = JFactory::getUser()->id;
+      $model        = JModelLegacy::getInstance('hajj', 'HajjModel');
+      $this->idHajj = $model->getIdNumber($idUser);
+
+      
+      // Get the DATA
+      $model        = JModelLegacy::getInstance('Payments', 'HajjModel');
+      $this->data   = $model->getMyPayments($this->idHajj);
+      
+      // If we select an id we sould edit it in the form
       $jinput       = JFactory::getApplication()->input;
       $id           = $jinput->get('id', 0);
       $this->toEdit = "";
-      
-      $this->Itemid = $jinput->get("Itemid", 0);
-      if ($this->Itemid == 244) {
-        $this->readonly = TRUE;
-      }else{
-        $this->readonly = FALSE;
-      }
 
       if ($id) { // Get the info to edit
         foreach ($this->data as $key => $value) {
@@ -44,6 +46,11 @@ class hajjViewAdminPrograms extends JViewLegacy
           }
         }
       }
+
+      // Get the idpayment in case edit 
+      $this->idPayment = $jinput->get('id', 0);
+      
+
       parent::display($tpl);
   }
 

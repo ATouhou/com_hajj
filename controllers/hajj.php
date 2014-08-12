@@ -117,4 +117,99 @@ class HajjControllerHajj extends JControllerLegacy
     
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Add new Payments
+|------------------------------------------------------------------------------------
+*/
+  public function setPayment(){
+    
+    $app = JFactory::getApplication();
+    $jinput = $app->input;
+    $jfiles = $jinput->files;
+    
+    $obj                = new stdClass();
+    $obj->id            = $jinput->get('id');
+    $obj->id_hajj       = $jinput->get('id_hajj', "", 'STRING');
+    $obj->amount        = $jinput->get('amount', 0);
+    $obj->date          = $jinput->get('date', 0, 'DATE');
+    $obj->account       = $jinput->get('account', "", 'STRING');
+    $obj->account_owner = $jinput->get('account_owner', 0);
+    $attachment    = $jfiles->get('attachment');
+
+    // Define errorMSG
+    $errorMSG = "";
+    $fileUploaded = ($attachment['name'] == '') ? False : True ; 
+
+    // If new item and no file
+    if ($obj->id == 0 && !$fileUploaded) {
+      $errorMSG = "يرجى ارفاق السند (png/jpg)";
+    }
+    
+    // Check Errors
+    if ($attachment['error'] != 0) {
+      $errorMSG = "خطأ في ملف";
+    }
+
+    //check for filesize
+    if ($attachment['size'] > 2000000) {
+      $errorMSG = "ملف أكبر من 2MB";
+    }
+
+    // Check for Extension
+    if ($attachment['type'] != "" && $attachment['type'] != "application/pdf" && $attachment['type'] != "image/jpeg" && $attachment['type'] != "image/png" ) {
+      $errorMSG = "يرجى ارفاق السند (png/jpg)";
+    }
+
+
+    // Make the redirection
+    if ($errorMSG != "" && $obj->id == 0) { // Error and new Item
+      $app->redirect("index.php?option=com_hajj&view=payments", $errorMSG, 'error');
+    }else{// No error
+      if ($obj->id == 0) {// New Item
+        $obj->id = $this->getModel('Payments')->setPayments($obj);
+        $txt     = "تمت الإضافة بنجاح";
+      }else{ // Edit Item
+        $this->getModel('Payments')->editPayments($obj);
+        $txt = "تم التعديل بنجاح";
+      }
+    }
+
+    // Move the file
+    if ($fileUploaded) {
+      jimport('joomla.filesystem.file');
+      jimport('joomla.filesystem.folder');
+      $name         = $obj->id;
+      $originalname = $attachment['name'];
+      $fileTemp     = $attachment['tmp_name'];
+      $ext          = array_pop(explode('.', $originalname));
+      $fileName     = $name . "." . $ext;
+      $uploadPath   = JPATH_SITE.'/media/com_hajj/upload/img-'.$fileName;
+      if(!JFile::upload($fileTemp, $uploadPath)){
+        echo JText::_( 'ERROR MOVING FILE' );
+        $txt .= ", ولم يتم ارفاق السند";
+      }else{
+        $obj->attachment = 'img-' . $fileName;
+        $this->getModel('Payments')->editPayments($obj);
+        $txt .= ", و تم ارفاق السند";
+      }
+    }
+
+    
+    $app->redirect("index.php?option=com_hajj&view=payments", $txt, 'success');
+    
+  }
+
+
+/*
+|------------------------------------------------------------------------------------
+| Test
+|------------------------------------------------------------------------------------
+*/
+  public function getAttachment($imgName){
+    header('Content-Type: application/jpeg');
+    readfile(JPATH_SITE.'/media/com_hajj/upload/img-' . $imgName);
+    exit;
+  }
+
 }

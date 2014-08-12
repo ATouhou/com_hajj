@@ -16,9 +16,10 @@ class HajjFieldHelper {
     public static $RHS              = array("O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-");
     public static $hajjProgram      = array("برنامج الفرسان", "برنامج التميز", "برنامج الوسام", "برنامج الصفوة");
     public static $officeBranch     = array("مكة المكرمة", "المدينة المنورة", "جدة");
-    public static $status           = array("تحت التدقيق والمراجعة", "مقبول", "مرفوض", "تم الدفع", "الغاء الحجز");
+    public static $status_hajjs     = array("تحت التدقيق والمراجعة", "مقبول", "مرفوض", "تم الدفع", "الغاء الحجز");
     public static $reason_exception = array("محرم", "طبيب", "عصبة نساء", "مع محرمها", "اداري", "عامل في الحملة", "ممرضة", "حج عن متوفي");
-  
+    public static $account_owner    = array("مصرف الراجحي", "بنك الإنماء", "البنك الأهلي");
+    public static $status_payment   = array("تحت التدقيق", "مقبولة", "مرفوضة");
 
 /*
 |------------------------------------------------------------------------------------
@@ -403,7 +404,7 @@ public static function getEditFormHajj($data, $admin=false){
         </div>
         <div class="span4">
           <label for="register_status">حالة الحجز</label>
-          <?php HajjFieldHelper::getListStatus($data->register_status) ?>
+          <?php HajjFieldHelper::getListStatusHajjs($data->register_status) ?>
         </div>
       <?php else : ?>
         <div class="span4"></div><div class="span4"></div>
@@ -438,13 +439,13 @@ public static function getEditFormHajj($data, $admin=false){
 
 /*
 |------------------------------------------------------------------------------------
-| Get List Status
+| Get List Status Hajjs
 |------------------------------------------------------------------------------------
 */
-  public static function getListStatus($active = ""){
+  public static function getListStatusHajjs($active = ""){
     ?>
       <select name="register_status" id="register_status" required <?php echo ($active == 3 || $active == 5) ? "disabled":"" ?>>
-        <?php foreach (self::$status as $key => $value): ?>
+        <?php foreach (self::$status_hajjs as $key => $value): ?>
             <option <?php echo ($active == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>">
               <?php echo $value ?>
             </option>
@@ -453,7 +454,39 @@ public static function getEditFormHajj($data, $admin=false){
     <?php 
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Get List Status 
+|------------------------------------------------------------------------------------
+*/
+  public static function getListStatusPayment($active = ""){
+    ?>
+      <select name="status" id="status" required>
+        <?php foreach (self::$status_payment as $key => $value): ?>
+            <option <?php echo ($active == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>">
+              <?php echo $value ?>
+            </option>
+        <?php endforeach ?>
+      </select>
+    <?php 
+  }
 
+/*
+|------------------------------------------------------------------------------------
+| Get List Status 
+|------------------------------------------------------------------------------------
+*/
+  public static function getListAccountOwner($active = ""){
+    ?>
+      <select name="account" id="account" required>
+        <?php foreach (self::$account_owner as $key => $value): ?>
+            <option <?php echo ($active == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>">
+              <?php echo $value ?>
+            </option>
+        <?php endforeach ?>
+      </select>
+    <?php 
+  }
 
 /*
 |------------------------------------------------------------------------------------
@@ -461,7 +494,7 @@ public static function getEditFormHajj($data, $admin=false){
 |------------------------------------------------------------------------------------
 */
   public static function status_register($id){
-    return isset(self::$status[$id-1]) ? self::$status[$id-1] : "" ;
+    return isset(self::$status_hajjs[$id-1]) ? self::$status_hajjs[$id-1] : "" ;
   }
 
 
@@ -493,6 +526,56 @@ public static function getEditFormHajj($data, $admin=false){
         <input type="hidden" name="id" value="<?php echo ($toEdit != "") ? $toEdit->id : "" ?>">
       </div>
 
+      <input type="submit" name="" value="حفظ" class="btn btn-success">
+
+    </form>
+
+    <?php
+
+  }
+
+
+/*
+|------------------------------------------------------------------------------------
+| Get the Form of Payment
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormPayment($data = "", $idHajj = 0, $idPayment = 0){
+    ?>
+
+    <form action="index.php?option=com_hajj&task=hajj.setPayment"  enctype="multipart/form-data" method="post" accept-charset="utf-8">
+      <div class="row-fluid">
+        <div class="span4">
+          <label for="amount">المبلغ</label>
+          <input type="number" name="amount" id="amount" value="<?php echo ($data != "") ? $data->amount : "" ?>" required>
+        </div>
+        <div class="span4">
+          <label for="account_owner">صاحب الحساب</label>
+          <input type="text" name="account_owner" id="account_owner" value="<?php echo ($data != "") ? $data->account_owner : "" ?>" required>
+        </div>
+        <div class="span4">
+          <label for="account">الحساب</label>
+          <?php if ($data == ""): 
+              HajjFieldHelper::getListAccountOwner();
+            else: 
+              HajjFieldHelper::getListAccountOwner($data->account);
+            endif ?>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span4 offset4">
+          <label for="attachment">ارفاق السند</label>
+          <input type="file" name="attachment" id="attachment" value="" <?php echo ($data == "") ? "required" : "" ?>>
+        </div>
+        <div class="span4">
+          <?php require_once JPATH_COMPONENT.'/helpers/' .'components.php'; ?>
+          <?php HajjComponentsHelper::loadDatePicker() ?>
+          <label for="date">التاريخ</label>
+          <input type="text" class="datepicker" name="date" id="date" value="<?php echo ($data != "") ? $data->date : "" ?>" required autocomplete='off'>
+        </div>
+      </div>
+      <input type="hidden" name="id" value="<?php echo $idPayment ?>">
+      <input type="hidden" name="id_hajj" value="<?php echo $idHajj ?>">
       <input type="submit" name="" value="حفظ" class="btn btn-success">
 
     </form>
