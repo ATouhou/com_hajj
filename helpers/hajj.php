@@ -36,9 +36,9 @@ class HajjFrontendHelper {
       throw new Exception("Could not bind data. Error: " . $user->getError());
     }
     if (!$user->save()) {
-
-    echo "<br>Could not save user $first_name - " . $user->getError();
+      return $user->getError();
     }
+
     return $user->id;
    }
 
