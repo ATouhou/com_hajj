@@ -586,9 +586,9 @@ public static function getEditFormHajj($data, $admin=false){
       </div>
       <?php if ($is_admin): ?>
        <div class="row-fluid">
-         <div class="span4 offset8">
+        <div class="span4 offset8">
           <label for="id_hajj">رقم الحجز</label>
-          <?php HajjFieldHelper::getListHajjId() ?>
+          <?php HajjFieldHelper::getListHajjId($idHajj) ?>
          </div>
        </div> 
       <?php else: ?>
@@ -698,7 +698,7 @@ public static function getEditFormHajj($data, $admin=false){
     <select name="id_hajj" id="id_hajj" required>
       <option value=""></option>
       <?php foreach ($data as $key => $hajjs): ?>
-          <option value="<?php echo $hajjs->id ?>"><?php echo $hajjs->id . ' - ' . $hajjs->first_name . ' ' .$hajjs->familly_name  ?></option>
+        <option <?php echo ($active == $hajjs->id)? "selected":"" ?> value="<?php echo $hajjs->id ?>"><?php echo $hajjs->id . ' - ' . $hajjs->first_name . ' ' .$hajjs->familly_name  ?></option>
       <?php endforeach ?>
     </select>
 
