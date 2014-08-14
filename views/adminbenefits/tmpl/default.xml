@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-  <layout title="حالة الحجز">
+  <layout title="المستحقات والأرصدة">
     <message>
-      <![CDATA[حالة الحجز]]>
+      <![CDATA[المستحقات والأرصدة]]>
     </message>
   </layout>
 </metadata>

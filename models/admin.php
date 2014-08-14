@@ -212,11 +212,12 @@ class HajjModelAdmin extends JModelLegacy {
 
     $query = $db->getQuery(true);    
     $query
-        ->select(array('HU.id', 'HU.first_name', 'HU.familly_name', 'HP.name', 'COUNT(fils.id) AS nb_addon', 'HU.topay', 'HU.paid'))
+        ->select(array('SUM(Payments.amount) AS amount', 'HU.id', 'HU.first_name', 'HU.familly_name', 'HP.name', 'COUNT(fils.id) AS nb_addon', 'HU.topay', 'HU.paid'))
         ->from($db->quoteName('#__hajj_users', 'HU'))
         ->join('INNER', $db->quoteName('#__hajj_program', 'HP') . 
           ' ON (' . $db->quoteName('HP.id') . ' = ' . $db->quoteName('HU.hajj_program') . ')')
-        ->leftJoin('sr28a_hajj_users as fils ON fils.addon = HU.id ')
+        ->leftJoin('#__hajj_users as fils ON fils.addon = HU.id ')
+        ->leftJoin('#__hajj_payments as Payments on Payments.id_hajj = HU.id')
         ->group($db->quoteName('HU.id'))
         ->where($db->quoteName('HU.addon') . ' = 0 AND HU.register_status = 2')
         ->order($db->quoteName('HU.id'));
@@ -317,8 +318,8 @@ class HajjModelAdmin extends JModelLegacy {
 */   
   public function setCombineAddons($obj){
 
-    //UPDATE `sr28a_hajj_users` SET `addon`=101 WHERE `sr28a_hajj_users`.`id` in (102,103,104)
-    //UPDATE `sr28a_hajj_users` SET `addon = 101` WHERE `id in ( 102, 103, 104)`
+    //UPDATE `#__hajj_users` SET `addon`=101 WHERE `#__hajj_users`.`id` in (102,103,104)
+    //UPDATE `#__hajj_users` SET `addon = 101` WHERE `id in ( 102, 103, 104)`
 
     $db = JFactory::getDbo();
     $query = $db->getQuery(true);

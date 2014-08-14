@@ -16,7 +16,7 @@ $data = $this->data;
 //var_dump($data);
 
 ?>
-<h1>المستحقات</h1>
+<h1>المستحقات والأرصدة</h1>
 <table class="allhajjs table table-condensed table-bordered ">
   <thead>
     <tr>
@@ -27,6 +27,8 @@ $data = $this->data;
       <th>عدد المرافقين</th>
       <th>العدد الكلي</th>
       <th>المبلغ المطلوب</th>
+      <th>المبلغ المدفوع</th>
+      <th>الرصيد</th>
     </tr>
   </thead>
 
@@ -39,6 +41,8 @@ $data = $this->data;
       <td><?php echo $value->nb_addon ?></td>
       <td><?php echo $value->nb_addon+1 ?></td>
       <td><?php echo $value->topay ?></td>
+      <td><?php echo $value->amount ?></td>
+      <td><?php echo $value->topay - $value->amount ?></td>
     </tr>
   <?php endforeach ?>
   
