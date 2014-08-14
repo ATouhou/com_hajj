@@ -588,7 +588,7 @@ public static function getEditFormHajj($data, $admin=false){
        <div class="row-fluid">
          <div class="span4 offset8">
           <label for="id_hajj">رقم الحجز</label>
-          <input type="text" name="id_hajj" value="<?php echo $idHajj ?>">
+          <?php HajjFieldHelper::getListHajjId($idHajj) ?>
          </div>
        </div> 
       <?php else: ?>
@@ -685,7 +685,25 @@ public static function getEditFormHajj($data, $admin=false){
 
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Get List of Hajj Id
+|------------------------------------------------------------------------------------
+*/
+  public static function getListHajjId($active = ""){
 
+    $data        = JModelLegacy::getInstance('Admin', 'HajjModel')->getHajjs();
+
+?>
+    <select name="id_hajj" id="id_hajj" required>
+      <option value=""></option>
+      <?php foreach ($data as $key => $hajjs): ?>
+          <option <?php echo ($active == $hajjs->id)? "selected":"" ?> value="<?php echo $hajjs->id ?>"><?php echo $hajjs->id . ' - ' . $hajjs->first_name . ' ' .$hajjs->familly_name  ?></option>
+      <?php endforeach ?>
+    </select>
+
+<?php
+  } 
 
 }
 
