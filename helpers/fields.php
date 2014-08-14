@@ -584,8 +584,18 @@ public static function getEditFormHajj($data, $admin=false){
           <input type="text" class="datepicker" name="date" id="date" value="<?php echo ($data != "") ? $data->date : "" ?>" required autocomplete='off'>
         </div>
       </div>
+      <?php if ($is_admin): ?>
+       <div class="row-fluid">
+         <div class="span4 offset8">
+          <label for="id_hajj">رقم الحجز</label>
+          <input type="text" name="id_hajj" value="<?php echo $idHajj ?>">
+         </div>
+       </div> 
+      <?php else: ?>
+          <input type="hidden" name="id_hajj" value="<?php echo $idHajj ?>">
+      <?php endif ?>
       <input type="hidden" name="id" value="<?php echo $idPayment ?>">
-      <input type="hidden" name="id_hajj" value="<?php echo $idHajj ?>">
+      
       <input type="submit" name="" value="حفظ" class="btn btn-success">
 
     </form>
