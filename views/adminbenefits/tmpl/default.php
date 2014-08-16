@@ -33,6 +33,7 @@ $data = $this->data;
   </thead>
 
   <?php foreach ($data as $key => $value): ?>
+    <?php $value->amount = (is_null($value->amount)) ? 0:$value->amount; ?>
     <tr>
       <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $value->id ?>"><?php echo $value->id ?></a></td>
       <td><?php echo $value->first_name ?></td>

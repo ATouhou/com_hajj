@@ -135,7 +135,7 @@ class HajjControllerHajj extends JControllerLegacy
     $obj->date          = $jinput->get('date', 0, 'DATE');
     $obj->account       = $jinput->get('account', "", 'STRING');
     $obj->account_owner = $jinput->get('account_owner', 0);
-    $obj->status        = $jinput->get('status', 0);
+    $obj->status        = $jinput->get('status', 1);
     $attachment         = $jfiles->get('attachment');
 
     // Define errorMSG

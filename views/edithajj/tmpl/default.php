@@ -18,4 +18,4 @@ $data = $this->data;
 
 <h2>رقم حجزك <?php echo $data->id ?></h2>
 <?php 
-HajjFieldHelper::getEditFormHajj($data);
+HajjFieldHelper::getEditFormHajj($data, $is_hajj=true);

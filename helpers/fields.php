@@ -26,19 +26,20 @@ class HajjFieldHelper {
 | Get list of Programs
 |------------------------------------------------------------------------------------
 */
-  public static function getPrograms(){
+  public static function getPrograms($is_admin=false){
     $db = JFactory::getDBO();
     $query = $db->getQuery(TRUE);
     $query
         ->select($db->quoteName(array('id', 'name')))
-        ->from($db->quoteName('#__hajj_program'))
-        ->where('status=1');
+        ->from($db->quoteName('#__hajj_program'));
+    if (!$is_admin) {
+      $query->where('status=1');
+    }    
     
     $db->setQuery($query);
     $results = $db->loadObjectList();
     
     return ($results);
-    
   } 
 
 
@@ -47,21 +48,21 @@ class HajjFieldHelper {
 | Get list of Branchs
 |------------------------------------------------------------------------------------
 */
-  public static function getBranchs(){
+  public static function getBranchs($is_admin=false){
     $db = JFactory::getDBO();
     $query = $db->getQuery(TRUE);
     $query
         ->select($db->quoteName(array('id', 'name')))
-        ->from($db->quoteName('#__hajj_branch'))
-        ->where('status=1');
+        ->from($db->quoteName('#__hajj_branch'));
+    if (!$is_admin) {
+      $query->where('status=1');
+    }
     
     $db->setQuery($query);
     $results = $db->loadObjectList();
     
     return ($results);
-    
   } 
-
 
 /*
 |------------------------------------------------------------------------------------
@@ -147,12 +148,12 @@ class HajjFieldHelper {
 | Get Hajj Program
 |------------------------------------------------------------------------------------
 */
-  public static function getHajjProgram($active = ""){    
+  public static function getHajjProgram($active = "", $is_admin=false){    
 
     ?>
       <select name="hajj_program" id="hajj_program" required>
         <option value=""></option>
-        <?php foreach (self::getPrograms() as $key => $value): ?>
+        <?php foreach (self::getPrograms($is_admin) as $key => $value): ?>
           <option <?php echo ($active == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
         <?php endforeach ?>
       </select>
@@ -164,9 +165,9 @@ class HajjFieldHelper {
 | Get Hajj Program List
 |------------------------------------------------------------------------------------
 */
-  public static function getHajjProgramList(){    
+  public static function getHajjProgramList($is_admin=false){    
       $array = array();
-      foreach (self::getPrograms() as $key => $value){
+      foreach (self::getPrograms($is_admin) as $key => $value){
         $array[$value->id] = $value->name;
       }
 
@@ -178,11 +179,11 @@ class HajjFieldHelper {
 |  Get Office Branch
 |------------------------------------------------------------------------------------
 */
-  public static function GetOfficeBranch($active = ""){
+  public static function GetOfficeBranch($active = "", $is_admin=false){
     ?>
       <select name="office_branch" id="office_branch" required>
         <option value=""></option>
-        <?php foreach (self::getBranchs() as $key => $value): ?>
+        <?php foreach (self::getBranchs($is_admin) as $key => $value): ?>
           <option <?php echo ($active == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
         <?php endforeach ?>
       </select>
@@ -194,9 +195,9 @@ class HajjFieldHelper {
 | Get Office Branch List
 |------------------------------------------------------------------------------------
 */
-  public static function getHajjOfficeBranchList(){    
+  public static function getHajjOfficeBranchList($is_admin=false){    
       $array = array();
-      foreach (self::getBranchs() as $key => $value){
+      foreach (self::getBranchs($is_admin) as $key => $value){
         $array[$value->id] = $value->name;
       }
 
@@ -223,203 +224,201 @@ class HajjFieldHelper {
 | Get the Form of Hajj register
 |------------------------------------------------------------------------------------
 */
-public static function getFormHajj($addon = false){
-  ?>
-    <form action="index.php?option=com_hajj&task=public.setnewhajj" method="post" accept-charset="utf-8">
-      <div class="row-fluid">
-        <div class="span4">
-          <label for="third_name">الاسم الثالث</label>
-          <input type="text" name="third_name" id="third_name" required>
+  public static function getFormHajj($addon = false){
+    ?>
+      <form action="index.php?option=com_hajj&task=public.setnewhajj" method="post" accept-charset="utf-8">
+        <div class="row-fluid">
+          <div class="span4">
+            <label for="third_name">الاسم الثالث</label>
+            <input type="text" name="third_name" id="third_name" required>
+          </div>
+          <div class="span4">
+            <label for="second_name">الاسم الثاني</label>
+            <input type="text" name="second_name" id="second_name" required>
+          </div>
+          <div class="span4">
+            <label for="first_name">الاسم الاول</label>
+            <input type="text" name="first_name" id="first_name" required>
+          </div>
         </div>
-        <div class="span4">
-          <label for="second_name">الاسم الثاني</label>
-          <input type="text" name="second_name" id="second_name" required>
+        <div class="row-fluid">
+          <div class="span4">
+            <label for="nationality">الجنسية</label>
+            <?php self::getListNationnality() ?>
+          </div>
+          <div class="span4">
+            <label for="sexe">الجنس</label>
+            <select name="sexe" id="sexe" required>
+              <option></option>
+              <option value="m">ذكر</option>
+              <option value="f">انثى</option>
+            </select>
+          </div>
+          <div class="span4">
+            <label for="familly_name">العائلة</label>
+            <input type="text" name="familly_name" id="familly_name" required>
+          </div>
         </div>
-        <div class="span4">
-          <label for="first_name">الاسم الاول</label>
-          <input type="text" name="first_name" id="first_name" required>
+        <div class="row-fluid">
+          <div class="span4">
+            <label for="id_number">رقم الهوية / الإقامة</label>
+            <input type="text" name="id_number" id="id_number" required pattern="[0-9]{10}|[١-٩]{10}" placeholder="يجب أن يكون عشرة أرقام">
+          </div>
+          <div class="span4">
+            <label for="birthday">تاريخ الميلاد</label>
+            <?php self::getBirthday() ?>
+          </div>
+          <div class="span4">
+            <label for="job">الوظيفة</label>
+            <input type="text" name="job" id="job" required>
+          </div>
         </div>
-      </div>
-      <div class="row-fluid">
-        <div class="span4">
-          <label for="nationality">الجنسية</label>
-          <?php self::getListNationnality() ?>
+        <div class="row-fluid">
+          <div class="span4">
+            <label for="rh">فصيلة الدم</label>
+            <?php self::getRH() ?>
+          </div>
+          <div class="span4">
+            <label for="address">العنوان</label>
+            <input type="text" name="address" id="address" required>
+          </div>
+          <div class="span4">
+            <label for="mobile">الجوال</label>
+            <input type="text" name="mobile" id="mobile" required placeholder="05xxxxxxxx">  <!-- pattern="05[0-9]{8}" -->
+          </div>
         </div>
-        <div class="span4">
-          <label for="sexe">الجنس</label>
-          <select name="sexe" id="sexe" required>
-            <option></option>
-            <option value="m">ذكر</option>
-            <option value="f">انثى</option>
-          </select>
+        <div class="row-fluid">
+          <div class="span4">
+            <label for="email">البريد الالكتروني</label>
+            <input type="text" name="email" id="email">
+          </div>
+          <div class="span4">
+            <label for="office_branch">فرع التسجيل</label>
+            <?php self::GetOfficeBranch() ?>
+          </div>
+          <div class="span4">
+            <label for="hajj_program">برنامج الحج</label>
+            <?php self::getHajjProgram() ?>
+          </div>
         </div>
-        <div class="span4">
-          <label for="familly_name">العائلة</label>
-          <input type="text" name="familly_name" id="familly_name" required>
+        <?php if ($addon): ?>
+        <div class="row-fluid">
+          <div class="span4"></div>
+          <div class="span4"></div>
+          <div class="span4">
+            <label for="email">سبب الاستثناء</label>
+            <?php self::getReasonException() ?>
+          </div>
         </div>
-      </div>
-      <div class="row-fluid">
-        <div class="span4">
-          <label for="id_number">رقم الهوية / الإقامة</label>
-          <input type="text" name="id_number" id="id_number" required pattern="[0-9]{10}|[١-٩]{10}" placeholder="يجب أن يكون عشرة أرقام">
-        </div>
-        <div class="span4">
-          <label for="birthday">تاريخ الميلاد</label>
-          <?php self::getBirthday() ?>
-        </div>
-        <div class="span4">
-          <label for="job">الوظيفة</label>
-          <input type="text" name="job" id="job" required>
-        </div>
-      </div>
-      <div class="row-fluid">
-        <div class="span4">
-          <label for="rh">فصيلة الدم</label>
-          <?php self::getRH() ?>
-        </div>
-        <div class="span4">
-          <label for="address">العنوان</label>
-          <input type="text" name="address" id="address" required>
-        </div>
-        <div class="span4">
-          <label for="mobile">الجوال</label>
-          <input type="text" name="mobile" id="mobile" required placeholder="05xxxxxxxx">  <!-- pattern="05[0-9]{8}" -->
-        </div>
-      </div>
-      <div class="row-fluid">
-        <div class="span4">
-          <label for="email">البريد الالكتروني</label>
-          <input type="text" name="email" id="email">
-        </div>
-        <div class="span4">
-          <label for="office_branch">فرع التسجيل</label>
-          <?php self::GetOfficeBranch() ?>
-        </div>
-        <div class="span4">
-          <label for="hajj_program">برنامج الحج</label>
-          <?php self::getHajjProgram() ?>
-        </div>
-      </div>
-      <?php if ($addon): ?>
-      <div class="row-fluid">
-        <div class="span4"></div>
-        <div class="span4"></div>
-        <div class="span4">
-          <label for="email">سبب الاستثناء</label>
-          <?php self::getReasonException() ?>
-        </div>
-      </div>
-      <?php endif ?>
-      <input type="submit" value="حجز و تسجيل" class="btn btn-success">
-    </form>
-  <?php
+        <?php endif ?>
+        <input type="submit" value="حجز و تسجيل" class="btn btn-success">
+      </form>
+    <?php
 }
-  
-
 
 /*
 |------------------------------------------------------------------------------------
 | Get the Form of Hajj register
 |------------------------------------------------------------------------------------
 */
-public static function getEditFormHajj($data, $admin=false){
-  ?>
-    <form action="index.php?option=com_hajj&task=hajj.setedithajj" method="post" accept-charset="utf-8">
-      <input type="hidden" name="id_user" value="<?php echo $data->id_user ?>">
-      <div class="row-fluid">
-        <div class="span4">
-          <label for="third_name">الاسم الثالث</label>
-          <input type="text" name="third_name" id="third_name" value="<?php echo $data->third_name ?>" required>
+  public static function getEditFormHajj($data, $is_admin=false){
+    ?>
+      <form action="index.php?option=com_hajj&task=hajj.setedithajj" method="post" accept-charset="utf-8">
+        <input type="hidden" name="id_user" value="<?php echo $data->id_user ?>">
+        <div class="row-fluid">
+          <div class="span4">
+            <label for="third_name">الاسم الثالث</label>
+            <input type="text" name="third_name" id="third_name" value="<?php echo $data->third_name ?>" required>
+          </div>
+          <div class="span4">
+            <label for="second_name">الاسم الثاني</label>
+            <input type="text" name="second_name" id="second_name" value="<?php echo $data->second_name ?>" required>
+          </div>
+          <div class="span4">
+            <label for="first_name">الاسم الاول</label>
+            <input type="text" name="first_name" id="first_name" value="<?php echo $data->first_name ?>" required>
+          </div>
         </div>
-        <div class="span4">
-          <label for="second_name">الاسم الثاني</label>
-          <input type="text" name="second_name" id="second_name" value="<?php echo $data->second_name ?>" required>
+        <div class="row-fluid">
+          <div class="span4">
+            <label for="nationality">الجنسية</label>
+            <?php HajjFieldHelper::getListNationnality($data->nationality) ?>
+          </div>
+          <div class="span4">
+            <label for="sexe">الجنس</label>
+            <?php HajjFieldHelper::getsexe($data->sexe) ?>
+          </div>
+          <div class="span4">
+            <label for="familly_name">العائلة</label>
+            <input type="text" name="familly_name" id="familly_name" value="<?php echo $data->familly_name ?>" required>
+          </div>
         </div>
-        <div class="span4">
-          <label for="first_name">الاسم الاول</label>
-          <input type="text" name="first_name" id="first_name" value="<?php echo $data->first_name ?>" required>
+        <div class="row-fluid">
+          <div class="span4">
+            <label for="id_number">رقم الهوية / الإقامة</label>
+            <input type="text" name="id_number" id="id_number" value="<?php echo $data->id_number ?>" disabled pattern="[0-9]{10}" placeholder="يجب أن يكون عشرة أرقام">
+          </div>
+          <div class="span4">
+            <label for="birthday">تاريخ الميلاد</label>
+            <?php HajjFieldHelper::getBirthday($data->birthday) ?>
+          </div>
+          <div class="span4">
+            <label for="job">الوظيفة</label>
+            <input type="text" name="job" id="job" value="<?php echo $data->job ?>" required>
+          </div>
         </div>
-      </div>
-      <div class="row-fluid">
-        <div class="span4">
-          <label for="nationality">الجنسية</label>
-          <?php HajjFieldHelper::getListNationnality($data->nationality) ?>
+        <div class="row-fluid">
+          <div class="span4">
+            <label for="rh">فصيلة الدم</label>
+            <?php HajjFieldHelper::getRH($data->rh) ?>
+          </div>
+          <div class="span4">
+            <label for="address">العنوان</label>
+            <input type="text" name="address" id="address" value="<?php echo $data->address ?>" required>
+          </div>
+          <div class="span4">
+            <label for="mobile">الجوال</label>
+            <input type="text" name="mobile" id="mobile" value="<?php echo $data->mobile ?>" required placeholder="05xxxxxxxx"> <!-- pattern="05[0-9]{8}" -->
+          </div>
         </div>
-        <div class="span4">
-          <label for="sexe">الجنس</label>
-          <?php HajjFieldHelper::getsexe($data->sexe) ?>
+        <div class="row-fluid">
+          <div class="span4">
+            <label for="email">البريد الالكتروني</label>
+            <input type="text" name="email" id="email" value="<?php echo $data->email ?>">
+          </div>
+          <div class="span4">
+            <label for="office_branch">فرع التسجيل</label>
+            <?php HajjFieldHelper::GetOfficeBranch($data->office_branch, $is_admin) ?>
+          </div>
+          <div class="span4">
+            <label for="hajj_program">برنامج الحج</label>
+            <?php HajjFieldHelper::getHajjProgram($data->hajj_program, $is_admin) ?>
+          </div>
         </div>
-        <div class="span4">
-          <label for="familly_name">العائلة</label>
-          <input type="text" name="familly_name" id="familly_name" value="<?php echo $data->familly_name ?>" required>
+        <div class="row-fluid">
+        <?php if ($is_admin): ?>
+          <div class="span4">
+            <label for="topay">المبلغ المطلوب</label>
+            <input type="text" name="topay" id="topay" value="<?php echo $data->topay ?>" required>
+          </div>
+          <div class="span4">
+            <label for="register_status">حالة الحجز</label>
+            <?php HajjFieldHelper::getListStatusHajjs($data->register_status) ?>
+          </div>
+        <?php else : ?>
+          <div class="span4"></div><div class="span4"></div>
+        <?php endif ?>
+          <div class="span4">
+            <label>توقيت التسجيل</label>
+            <input class="date_register" type="text" disabled value="<?php echo $data->date_register ?>" placeholder="">
+          </div>
         </div>
-      </div>
-      <div class="row-fluid">
-        <div class="span4">
-          <label for="id_number">رقم الهوية / الإقامة</label>
-          <input type="text" name="id_number" id="id_number" value="<?php echo $data->id_number ?>" disabled pattern="[0-9]{10}" placeholder="يجب أن يكون عشرة أرقام">
-        </div>
-        <div class="span4">
-          <label for="birthday">تاريخ الميلاد</label>
-          <?php HajjFieldHelper::getBirthday($data->birthday) ?>
-        </div>
-        <div class="span4">
-          <label for="job">الوظيفة</label>
-          <input type="text" name="job" id="job" value="<?php echo $data->job ?>" required>
-        </div>
-      </div>
-      <div class="row-fluid">
-        <div class="span4">
-          <label for="rh">فصيلة الدم</label>
-          <?php HajjFieldHelper::getRH($data->rh) ?>
-        </div>
-        <div class="span4">
-          <label for="address">العنوان</label>
-          <input type="text" name="address" id="address" value="<?php echo $data->address ?>" required>
-        </div>
-        <div class="span4">
-          <label for="mobile">الجوال</label>
-          <input type="text" name="mobile" id="mobile" value="<?php echo $data->mobile ?>" required placeholder="05xxxxxxxx"> <!-- pattern="05[0-9]{8}" -->
-        </div>
-      </div>
-      <div class="row-fluid">
-        <div class="span4">
-          <label for="email">البريد الالكتروني</label>
-          <input type="text" name="email" id="email" value="<?php echo $data->email ?>">
-        </div>
-        <div class="span4">
-          <label for="office_branch">فرع التسجيل</label>
-          <?php HajjFieldHelper::GetOfficeBranch($data->office_branch) ?>
-        </div>
-        <div class="span4">
-          <label for="hajj_program">برنامج الحج</label>
-          <?php HajjFieldHelper::getHajjProgram($data->hajj_program) ?>
-        </div>
-      </div>
-      <div class="row-fluid">
-      <?php if ($admin): ?>
-        <div class="span4">
-          <label for="topay">المبلغ المطلوب</label>
-          <input type="text" name="topay" id="topay" value="<?php echo $data->topay ?>" required>
-        </div>
-        <div class="span4">
-          <label for="register_status">حالة الحجز</label>
-          <?php HajjFieldHelper::getListStatusHajjs($data->register_status) ?>
-        </div>
-      <?php else : ?>
-        <div class="span4"></div><div class="span4"></div>
-      <?php endif ?>
-        <div class="span4">
-          <label>توقيت التسجيل</label>
-          <input class="date_register" type="text" disabled value="<?php echo $data->date_register ?>" placeholder="">
-        </div>
-      </div>
 
-      <input type="hidden" name="id" value="<?php echo $data->id ?>">
-      <input type="submit" value="حفظ التعديل" class="btn btn-success">
-    </form>
-  <?php
-}
+        <input type="hidden" name="id" value="<?php echo $data->id ?>">
+        <input type="submit" value="حفظ التعديل" class="btn btn-success">
+      </form>
+    <?php
+  }
 
 /*
 |------------------------------------------------------------------------------------
@@ -497,7 +496,6 @@ public static function getEditFormHajj($data, $admin=false){
     return isset(self::$status_hajjs[$id-1]) ? self::$status_hajjs[$id-1] : "" ;
   }
 
-
 /*
 |------------------------------------------------------------------------------------
 | Get the Form of Programs
@@ -505,7 +503,6 @@ public static function getEditFormHajj($data, $admin=false){
 */
   public static function getFormProgram($toEdit = "", $readonly = TRUE){
     ?>
-
     <form action="index.php?option=com_hajj&task=admin.setProgram" method="post" accept-charset="utf-8">
       <div class="row-fluid">
         <div class="span4">
@@ -531,9 +528,7 @@ public static function getEditFormHajj($data, $admin=false){
     </form>
 
     <?php
-
   }
-
 
 /*
 |------------------------------------------------------------------------------------
@@ -601,7 +596,6 @@ public static function getEditFormHajj($data, $admin=false){
     </form>
 
     <?php
-
   }
 
 
@@ -647,9 +641,7 @@ public static function getEditFormHajj($data, $admin=false){
     </form>
 
     <?php
-
   }
-
 
 /*
 |------------------------------------------------------------------------------------
@@ -682,7 +674,6 @@ public static function getEditFormHajj($data, $admin=false){
     </form>
 
     <?php
-
   }
 
 /*
@@ -694,7 +685,7 @@ public static function getEditFormHajj($data, $admin=false){
 
     $data        = JModelLegacy::getInstance('Admin', 'HajjModel')->getHajjs();
 
-?>
+    ?>
     <select name="id_hajj" id="id_hajj" required>
       <option value=""></option>
       <?php foreach ($data as $key => $hajjs): ?>
@@ -702,7 +693,7 @@ public static function getEditFormHajj($data, $admin=false){
       <?php endforeach ?>
     </select>
 
-<?php
+    <?php
   } 
 
 }

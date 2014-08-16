@@ -14,8 +14,9 @@ require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
 $data = $this->data;
 //var_dump($data);
-$ProgramList = HajjFieldHelper::getHajjProgramList();
-$OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
+$ProgramList = HajjFieldHelper::getHajjProgramList($is_admin=true);
+$OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList($is_admin=true);
+
 
 ?>
 <h1>طلبات الحجز</h1>
