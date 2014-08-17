@@ -18,4 +18,5 @@ $data = $this->data;
 
 <h2>رقم حجزك <?php echo $data->id ?></h2>
 <?php 
-HajjFieldHelper::getEditFormHajj($data, $is_hajj=true);
+$all_read_only = ($data->transfer_status) ? TRUE : FALSE ;
+HajjFieldHelper::getEditFormHajj($data, $is_hajj=false, $all_read_only);

@@ -333,4 +333,23 @@ class HajjModelAdmin extends JModelLegacy {
     return($result);
   }
 
+/*
+|------------------------------------------------------------------------------------
+| set Combine Addons
+|------------------------------------------------------------------------------------
+*/   
+  public function setTransferStatus($obj){
+
+    $db = JFactory::getDbo();
+    $query = $db->getQuery(true);
+
+    $query->update($db->quoteName('#__hajj_users'))
+          ->set($db->quoteName('transfer_status') . ' = '.$obj->transfer_status)
+          ->where($db->quoteName('id') .  'in ( ' . $obj->id .')');
+
+    $db->setQuery($query);
+    $result = $db->query();
+    return($result);
+  }
+
 }

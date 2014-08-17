@@ -321,9 +321,15 @@ class HajjFieldHelper {
 | Get the Form of Hajj register
 |------------------------------------------------------------------------------------
 */
-  public static function getEditFormHajj($data, $is_admin=false){
+  public static function getEditFormHajj($data, $is_admin=false, $all_read_only=false){
     ?>
-      <form action="index.php?option=com_hajj&task=hajj.setedithajj" method="post" accept-charset="utf-8">
+    <?php if ($all_read_only): ?>
+      <div class="alert fade in alert-error">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>لا يمكنك تعديل البيانات</strong> لقد تم توقيف التحويل لديك
+      </div>
+    <?php endif ?>
+      <form action="index.php?option=com_hajj&task=hajj.setedithajj" method="post" accept-charset="utf-8" <?php echo ($all_read_only)? 'class="disabled"':''; ?>>
         <input type="hidden" name="id_user" value="<?php echo $data->id_user ?>">
         <div class="row-fluid">
           <div class="span4">
@@ -388,11 +394,11 @@ class HajjFieldHelper {
           </div>
           <div class="span4">
             <label for="office_branch">فرع التسجيل</label>
-            <?php HajjFieldHelper::GetOfficeBranch($data->office_branch, $is_admin) ?>
+            <?php HajjFieldHelper::GetOfficeBranch($data->office_branch, true) ?>
           </div>
           <div class="span4">
             <label for="hajj_program">برنامج الحج</label>
-            <?php HajjFieldHelper::getHajjProgram($data->hajj_program, $is_admin) ?>
+            <?php HajjFieldHelper::getHajjProgram($data->hajj_program, true) ?>
           </div>
         </div>
         <div class="row-fluid">

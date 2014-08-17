@@ -283,4 +283,26 @@ class HajjControllerAdmin extends JControllerLegacy
     readfile(JPATH_SITE.'/media/com_hajj/upload/' . $imgName);
     exit;
   }
+
+
+/*
+|------------------------------------------------------------------------------------
+| Get the attachment for payment in case of Admine
+|------------------------------------------------------------------------------------
+*/
+  public function setTransferStatus(){
+    $app                  = JFactory::getApplication();
+    $jinput               = $app->input;
+    
+    $obj                  = new stdClass();
+    $obj->transfer_status = $jinput->get("transfer_status", 0);
+    $id                   = $jinput->get("id",  '', 'ARRAY');
+    $obj->id              = implode(', ', $id);
+    
+    if($this->getModel('admin')->setTransferStatus($obj)){
+      $app->redirect('index.php?option=com_hajj&task=admin.hajjs', 'تم  تعديل التحويل بنجاح', 'success');
+    }else{
+      $app->redirect('index.php?option=com_hajj&task=admin.hajjs', 'خطأ SQL', 'error');
+    }
+  }
 }
