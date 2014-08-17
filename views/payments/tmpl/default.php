@@ -61,7 +61,7 @@ $toEdit = $this->toEdit;
   <?php foreach ($data as $key => $payment): ?>
     <tr>
       <td><a href="index.php?option=com_hajj&view=payments&id=<?php echo $payment->id ?>"><?php echo $payment->id ?></a></td>
-      <td><?php echo $payment->id_hajj ?></td>
+      <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $payment->id_hajj ?>"><?php echo $payment->id_hajj ?></a></td>
       <td><?php echo HajjFieldHelper::$account_owner[$payment->account-1] ?></td>
       <td><?php echo $payment->account_owner ?></td>
       <td><?php echo $payment->amount ?></td>
