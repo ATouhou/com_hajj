@@ -23,7 +23,9 @@ class hajjViewAdminHajj extends JViewLegacy
    */
   public function display($tpl = null)
   {   
-      
+      $model        = JModelLegacy::getInstance('Hajj', 'HajjModel');
+      $ID           = JFactory::getApplication()->input->get('id', 0);
+      $this->addons = $model->getAddons($ID);
       parent::display($tpl);
   }
 
