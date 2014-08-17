@@ -12,7 +12,6 @@ defined('_JEXEC') or die;
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 $data = $this->data;
-//var_dump($data);
 
 ?>
 <h1>تعديل <?php echo $data->id ?></h1>
