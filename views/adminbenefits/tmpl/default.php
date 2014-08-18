@@ -12,8 +12,11 @@ defined('_JEXEC') or die;
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
-$data = $this->data;
-//var_dump($data);
+
+$Hajjs = $this->data->Hajjs;
+$Payments = $this->data->Payments;
+
+//var_dump($Payments);
 
 ?>
 <h1>المستحقات والأرصدة</h1>
@@ -32,18 +35,24 @@ $data = $this->data;
     </tr>
   </thead>
 
-  <?php foreach ($data as $key => $value): ?>
-    <?php $value->amount = (is_null($value->amount)) ? 0:$value->amount; ?>
+  <?php foreach ($Hajjs as $key => $hajj): ?>
+    <?php 
+          // Retrieve the values
+          $ID    = $hajj->id;
+          $topay = $hajj->topay;
+          $paid  = (!isset($Payments[$ID])) ? 0 : $Payments[$ID];
+          $rest  = $topay - $paid;
+    ?>
     <tr>
-      <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $value->id ?>"><?php echo $value->id ?></a></td>
-      <td><?php echo $value->first_name ?></td>
-      <td><?php echo $value->familly_name ?></td>
-      <td><?php echo $value->name ?></td>
-      <td><?php echo $value->nb_addon ?></td>
-      <td><?php echo $value->nb_addon+1 ?></td>
-      <td><?php echo $value->topay ?></td>
-      <td><?php echo $value->amount ?></td>
-      <td><?php echo $value->topay - $value->amount ?></td>
+      <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $hajj->id ?>"><?php echo $hajj->id ?></a></td>
+      <td><?php echo $hajj->first_name ?></td>
+      <td><?php echo $hajj->familly_name ?></td>
+      <td><?php echo $hajj->name ?></td>
+      <td><?php echo $hajj->nb_addon ?></td>
+      <td><?php echo $hajj->nb_addon+1 ?></td>
+      <td><?php echo $topay ?></td>
+      <td><?php echo $paid ?></td>
+      <td><?php echo $rest ?></td>
     </tr>
   <?php endforeach ?>
   

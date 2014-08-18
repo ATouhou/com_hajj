@@ -210,22 +210,47 @@ class HajjModelAdmin extends JModelLegacy {
   public function getBenefits(){
     $db = JFactory::getDBO();    
 
+    // Get the list of HAJJS with the addons
     $query = $db->getQuery(true);    
     $query
-        ->select(array('SUM(Payments.amount) AS amount', 'HU.id', 'HU.first_name', 'HU.familly_name', 'HP.name', 'COUNT(fils.id) AS nb_addon', 'HU.topay', 'HU.paid'))
+        ->select(array('HU.id', 'HU.first_name', 'HU.familly_name', 'HP.name', 'COUNT(fils.id) AS nb_addon', 'HU.topay', 'HU.paid'))
         ->from($db->quoteName('#__hajj_users', 'HU'))
         ->join('INNER', $db->quoteName('#__hajj_program', 'HP') . 
           ' ON (' . $db->quoteName('HP.id') . ' = ' . $db->quoteName('HU.hajj_program') . ')')
         ->leftJoin('#__hajj_users as fils ON fils.addon = HU.id ')
-        ->leftJoin('#__hajj_payments as Payments on Payments.id_hajj = HU.id')
         ->group($db->quoteName('HU.id'))
         ->where($db->quoteName('HU.addon') . ' = 0 AND HU.register_status = 2')
         ->order($db->quoteName('HU.id'));
     
     $db->setQuery($query);
-    $results = $db->loadObjectList();
+    $Hajjs = $db->loadObjectList();
+
+
+    // Get the SUM of Payments
+    $query = $db->getQuery(true);    
+    $query
+        ->select(array('id_hajj','sum(amount) AS amount'))
+        ->from($db->quoteName('#__hajj_users', 'HU'))
+        ->rightJoin('#__hajj_payments as Payment ON Payment.id_hajj = HU.id ')
+        ->where($db->quoteName('Payment.status') . ' = 2')
+        ->group($db->quoteName('Payment.id_hajj'));
+        
+    $db->setQuery($query);
+    $Payments_tmp = $db->loadObjectList();
+
+    // Recreate the payments array id=>sum
+    $Payments = array();
+    foreach ($Payments_tmp as $key => $value) {
+      $Payments[$value->id_hajj] = $value->amount;
+    }
+
+    $results = new stdClass();
+    $results->Payments = $Payments;
+    $results->Hajjs = $Hajjs;
+
     return $results;
   }
+  
 
 /*
 |------------------------------------------------------------------------------------
