@@ -31,6 +31,29 @@ class HajjModelAdmin extends JModelLegacy {
     return $results;
   }
 
+  
+/*
+|------------------------------------------------------------------------------------
+| Get All Hajjs
+|------------------------------------------------------------------------------------
+*/
+  public function getNbHajjs(){
+    $db = JFactory::getDBO();
+    
+    $query = $db->getQuery(true);    
+    $query
+        ->select('id')
+        ->from($db->quoteName('#__hajj_users'));
+    
+    $db->setQuery($query);
+    $db->execute();
+    $result = $db->getNumRows();
+    
+    return $result;
+  }
+
+
+
 /*
 |------------------------------------------------------------------------------------
 | Get One Hajj

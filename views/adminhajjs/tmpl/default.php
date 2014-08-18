@@ -12,10 +12,15 @@ defined('_JEXEC') or die;
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
+require_once JPATH_COMPONENT.'/helpers/' .'components.php';
+
+$url = 'index.php?option=com_hajj&task=admin.hajjs&p=';
 $data = $this->data;
 //var_dump($data);
-$ProgramList = HajjFieldHelper::getHajjProgramList($is_admin=true);
+
+$ProgramList      = HajjFieldHelper::getHajjProgramList($is_admin=true);
 $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList($is_admin=true);
+$ThePagination    = HajjComponentsHelper::getPagination($url, $this->nbHajjs, 20, $this->start);
 
 
 ?>
@@ -24,6 +29,7 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList($is_admin=true);
   <li class="next <?php echo ($this->start-1 == 0) ? "hidden" : "" ?>"><a href="index.php?option=com_hajj&task=admin.hajjs&p=<?php echo $this->start-1 ?>">&rarr;سابق </a></li>
   <li class="previous <?php echo (sizeof($data) < 20 || sizeof($data) == 0) ? "hidden" : "" ?>"><a href="index.php?option=com_hajj&task=admin.hajjs&p=<?php echo $this->start + 1 ?>">التالي &larr;</a></li>
 </ul>
+<?php echo $ThePagination; ?>
 <table class="allhajjs table table-condensed table-bordered ">
   <thead>
     <tr>
@@ -64,3 +70,5 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList($is_admin=true);
   <li class="next <?php echo ($this->start-1 == 0) ? "hidden" : "" ?>"><a href="index.php?option=com_hajj&task=admin.hajjs&p=<?php echo $this->start-1 ?>">&rarr;سابق </a></li>
   <li class="previous <?php echo (sizeof($data) < 20 || sizeof($data) == 0) ? "hidden" : "" ?>"><a href="index.php?option=com_hajj&task=admin.hajjs&p=<?php echo $this->start + 1 ?>">التالي &larr;</a></li>
 </ul>
+
+<?php echo $ThePagination ?>
