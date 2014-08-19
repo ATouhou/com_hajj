@@ -27,9 +27,15 @@ class hajjViewEditHajj extends JViewLegacy
       $ID = JFactory::getUser()->id;
       $model    = JModelLegacy::getInstance('Hajj', 'HajjModel');
       $this->data = $model->getHajj($ID);
+
+      // If Empty Data
       if (is_null($this->data)) {
         $app->redirect("index.php");
       }
+
+      // Check if is addon or not
+      $this->is_addon = ($this->data->addon) ? True : False;
+
       if (strpos($this->data->email, "gmail.ww")) {
         $this->data->email = "";
       }

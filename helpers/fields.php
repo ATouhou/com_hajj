@@ -148,10 +148,10 @@ class HajjFieldHelper {
 | Get Hajj Program
 |------------------------------------------------------------------------------------
 */
-  public static function getHajjProgram($active = "", $is_admin=false){    
+  public static function getHajjProgram($active = "", $is_admin=false, $is_addon=false){    
 
     ?>
-      <select name="hajj_program" id="hajj_program" required>
+      <select name="hajj_program" id="hajj_program" required <?php echo ($is_addon)? 'disabled':'' ?>>
         <option value=""></option>
         <?php foreach (self::getPrograms($is_admin) as $key => $value): ?>
           <option <?php echo ($active == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
@@ -179,9 +179,9 @@ class HajjFieldHelper {
 |  Get Office Branch
 |------------------------------------------------------------------------------------
 */
-  public static function GetOfficeBranch($active = "", $is_admin=false){
+  public static function GetOfficeBranch($active = "", $is_admin=false, $is_addon=false){
     ?>
-      <select name="office_branch" id="office_branch" required>
+      <select name="office_branch" id="office_branch" required <?php echo ($is_addon)? 'disabled':'' ?>>
         <option value=""></option>
         <?php foreach (self::getBranchs($is_admin) as $key => $value): ?>
           <option <?php echo ($active == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
@@ -321,7 +321,7 @@ class HajjFieldHelper {
 | Get the Form of Hajj register
 |------------------------------------------------------------------------------------
 */
-  public static function getEditFormHajj($data, $is_admin=false, $all_read_only=false){
+  public static function getEditFormHajj($data, $is_admin=false, $all_read_only=false, $is_addon=false){
     ?>
     <?php if ($all_read_only): ?>
       <div class="alert fade in alert-error">
@@ -394,11 +394,11 @@ class HajjFieldHelper {
           </div>
           <div class="span4">
             <label for="office_branch">فرع التسجيل</label>
-            <?php HajjFieldHelper::GetOfficeBranch($data->office_branch, true) ?>
+            <?php HajjFieldHelper::GetOfficeBranch($data->office_branch, true, $is_addon) ?>
           </div>
           <div class="span4">
             <label for="hajj_program">برنامج الحج</label>
-            <?php HajjFieldHelper::getHajjProgram($data->hajj_program, true) ?>
+            <?php HajjFieldHelper::getHajjProgram($data->hajj_program, true, $is_addon) ?>
           </div>
         </div>
         <div class="row-fluid">

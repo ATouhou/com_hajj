@@ -13,10 +13,11 @@ defined('_JEXEC') or die;
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 //var_dump($this->data);
 $data = $this->data;
+$is_addon = $this->is_addon;
 
 ?>
 
 <h2>رقم حجزك <?php echo $data->id ?></h2>
 <?php 
 $all_read_only = ($data->transfer_status) ? TRUE : FALSE ;
-HajjFieldHelper::getEditFormHajj($data, $is_hajj=false, $all_read_only);
+HajjFieldHelper::getEditFormHajj($data, $is_hajj=false, $all_read_only, $is_addon);

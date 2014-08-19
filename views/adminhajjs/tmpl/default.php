@@ -14,7 +14,7 @@ require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
 require_once JPATH_COMPONENT.'/helpers/' .'components.php';
 
-$url = 'index.php?option=com_hajj&task=admin.hajjs&p=';
+$url = 'index.php?option=com_hajj&task=admin.hajjs&Itemid=241&p=';
 $data = $this->data;
 //var_dump($data);
 
