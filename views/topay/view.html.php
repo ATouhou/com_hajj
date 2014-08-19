@@ -25,7 +25,15 @@ class hajjViewToPay extends JViewLegacy
   {   
       $ID = JFactory::getUser()->id;
       $model    = JModelLegacy::getInstance('Hajj', 'HajjModel');
-      $this->data = $model->getHajj($ID);
+      $this->hajj = $model->getHajj($ID);
+
+      // Check if it's an addon or no
+      $this->parent="";
+      $parent = $this->hajj->addon;
+      if ($parent) {// He's an addon
+        $this->parent = $model->getHajjByIdHajj($parent);
+      }
+      
       parent::display($tpl);
   }
 

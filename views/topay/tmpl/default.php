@@ -8,13 +8,23 @@
  */
 
 defined('_JEXEC') or die;
-$user = $this->data;
-//var_dump($user);
+$hajj = $this->hajj;
+$parent = $this->parent;
+//var_dump($hajj);
 ?>
 
-<?php if ($user->register_status == 2): // Accepted ?>
-  <h2> رقم الحجز : <?php echo $user->id ?> </h2>
-  <h2>مبلغ الحجز : <?php echo $user->topay ?> ريال<h2>
-<?php else: // Not accepted ?>
-  <h3>لا يمكنكم الإطلاع على طريقة الدفع حتى تتم مراجعة طلبكم</h3>
+<?php if ($parent==""): // This is the parent ?>
+  <?php if ($hajj->register_status == 2): // Accepted ?>
+    <h2> رقم الحجز : <?php echo $hajj->id ?> </h2>
+    <h3>مبلغ الحجز : <?php echo $hajj->topay ?> ريال<h3>
+  <?php else: // Not accepted ?>
+    <h3>لا يمكنكم الإطلاع على طريقة الدفع حتى تتم مراجعة طلبكم</h3>
+  <?php endif ?>
+<?php else: // This is the Addon?>
+   <?php if ($parent->register_status == 2): // Accepted ?>
+    <h2> رقم الحجز : <?php echo $hajj->id ?> </h2>
+    <h3>المبلغ المطلوب <?php echo $parent->topay ?> وسيتم سداده من رقم الحجز الأصل : <?php echo $parent->id ?><h3>
+  <?php else: // Not accepted ?>
+    <h3>لا يمكنكم الإطلاع على طريقة الدفع حتى تتم مراجعة طلبكم</h3>
+  <?php endif ?>
 <?php endif ?>

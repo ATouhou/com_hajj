@@ -25,7 +25,7 @@ class HajjModelHajj extends JModelLegacy {
 
 /*
 |------------------------------------------------------------------------------------
-| Get Id number
+| Get Id number by id user
 |------------------------------------------------------------------------------------
 */
   public function getIdNumber($ID){
@@ -65,6 +65,25 @@ class HajjModelHajj extends JModelLegacy {
         ->select('*')
         ->from($db->quoteName('#__hajj_users'))
         ->where($db->quoteName('id_user') . ' = '. $ID);
+    
+    $db->setQuery($query);
+    $results = $db->loadObject();
+    return $results;
+  }
+
+
+/*
+|------------------------------------------------------------------------------------
+| Get info Hajj
+|------------------------------------------------------------------------------------
+*/
+  public function getHajjByIdHajj($ID){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(true);        
+    $query
+        ->select('*')
+        ->from($db->quoteName('#__hajj_users'))
+        ->where($db->quoteName('id') . ' = '. $ID);
     
     $db->setQuery($query);
     $results = $db->loadObject();
