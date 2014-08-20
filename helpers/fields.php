@@ -224,7 +224,12 @@ class HajjFieldHelper {
 | Get the Form of Hajj register
 |------------------------------------------------------------------------------------
 */
-  public static function getFormHajj($addon = false){
+  public static function getFormHajj($addon = false, $hajj=""){
+    if ($addon) {// if addon we retrieve the branch + program
+      $office_branch = self::$officeBranch[$hajj->office_branch-1];
+      $hajj_program  = self::$hajjProgram[$hajj->hajj_program-1];
+
+    }
     ?>
       <form action="index.php?option=com_hajj&task=public.setnewhajj" method="post" accept-charset="utf-8">
         <div class="row-fluid">
@@ -294,11 +299,23 @@ class HajjFieldHelper {
           </div>
           <div class="span4">
             <label for="office_branch">فرع التسجيل</label>
-            <?php self::GetOfficeBranch() ?>
+            <?php if ($addon): // an addon?>
+              <select name="office_branch">
+                <option value="<?php echo $hajj->office_branch ?>"><?php echo $office_branch ?></option>
+              </select>
+            <?php else: ?>
+              <?php self::GetOfficeBranch() ?>
+            <?php endif ?>
           </div>
           <div class="span4">
             <label for="hajj_program">برنامج الحج</label>
-            <?php self::getHajjProgram() ?>
+            <?php if ($addon): // an addon?>
+              <select name="hajj_program">
+                <option value="<?php echo $hajj->hajj_program ?>"><?php echo $hajj_program ?></option>
+              </select>
+            <?php else: ?>
+              <?php self::getHajjProgram() ?>
+            <?php endif ?>
           </div>
         </div>
         <?php if ($addon): ?>

@@ -23,10 +23,13 @@ class hajjViewaddons extends JViewLegacy
    */
   public function display($tpl = null)
   {   
-      $model    = JModelLegacy::getInstance('Hajj', 'HajjModel');
-
-      $ID       = $model->getIdNumber(JFactory::getUser()->id);// Get th ID
+      $model      = JModelLegacy::getInstance('Hajj', 'HajjModel');
+      
+      $id_user    = JFactory::getUser()->id;
+      $ID         = $model->getIdNumber($id_user);// Get th ID
       $this->data = $model->getAddons($ID);
+      $this->hajj = $model->getHajj($id_user);
+
       parent::display($tpl);
   }
 

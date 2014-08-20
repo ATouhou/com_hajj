@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 $data = $this->data;
+$hajj = $this->hajj;
 
 $ProgramList = HajjFieldHelper::getHajjProgramList();
 $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
@@ -30,7 +31,7 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
       
       <?php
         require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
-        HajjFieldHelper::getFormHajj(true);
+        HajjFieldHelper::getFormHajj($addon = true, $hajj);
       ?>
       </div>
     </div>
