@@ -38,7 +38,7 @@ HajjFieldHelper::getEditFormHajj($data, $is_admin=true); // True for Admin
 
 <?php foreach ($addons as $key => $hajj): ?>
   <tr>
-    <td><?php echo $hajj->id ?></td>
+    <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $hajj->id ?>"><?php echo $hajj->id ?></a></td>
     <td><?php echo $hajj->first_name ?></td>
     <td><?php echo $hajj->familly_name ?></td>
     <td><?php echo $hajj->id_number ?></td>

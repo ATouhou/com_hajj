@@ -19,6 +19,11 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
 
 
 ?>
+
+<?php if ($data==""): ?>
+  <h3>رقم حجزك مسجل كمرافق، لذا لا يمكنكم تسجيل مرافق لكم</h3>
+  <?php return ?>
+<?php endif ?>
 <div class="accordion" id="accordion2">
   <div class="accordion-group">
     <div class="accordion-heading">
@@ -51,7 +56,7 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
 
 <?php foreach ($data as $key => $hajj): ?>
   <tr>
-    <td><?php echo $hajj->id ?></td>
+    <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $hajj->id ?>"><?php echo $hajj->id ?></a></td>
     <td><?php echo $hajj->first_name ?></td>
     <td><?php echo $hajj->familly_name ?></td>
     <td><?php echo $hajj->id_number ?></td>

@@ -27,8 +27,12 @@ class hajjViewaddons extends JViewLegacy
       
       $id_user    = JFactory::getUser()->id;
       $ID         = $model->getIdNumber($id_user);// Get th ID
-      $this->data = $model->getAddons($ID);
       $this->hajj = $model->getHajj($id_user);
+      $this->data = "";
+      if (!$this->hajj->addon) { // This is an addon
+        $this->data = $model->getAddons($ID);
+      }
+      
 
       parent::display($tpl);
   }
