@@ -196,10 +196,7 @@ class HajjControllerHajj extends JControllerLegacy
       }
     }
 
-    
     $app->redirect("index.php?option=com_hajj&view=payments", $txt, 'success');
-    
   }
-
 
 }

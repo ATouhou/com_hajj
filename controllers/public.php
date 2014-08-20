@@ -76,7 +76,7 @@ class HajjControllerPublic extends JControllerLegacy
         $app->redirect($_SERVER['HTTP_REFERER'], "خطأ في رقم الهوية", "error");
     }
 
-    
+
     $id_user = HajjFrontendHelper::register_user($obj->id_number, $obj->mobile, $obj->email, $obj->first_name);
 
     if (!is_numeric($id_user)) { // Problem
@@ -97,12 +97,38 @@ class HajjControllerPublic extends JControllerLegacy
 
 
     if ($obj->addon != 0) {// Addon
+        // update the to pay
+        $this->updateToPayHajj($obj->addon);
         $app->redirect("index.php?option=com_hajj&view=addons", "تم إضافة المرافق بنجاح", "success");
     }else{ // New hajj
         // Auto login
         HajjFrontendHelper::autologin($obj->id_number, $obj->mobile);
         $app->redirect("index.php?option=com_hajj&view=dashboard");
     }
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Update To pay for user
+|------------------------------------------------------------------------------------
+*/
+  public function updateToPayHajj($ID = 0){
+
+    if (!$ID) {return;} // In case any ID provided
+
+    // get number of addons + price of the program
+    $result = $this->getModel('Hajj')->getUpdateToPayHajj($ID);
+
+    if (!is_null($result)) { // If we have result
+      $topay      = ($result->nb_addon + 1) * $result->price_program;
+      $obj        = new stdClass();
+      $obj->id    = $ID;
+      $obj->topay = $topay;
+
+      return $this->getModel('Hajj')->setUpdateToPayHajj($obj);
+    }
+
+    // Set the new price to the database
   }
 
     

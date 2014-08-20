@@ -170,4 +170,38 @@ public function getAddons($ID){
     return $result;
   }
 
+/*
+|------------------------------------------------------------------------------------
+| get number of addons + price of the program for Update "ToPay" for the Hajj
+|------------------------------------------------------------------------------------
+*/
+  public function getUpdateToPayHajj($ID){
+    $db = JFactory::getDBO();
+    
+    $query = $db->getQuery(true);    
+    $query
+        ->select(array('COUNT(fils.id) AS nb_addon', 'HP.price_program'))
+        ->from($db->quoteName('#__hajj_users', 'HU'))
+        ->join('INNER', $db->quoteName('#__hajj_program', 'HP') . 
+          ' ON (' . $db->quoteName('HP.id') . ' = ' . $db->quoteName('HU.hajj_program') . ')')
+        ->leftJoin('#__hajj_users as fils ON fils.addon = HU.id ')
+        ->group($db->quoteName('HU.id'))
+        ->where($db->quoteName('HU.addon') . ' = 0 AND HU.register_status = 2 AND HU.id = ' . $ID);
+    
+    $db->setQuery($query);
+    $results = $db->loadObject();
+
+    return $results;
+  } 
+
+/*
+|------------------------------------------------------------------------------------
+| Update to pay
+|------------------------------------------------------------------------------------
+*/ 
+  public function setUpdateToPayHajj($obj){
+    $result = JFactory::getDbo()->updateObject('#__hajj_users', $obj, 'id');
+    return $result;
+  }
+
 }
