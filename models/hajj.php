@@ -152,22 +152,76 @@ public function getAddons($ID){
 */
   public function removeHajj($ID, $admin=false){ // If admin remove the hajj so we update SMS5
 
-    // Update the status of the HAJJ
-    $db = JFactory::getDBO();
+    $db    = JFactory::getDBO();
     $query = $db->getQuery(TRUE);
-    
-    $object = new stdClass();
-    $object->id_user = $ID;
-    $object->register_status = 5;
+
+    // Fields to update.
+    $fields = array($db->quoteName('register_status') . ' = ' . 5 );
     if ($admin) {
-      $object->sms5 = "تم إلغاء الحجز";
+      array_push($fields, $db->quoteName('sms5') . ' = ' . "تم إلغاء الحجز");
     }
-    $result = JFactory::getDbo()->updateObject('#__hajj_users', $object, 'id_user');
+
+    // Update the status of the HAJJ
+    $query
+        ->update($db->quoteName('#__hajj_users'))
+        ->set($fields) // Set register_status + sms 
+        ->where($db->quoteName('id') . ' = ' . $ID . ' OR ' . $db->quoteName('addon') . ' = ' . $ID); // where id or addon 
+
+    $db->setQuery($query)->query(); // Set the Query
+
+
+    // Deleting users from user table
+    // Get user to delete 
+    $IDs = $this->getUserToDelete($ID);
+    $theIDs = implode(', ', $IDs);
+
+    // Delete the users
+    $this->deleteUsers($theIDs);
+    return;
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Get users to delete
+|------------------------------------------------------------------------------------
+*/
+  public function getUserToDelete($ID){
+    $db    = JFactory::getDBO();
+    $query = $db->getQuery(true);    
     
+    // get the IDs to remove
+    $query
+        ->select($db->quoteName(array('id_user')))
+        ->from($db->quoteName('#__hajj_users'))
+        ->where($db->quoteName('id') . ' = ' . $ID . ' OR ' . 'addon = ' . $ID);
+
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+
+    $IDs = array();
+    foreach ($results as $key => $value) {
+      array_push($IDs, $value->id_user);
+    }
+
+    return $IDs;
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Delete Users from USER table of Joomla
+|------------------------------------------------------------------------------------
+*/
+  public function deleteUsers($IDs){
+    $db    = JFactory::getDBO();
+    $query = $db->getQuery(true);
     
-    // Delete user in Joomla
-    JUser::getInstance($ID)->delete();
-    return $result;
+    // Deleting users from user table
+    $query
+        ->delete($db->quoteName('#__users'))
+        ->where($db->quoteName('id') . ' IN (' . $IDs . ')');
+
+    $db->setQuery($query);
+    $result = $db->query();
   }
 
 /*

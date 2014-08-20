@@ -109,11 +109,18 @@ class HajjControllerHajj extends JControllerLegacy
   public function removeHajj(){
     
     $app = JFactory::getApplication();
-    $id = JFactory::getUser()->id;
-    $lol = $this->getModel('Hajj')->removeHajj($id);
-    
+    $id_user = JFactory::getUser()->id;
+    $model= $this->getModel('Hajj');
 
+    // Get the ID of Hajj
+    $id = $model->getIdNumber($id_user);
+
+    // Delete the user
+    $model->removeHajj($id);
+    
+    $app->logout();
     $app->redirect("index.php");
+
     
   }
 

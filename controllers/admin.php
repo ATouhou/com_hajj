@@ -96,10 +96,10 @@ class HajjControllerAdmin extends JControllerLegacy
     $id = $app->input->get('id','','STRING');
     $hajj = $this->getModel("admin")->getHajj($id);
 
-    $mobile = $hajj->mobile;
+    $mobile  = $hajj->mobile;
     $id_user = $hajj->id_user;
 
-    $result = $this->getModel("hajj")->removeHajj($id_user, TRUE); // True for Admin
+    $result  = $this->getModel("hajj")->removeHajj($id_user, TRUE); // True for Admin
 
     // msgcode = تم إلغاء طلب حجزكم. شركة فوج مكة لحجاج الداخل تتمنى لكم حجا مقبولا وسعيا مشكورا ويسعدنا تسجيلكم معنا مرة أخرى.
     require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
