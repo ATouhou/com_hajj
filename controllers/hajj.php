@@ -45,11 +45,15 @@ class HajjControllerHajj extends JControllerLegacy
     $obj->register_status = $jinput->get('register_status','','STRING');
     
 
+
     //$this->getModel('Hajj')->setEditHajj($obj);
     if ($obj->register_status == "") {// Not Admin
       // Save obejct and redirect
       $this->getModel('Hajj')->setEditHajj($obj);
-      $redirect = "index.php?option=com_hajj&view=edithajj";
+      $redirect = $_SERVER['HTTP_REFERER'];
+      $pattern = '/&id=\w+/i';
+      $redirect  =preg_replace($pattern, '', $redirect);
+
     }else{// This is an admin
       $obj->topay = $jinput->get('topay','','STRING');
       switch ($obj->register_status) {  // Switch to send SMS

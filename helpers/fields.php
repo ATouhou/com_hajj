@@ -228,7 +228,6 @@ class HajjFieldHelper {
     if ($addon) {// if addon we retrieve the branch + program
       $office_branch = self::$officeBranch[$hajj->office_branch-1];
       $hajj_program  = self::$hajjProgram[$hajj->hajj_program-1];
-
     }
     ?>
       <form action="index.php?option=com_hajj&task=public.setnewhajj" method="post" accept-charset="utf-8">
@@ -339,13 +338,26 @@ class HajjFieldHelper {
 |------------------------------------------------------------------------------------
 */
   public static function getEditFormHajj($data, $is_admin=false, $all_read_only=false, $is_addon=false){
-    ?>
-    <?php if ($all_read_only): ?>
+
+    // Set Email to empty
+    if (strpos($data->email, "gmail.ww")) {
+      $data->email = "";
+    } 
+
+    // if addon we retrieve the branch + program
+    if ($is_addon) {
+      $office_branch = self::$officeBranch[$data->office_branch-1];
+      $hajj_program  = self::$hajjProgram[$data->hajj_program-1];
+    }
+
+    // If read only we add alert
+    if ($all_read_only): ?>
       <div class="alert fade in alert-error">
         <button type="button" class="close" data-dismiss="alert">×</button>
         <strong>لا يمكنك تعديل البيانات</strong> لقد تم توقيف التحويل لديك
       </div>
     <?php endif ?>
+
       <form action="index.php?option=com_hajj&task=hajj.setedithajj" method="post" accept-charset="utf-8" <?php echo ($all_read_only)? 'class="disabled"':''; ?>>
         <input type="hidden" name="id_user" value="<?php echo $data->id_user ?>">
         <div class="row-fluid">
@@ -411,11 +423,23 @@ class HajjFieldHelper {
           </div>
           <div class="span4">
             <label for="office_branch">فرع التسجيل</label>
-            <?php HajjFieldHelper::GetOfficeBranch($data->office_branch, true, $is_addon) ?>
+            <?php if ($is_addon): // an addon?>
+              <select name="office_branch">
+                <option value="<?php echo $data->office_branch ?>"><?php echo $office_branch ?></option>
+              </select>
+            <?php else: ?>
+              <?php HajjFieldHelper::GetOfficeBranch($data->office_branch, true, $is_addon) ?>
+            <?php endif ?>
           </div>
           <div class="span4">
             <label for="hajj_program">برنامج الحج</label>
-            <?php HajjFieldHelper::getHajjProgram($data->hajj_program, true, $is_addon) ?>
+            <?php if ($is_addon): // an addon?>
+              <select name="hajj_program">
+                <option value="<?php echo $data->hajj_program ?>"><?php echo $hajj_program ?></option>
+              </select>
+            <?php else: ?>
+              <?php HajjFieldHelper::getHajjProgram($data->hajj_program, true, $is_addon) ?>
+            <?php endif ?>
           </div>
         </div>
         <div class="row-fluid">

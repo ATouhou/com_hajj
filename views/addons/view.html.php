@@ -26,13 +26,27 @@ class hajjViewaddons extends JViewLegacy
       $model      = JModelLegacy::getInstance('Hajj', 'HajjModel');
       
       $id_user    = JFactory::getUser()->id;
-      $ID         = $model->getIdNumber($id_user);// Get th ID
-      $this->hajj = $model->getHajj($id_user);
-      $this->data = "";
+      $ID         = $model->getIdNumber($id_user);// Get the Hajj ID
+      $this->hajj = $model->getHajj($id_user); // Info of hajj parent
+
+      $this->addons = "";
       if (!$this->hajj->addon) { // This is an addon
-        $this->data = $model->getAddons($ID);
+        $this->addons = $model->getAddons($ID); // Info of hajj addon
       }
       
+      // If we select an id we sould edit it in the form
+      $jinput       = JFactory::getApplication()->input;
+      $id           = $jinput->get('id', 0);
+      $this->toEdit = "";
+
+      if ($id) { // Get the info to edit
+        foreach ($this->addons as $key => $value) {
+          if ($value->id == $id) {
+            $this->toEdit = $this->addons[$key];
+            break;
+          }
+        }
+      }
 
       parent::display($tpl);
   }

@@ -147,6 +147,24 @@ public function getAddons($ID){
 
 /*
 |------------------------------------------------------------------------------------
+| Get one Addon
+|------------------------------------------------------------------------------------
+*/
+  public function getAddon($ID, $id_parent){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+    $query
+        ->select("*")
+        ->from($db->quoteName('#__hajj_users'))
+        ->where($db->quoteName('addon') . ' = '. $id_parent . ' AND id = ' . $ID);
+    
+    $db->setQuery($query);
+    $result = $db->loadObject();
+    return $result;
+  }
+
+/*
+|------------------------------------------------------------------------------------
 | Remove Hajj
 |------------------------------------------------------------------------------------
 */
