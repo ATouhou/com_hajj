@@ -195,10 +195,21 @@ class HajjControllerAdmin extends JControllerLegacy
 |------------------------------------------------------------------------------------
 */
   public function benefits(){
-    $result = $this->getModel("Admin")->getBenefits();
-
+    
+    $jinput = JFactory::getApplication()->input;
+    $offset = $jinput->get('p','1');
+    $limit  = 20;
+    
+    $start  = ($offset - 1) * $limit ;
+    
+    $model  = $this->getModel("Admin");
+    $result = $model->getBenefits($start, $limit);
+    
     $view   = $this->getView('adminbenefits', 'html'); //get the view
     $view->assignRef('data', $result); // assign data from the model
+    $view->assignRef('start', $offset); // assign data from the model
+    $view->assignRef('nbBenefits', $result->nbRows); // assign data from the model
+
     $view->display(); // display the view
   }
 

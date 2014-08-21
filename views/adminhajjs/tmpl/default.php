@@ -21,14 +21,12 @@ $data = $this->data;
 $ProgramList      = HajjFieldHelper::getHajjProgramList($is_admin=true);
 $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList($is_admin=true);
 $ThePagination    = HajjComponentsHelper::getPagination($url, $this->nbHajjs, 20, $this->start);
+$ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($data), $url);
 
 
 ?>
 <h1>طلبات الحجز</h1>
-<ul class="pager">
-  <li class="next <?php echo ($this->start-1 == 0) ? "hidden" : "" ?>"><a href="index.php?option=com_hajj&task=admin.hajjs&p=<?php echo $this->start-1 ?>">&rarr;سابق </a></li>
-  <li class="previous <?php echo (sizeof($data) < 20 || sizeof($data) == 0) ? "hidden" : "" ?>"><a href="index.php?option=com_hajj&task=admin.hajjs&p=<?php echo $this->start + 1 ?>">التالي &larr;</a></li>
-</ul>
+<?php echo $ThePager ?>
 <?php echo $ThePagination; ?>
 <table class="allhajjs table table-condensed table-bordered ">
   <thead>
@@ -66,9 +64,5 @@ $ThePagination    = HajjComponentsHelper::getPagination($url, $this->nbHajjs, 20
 </table>
 
 
-<ul class="pager">
-  <li class="next <?php echo ($this->start-1 == 0) ? "hidden" : "" ?>"><a href="index.php?option=com_hajj&task=admin.hajjs&p=<?php echo $this->start-1 ?>">&rarr;سابق </a></li>
-  <li class="previous <?php echo (sizeof($data) < 20 || sizeof($data) == 0) ? "hidden" : "" ?>"><a href="index.php?option=com_hajj&task=admin.hajjs&p=<?php echo $this->start + 1 ?>">التالي &larr;</a></li>
-</ul>
-
+<?php echo $ThePager ?>
 <?php echo $ThePagination ?>

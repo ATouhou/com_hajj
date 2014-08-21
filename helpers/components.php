@@ -49,4 +49,25 @@ class HajjComponentsHelper {
     ob_get_clean();
     return $content;
   }
+
+/*
+|------------------------------------------------------------------------------------
+| Get the pager
+|------------------------------------------------------------------------------------
+*/
+  public static function getPager($start=0, $sizeData=0 ,$url=''){
+    ob_start(); 
+  ?>
+    <ul class="pager">
+      <li class="next <?php echo ($start-1 == 0) ? "hidden" : "" ?>"><a href="<?php echo $url,$start-1 ?>">&rarr;سابق </a></li>
+      <li class="previous <?php echo ($sizeData < 20 || $sizeData == 0) ? "hidden" : "" ?>"><a href="<?php echo $url, $start + 1 ?>">التالي &larr;</a></li>
+    </ul>
+  <?php
+    $content = ob_get_contents();
+    ob_get_clean();
+    return $content;
+  }
+
+
+
 }

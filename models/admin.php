@@ -34,7 +34,7 @@ class HajjModelAdmin extends JModelLegacy {
   
 /*
 |------------------------------------------------------------------------------------
-| Get All Hajjs
+| Get Nb Hajjs
 |------------------------------------------------------------------------------------
 */
   public function getNbHajjs(){
@@ -230,7 +230,7 @@ class HajjModelAdmin extends JModelLegacy {
 | Get All Benefits
 |------------------------------------------------------------------------------------
 */
-  public function getBenefits(){
+  public function getBenefits($offset=0, $limit=0){
     $db = JFactory::getDBO();    
 
     // Get the list of HAJJS with the addons
@@ -245,8 +245,12 @@ class HajjModelAdmin extends JModelLegacy {
         ->where($db->quoteName('HU.addon') . ' = 0 AND HU.register_status = 2')
         ->order($db->quoteName('HU.id'));
     
-    $db->setQuery($query);
+    $db->setQuery($query, $offset, $limit);
     $Hajjs = $db->loadObjectList();
+    
+    $db->setQuery($query);
+    $db->execute();
+    $nbRows = $db->getNumRows();
 
 
     // Get the SUM of Payments
@@ -270,11 +274,11 @@ class HajjModelAdmin extends JModelLegacy {
     $results = new stdClass();
     $results->Payments = $Payments;
     $results->Hajjs = $Hajjs;
+    $results->nbRows = $nbRows;
 
     return $results;
   }
   
-
 /*
 |------------------------------------------------------------------------------------
 | Get price of program

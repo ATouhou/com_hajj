@@ -12,14 +12,21 @@ defined('_JEXEC') or die;
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
+require_once JPATH_COMPONENT.'/helpers/' .'components.php';
 
-$Hajjs = $this->data->Hajjs;
+$url      = 'index.php?option=com_hajj&task=admin.Benefits&Itemid=247&p=';
+$Hajjs    = $this->data->Hajjs;
 $Payments = $this->data->Payments;
+
+$ThePagination    = HajjComponentsHelper::getPagination($url, $this->nbBenefits, 20, $this->start);
+$ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($Hajjs), $url);
 
 //var_dump($Payments);
 
 ?>
 <h1>المستحقات والأرصدة</h1>
+<?php echo $ThePager ?>
+<?php echo $ThePagination; ?>
 <table class="allhajjs table table-condensed table-bordered ">
   <thead>
     <tr>
@@ -57,3 +64,7 @@ $Payments = $this->data->Payments;
   <?php endforeach ?>
   
 </table>
+
+
+<?php echo $ThePager ?>
+<?php echo $ThePagination ?>
