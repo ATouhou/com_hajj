@@ -258,7 +258,7 @@ public function getAddons($ID){
           ' ON (' . $db->quoteName('HP.id') . ' = ' . $db->quoteName('HU.hajj_program') . ')')
         ->leftJoin('#__hajj_users as fils ON fils.addon = HU.id ')
         ->group($db->quoteName('HU.id'))
-        ->where($db->quoteName('HU.addon') . ' = 0 AND HU.register_status = 2 AND HU.id = ' . $ID);
+        ->where($db->quoteName('HU.addon') . ' = 0 AND HU.register_status = 2 AND HU.id = ' . $ID . ' AND fils.register_status != 5');
     
     $db->setQuery($query);
     $results = $db->loadObject();

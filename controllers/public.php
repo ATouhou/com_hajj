@@ -87,10 +87,10 @@ class HajjControllerPublic extends JControllerLegacy
     $obj->id_user = $id_user;
     
     // Send the SMS
-    /*$msg = "064606340643063106430645002006390644064900200627062E062A064A0627063106430645002006440644062D062C00200645063906460627002006480633062A0635064406430645002006310633062706440629002006280627063006460020062706440644064700200628062A06230643064A062F0020062D062C063206430645060C00200643064506270020064A064506430646064306450020062A0633062C064A0644002006270644062F062E0648064400200644064406450648064206390020062806270633062A062E062F06270645002006310642064500200627064406470648064A06290020064806270644062C064806270644000A";
+    $msg = "064606340643063106430645002006390644064900200627062E062A064A0627063106430645002006440644062D062C00200645063906460627002006480633062A0635064406430645002006310633062706440629002006280627063006460020062706440644064700200628062A06230643064A062F0020062D062C063206430645060C00200643064506270020064A064506430646064306450020062A0633062C064A0644002006270644062F062E0648064400200644064406450648064206390020062806270633062A062E062F06270645002006310642064500200627064406470648064A06290020064806270644062C064806270644000A";
     if(HajjFrontendHelper::sendTheSMS($obj->mobile, $msg) == "1"){
         $obj->sms1 = "نشكركم على اختياركم للحج معنا وستصلكم رسالة باذن الله بتأكيد حجزكم، كما يمكنكم تسجيل الدخول للموقع باستخدام رقم الهوية والجوال.";
-    }*/
+    }
 
     $id = $this->getModel('hajj')->setNewHajj($obj);
     
@@ -114,39 +114,11 @@ class HajjControllerPublic extends JControllerLegacy
 */
   public function updateAllHajjPay(){
     // Get all Hajjs 
-    $hajjs = $this->getModel('admin')->getHajjs();
-    foreach ($hajjs as $key => $hajj) {
-      if (!intval($hajj->addon)) { // is parent
-        $ID = $hajj->id;
-        $this->updateToPayHajj($ID);
-      }
-    }
+    require_once JPATH_COMPONENT . '/helpers/hajj.php';
+
+    HajjFrontendHelper::updateHajjsPayment();
+      
     echo "<h2>تم تعديل مبلغ الحجز لكل الحجاج</h2>";
-  }
-
-/*
-|------------------------------------------------------------------------------------
-| Update To pay for user
-|------------------------------------------------------------------------------------
-*/
-  public function updateToPayHajj($ID = 0){
-
-    if (!$ID) {return;} // In case any ID provided
-
-    // get number of addons + price of the program
-    $result = $this->getModel('Hajj')->getUpdateToPayHajj($ID);
-
-
-    if (!is_null($result)) { // If we have result
-      $topay      = ($result->nb_addon + 1) * $result->price_program;
-      $obj        = new stdClass();
-      $obj->id    = $ID;
-      $obj->topay = $topay;
-
-      return $this->getModel('Hajj')->setUpdateToPayHajj($obj);
-    }
-
-    // Set the new price to the database
   }
 
     

@@ -130,4 +130,49 @@ class HajjFrontendHelper {
     }
     return $res;
   }
-}
+
+
+/*
+|------------------------------------------------------------------------------------
+| Update To pay for one Hajj
+|------------------------------------------------------------------------------------
+*/
+  public function updateToPayHajj($ID = 0){
+
+    if (!$ID) {return;} // In case any ID provided
+
+    // get number of addons + price of the program
+    $HajjModel = JModelLegacy::getInstance('Hajj', 'HajjModel');
+    $result = $HajjModel->getUpdateToPayHajj($ID);
+
+    if (!is_null($result)) { // If we have result
+      $topay      = ($result->nb_addon + 1) * $result->price_program;
+      $obj        = new stdClass();
+      $obj->id    = $ID;
+      $obj->topay = $topay;
+
+      return $HajjModel->setUpdateToPayHajj($obj);
+    }
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Update All hajjs Payment
+|------------------------------------------------------------------------------------
+*/
+  public function updateHajjsPayment(){
+
+    // Get All Hajj from the database
+    $AdminModel = JModelLegacy::getInstance('Admin', 'HajjModel');
+    $hajjs = $AdminModel->getHajjs();
+
+    // For each Hajj
+    foreach ($hajjs as $key => $hajj) {
+      if (!intval($hajj->addon)) { // is parent
+        $ID = $hajj->id;
+        self::updateToPayHajj($ID);// Update ToPay
+      }
+    }
+  }
+
+}// End Class

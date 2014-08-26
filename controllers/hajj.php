@@ -122,6 +122,14 @@ class HajjControllerHajj extends JControllerLegacy
     // Delete the user
     $model->removeHajj($id);
     
+    // Update the payment for Hajj
+    require_once JPATH_COMPONENT . '/helpers/hajj.php';
+    $Hajj = $model->getHajj($id_user);
+
+    // Check if it's an addon or not
+    $addon = ($Hajj->addon == '') ? $Hajj->id : $Hajj->addon;
+    HajjFrontendHelper::updateToPayHajj($addon); // Update the payment
+    
     $app->logout();
     $app->redirect("index.php");
 

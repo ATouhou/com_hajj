@@ -59,8 +59,8 @@ if ($addons==""): ?>
     <th>العائلة</th>
     <th>رقم الهوية</th>
     <th>الجوال</th>
-    <th>فرع التسجيل</th>
-    <th>برنامج الحج </th>
+    <th>حالة الحجز</th>
+  </tr>
 
 <?php foreach ($addons as $key => $hajj): ?>
   <tr>
@@ -69,11 +69,8 @@ if ($addons==""): ?>
     <td><?php echo $hajj->familly_name ?></td>
     <td><?php echo $hajj->id_number ?></td>
     <td><?php echo $hajj->mobile ?></td>
-    <td><?php echo $OfficeBranchList[$hajj->office_branch] ?></td>
-    <td><?php echo $ProgramList[$hajj->hajj_program] ?></td>
+    <td><?php echo HajjFieldHelper::status_register($hajj->register_status) ?></td>
   </tr>
 <?php endforeach ?>
-
-  </tr>
 </table>
 
