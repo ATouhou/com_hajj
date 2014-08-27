@@ -18,7 +18,7 @@ class HajjFieldHelper {
     public static $officeBranch     = array("مكة المكرمة", "المدينة المنورة", "جدة");
     public static $status_hajjs     = array("تحت التدقيق والمراجعة", "مقبول", "مرفوض", "تم الدفع", "الغاء الحجز");
     public static $reason_exception = array("محرم", "طبيب", "عصبة نساء", "مع محرمها", "اداري", "عامل في الحملة", "ممرضة", "حج عن متوفي");
-    public static $account_owner    = array("مصرف الراجحي", "بنك الإنماء", "البنك الأهلي");
+    public static $account_owner    = array("مصرف الراجحي", "بنك البلاد", "البنك الأهلي");
     public static $status_payment   = array("تحت التدقيق", "مقبولة", "مرفوضة");
 
 /*
