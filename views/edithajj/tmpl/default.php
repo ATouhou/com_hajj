@@ -17,6 +17,13 @@ $is_addon = $this->is_addon;
 
 ?>
 
+<?php if ($data->register_status == '2'): ?>
+  <div class="alert alert-info fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button>
+    <strong>أخي الحاج</strong>  يمكنكم اضافة المبلغ المستحق من شاشة الدفعات مع ارفاق وصل الدفع
+  </div>
+<?php endif ?>
+
 <h2>رقم حجزك <?php echo $data->id ?></h2>
 <?php 
 $all_read_only = ($data->transfer_status) ? TRUE : FALSE ;
