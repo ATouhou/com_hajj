@@ -136,6 +136,34 @@ class HajjControllerAdmin extends JControllerLegacy
     $app->redirect('index.php?option=com_hajj&view=adminPrograms', 'تم حفظ البيانات بنجاح', 'success');
   }
 
+
+/*
+|------------------------------------------------------------------------------------
+| Admin set Tents
+|------------------------------------------------------------------------------------
+*/
+  public function setTents(){
+    $app = JFactory::getApplication();
+    $jinput = $app->input;
+
+    $obj = new stdClass();
+    $obj->id = $jinput->get('id','','STRING');
+    $obj->name = $jinput->get('name','','STRING');
+    $obj->hajj_program = $jinput->get('hajj_program','','STRING');
+    $obj->sexe = $jinput->get('sexe','','STRING');
+    $obj->nb_family = $jinput->get('nb_family','','STRING');
+    $obj->status = $jinput->get('status','','STRING');
+
+    if ($obj->id != "") { // Edit
+      $this->getModel('tents')->EditTents($obj);
+    }else{ // New Tents
+      $this->getModel('tents')->setTents($obj);
+    }
+
+    
+    $app->redirect('index.php?option=com_hajj&view=adminTents', 'تم حفظ البيانات بنجاح', 'success');
+  }
+
 /*
 |------------------------------------------------------------------------------------
 | Admin set Camps

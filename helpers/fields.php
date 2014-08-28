@@ -20,6 +20,8 @@ class HajjFieldHelper {
     public static $reason_exception = array("محرم", "طبيب", "عصبة نساء", "مع محرمها", "اداري", "عامل في الحملة", "ممرضة", "حج عن متوفي");
     public static $account_owner    = array("مصرف الراجحي", "بنك البلاد", "البنك الأهلي");
     public static $status_payment   = array("تحت التدقيق", "مقبولة", "مرفوضة");
+    public static $sexe             = array("رجال", "نساء");
+    public static $status_tents      = array("مقفل", "شاغر");
 
 /*
 |------------------------------------------------------------------------------------
@@ -574,6 +576,86 @@ class HajjFieldHelper {
 
     </form>
 
+    <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Get the Form of Programs
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormtents($toEdit = ""){
+    $hajj_program = ($toEdit) ? $toEdit->hajj_program: "";
+    $status = ($toEdit) ? $toEdit->status: "";
+    $sexe = ($toEdit) ? $toEdit->sexe: "";
+
+    ?>
+    <form action="index.php?option=com_hajj&task=admin.setTents" method="post" accept-charset="utf-8">
+      <div class="row-fluid">
+        <div class="span4">
+          <label for="nb_family">عدد الأسرة</label>
+          <input type="text" name="nb_family" id="nb_family" value="<?php echo ($toEdit != "") ? $toEdit->nb_family : "0" ?>">
+        </div>
+        <div class="span4">
+          <label for="hajj_program">برنامج الحج</label>
+          <?php HajjFieldHelper::getHajjProgram($hajj_program) ?>
+        </div>
+        <div class="span4">
+          <label for="id">رقم الخيمة</label>
+          <input type="text" name="id" id="id" value="<?php echo ($toEdit != "") ? $toEdit->id : "0" ?>" disabled>
+        </div>
+      </div>
+
+      <div class="row-fluid">
+        <div class="span4">
+          <label for="status">حالة الخيمة</label>
+          <?php HajjFieldHelper::GetStatusTents($status) ?>
+        </div>
+        <div class="span4">
+          <label for="sexe">مخصص الى</label>
+          <?php HajjFieldHelper::GetSexeTents($sexe) ?>
+        </div>
+        <div class="span4">
+          <label for="name">المخيم</label>
+          <input type="text" name="name" id="name" value="<?php echo ($toEdit != "") ? $toEdit->name : "0" ?>">
+        </div>
+      </div>
+
+
+      <input type="hidden" name="id" value="<?php echo ($toEdit != "") ? $toEdit->id : "" ?>">
+
+      <input type="submit" name="" value="حفظ" class="btn btn-success">
+
+    </form>
+
+    <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
+|  Get Status Tents
+|------------------------------------------------------------------------------------
+*/
+  public static function GetStatusTents($active = ""){
+    ?>
+      <select name="status" id="status" required>
+        <option <?php echo ($active == "1") ? "selected" : "" ?> value="1"><?php echo self::$status_tents[1] ?></option>
+        <option <?php echo ($active == "0") ? "selected" : "" ?> value="0"><?php echo self::$status_tents[0] ?></option>
+      </select>
+    <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
+|  Get Sexe Tents
+|------------------------------------------------------------------------------------
+*/
+  public static function GetSexeTents($active = ""){
+    ?>
+      <select name="sexe" id="sexe" required>
+        <option <?php echo ($active == "0") ? "selected" : "" ?> value="0"><?php echo self::$sexe[0] ?></option>
+        <option <?php echo ($active == "1") ? "selected" : "" ?> value="1"><?php echo self::$sexe[1] ?></option>
+      </select>
     <?php
   }
 
