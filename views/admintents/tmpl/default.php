@@ -49,7 +49,7 @@ $toEdit = $this->toEdit;
 
 
 
-<h1>فروع الشركة</h1>
+<h1>شاشة الخيام</h1>
 <table class="allhajjs table table-condensed table-bordered">
   <thead>
     <tr>

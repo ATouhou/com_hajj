@@ -588,6 +588,7 @@ class HajjFieldHelper {
     $hajj_program = ($toEdit) ? $toEdit->hajj_program: "";
     $status = ($toEdit) ? $toEdit->status: "";
     $sexe = ($toEdit) ? $toEdit->sexe: "";
+    $name = ($toEdit) ? $toEdit->name: "";
 
     ?>
     <form action="index.php?option=com_hajj&task=admin.setTents" method="post" accept-charset="utf-8">
@@ -617,7 +618,7 @@ class HajjFieldHelper {
         </div>
         <div class="span4">
           <label for="name">المخيم</label>
-          <input type="text" name="name" id="name" value="<?php echo ($toEdit != "") ? $toEdit->name : "0" ?>">
+          <?php HajjFieldHelper::GetNameTents($name) ?>
         </div>
       </div>
 
@@ -628,6 +629,23 @@ class HajjFieldHelper {
 
     </form>
 
+    <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
+|  Get Name Tents
+|------------------------------------------------------------------------------------
+*/
+  public static function GetNameTents($active = ""){
+      $model        = JModelLegacy::getInstance('Admin', 'HajjModel');
+      $Camps   = $model->getCamps();
+    ?>
+      <select name="name" id="name" required>
+      <?php foreach ($Camps as $key => $Camp): ?>
+        <option <?php echo ($active == $Camp->id) ? "selected" : "" ?> value="<?php echo $Camp->id ?>"><?php echo $Camp->id . " - الفئة : " . $Camp->group . " - المربع : " . $Camp->box ?></option>
+      <?php endforeach ?>
+      </select>
     <?php
   }
 
