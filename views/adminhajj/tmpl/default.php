@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 $data = $this->data;
 $addons = $this->addons;
-$ProgramList = HajjFieldHelper::getHajjProgramList();
+$ProgramList = HajjFieldHelper::getHajjProgramList(true);
 $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
 
 ?>
