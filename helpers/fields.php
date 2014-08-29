@@ -290,7 +290,7 @@ class HajjFieldHelper {
           </div>
           <div class="span4">
             <label for="mobile">الجوال</label>
-            <input type="text" name="mobile" id="mobile" required placeholder="05xxxxxxxx">  <!-- pattern="05[0-9]{8}" -->
+            <input type="text" name="mobile" id="mobile" required placeholder="05xxxxxxxx" pattern="05[0-9]{8}">
           </div>
         </div>
         <div class="row-fluid">
