@@ -843,5 +843,57 @@ class HajjFieldHelper {
     <?php
   } 
 
-}
+/*
+|------------------------------------------------------------------------------------
+| Get Form Filter
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormFilter($register_status="", $hajj_program="", $office_branch=""){
+  ?>
+    <form action="index.php?option=com_hajj&task=admin.hajjs&Itemid=241" method="post" accept-charset="utf-8">
+      <div class="row-fluid">
+        <div class="span3">
+          <input type="submit" name="submit" value="تصفية" class="btn btn-success mt25">
+          <a href="index.php?option=com_hajj&task=admin.hajjs&Itemid=241" class="btn btn-default mt25">حذف</a>
+        </div>
 
+        <div class="span3">
+          <label for="hajj_program">برنامج الحج</label>
+          <select name="hajj_program" id="hajj_program">
+            <option value=""></option>
+            <?php foreach (self::getPrograms(true) as $key => $value): ?>
+              <option <?php echo ($hajj_program == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
+            <?php endforeach ?>
+          </select>
+        </div>
+
+        <div class="span3">
+          <label for="office_branch">فرع التسجيل</label>
+          <select name="office_branch" id="office_branch">
+            <option value=""></option>
+            <?php foreach (self::getBranchs($is_admin) as $key => $value): ?>
+              <option <?php echo ($office_branch == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
+            <?php endforeach ?>
+          </select>
+        </div>
+
+        <div class="span3">
+          <label for="register_status">حالة الحجز</label>
+          <select name="register_status" id="register_status">
+              <option value=""></option>
+            <?php foreach (self::$status_hajjs as $key => $value): ?>
+                <option <?php echo ($register_status == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>">
+                  <?php echo $value ?>
+                </option>
+            <?php endforeach ?>
+          </select>
+        </div>
+
+      </div>
+
+    </form>
+  <?php 
+  }
+
+
+}// End Class 

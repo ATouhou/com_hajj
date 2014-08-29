@@ -14,7 +14,12 @@ require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
 require_once JPATH_COMPONENT.'/helpers/' .'components.php';
 
-$url = 'index.php?option=com_hajj&task=admin.hajjs&Itemid=241&p=';
+$url  = 'index.php?option=com_hajj&task=admin.hajjs&Itemid=241';
+$url .= ($this->register_status != "") ? '&register_status='.$this->register_status : '';
+$url .= ($this->office_branch != "") ? '&office_branch='.$this->office_branch : '';
+$url .= ($this->hajj_program != "") ? '&hajj_program='.$this->hajj_program : '';
+$url .= '&p=';
+
 $data = $this->data;
 //var_dump($data);
 
@@ -23,11 +28,15 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList($is_admin=true);
 $ThePagination    = HajjComponentsHelper::getPagination($url, $this->nbHajjs, 20, $this->start);
 $ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($data), $url);
 
-
 ?>
 <h1>طلبات الحجز</h1>
 <?php echo $ThePager ?>
 <?php echo $ThePagination; ?>
+
+<?php 
+  // Get the Filter Form
+  HajjFieldHelper::getFormFilter($this->register_status, $this->hajj_program, $this->office_branch);
+?>
 <table class="allhajjs table table-condensed table-bordered ">
   <thead>
     <tr>

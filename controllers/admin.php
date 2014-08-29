@@ -36,20 +36,38 @@ class HajjControllerAdmin extends JControllerLegacy
 */
   public function Hajjs(){
     
-    $jinput  = JFactory::getApplication()->input;
-    $offset  = $jinput->get('p','1');
-    $limit   = 20;
+    $jinput = JFactory::getApplication()->input;
+    $offset = $jinput->get('p','1');
+
+    // Filters
+    $register_status = $jinput->get('register_status','');
+    $office_branch   = $jinput->get('office_branch','');
+    $hajj_program    = $jinput->get('hajj_program','');
+    $sexe            = $jinput->get('sexe','');
     
+    $where = '1=1';
+    $where .= ($register_status!='') ? ' AND register_status = '.$register_status: '';
+    $where .= ($office_branch!='') ? ' AND office_branch = '.$office_branch: '';
+    $where .= ($hajj_program!='') ? ' AND hajj_program = '.$hajj_program: '';
+    $where .= ($sexe!='') ? ' AND sexe = '.$sexe: '';
+
+    // Pagination
+    $limit   = 20;
     $start   = ($offset - 1) * $limit ;
     
     $model   = $this->getModel("Admin");
-    $result  = $model->getHajjs($start, $limit);
-    $nbHajjs = $model->getNbHajjs();
+    $result  = $model->getHajjs($start, $limit,$where);
+    $nbHajjs = $model->getNbHajjs($where);
     
     $view    = $this->getView('adminhajjs', 'html'); //get the view
     $view->assignRef('data', $result); // assign data from the model
     $view->assignRef('start', $offset); // assign data from the model
     $view->assignRef('nbHajjs', $nbHajjs); // assign data from the model
+
+    $view->assignRef('register_status', $register_status); // assign data from the model
+    $view->assignRef('office_branch', $office_branch); // assign data from the model
+    $view->assignRef('hajj_program', $hajj_program); // assign data from the model
+    $view->assignRef('sexe', $sexe); // assign data from the model
 
     $view->display(); // display the view
   }

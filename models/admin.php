@@ -17,13 +17,14 @@ class HajjModelAdmin extends JModelLegacy {
 | Get All Hajjs
 |------------------------------------------------------------------------------------
 */
-  public function getHajjs($offset=0, $limit=0){
+  public function getHajjs($offset=0, $limit=0, $where=''){
     $db = JFactory::getDBO();
     
     $query = $db->getQuery(true);    
     $query
         ->select('*')
-        ->from($db->quoteName('#__hajj_users'));
+        ->from($db->quoteName('#__hajj_users'))
+        ->where($where);
     
     $db->setQuery($query, $offset, $limit);
     $results = $db->loadObjectList();
@@ -37,13 +38,16 @@ class HajjModelAdmin extends JModelLegacy {
 | Get Nb Hajjs
 |------------------------------------------------------------------------------------
 */
-  public function getNbHajjs(){
+  public function getNbHajjs($where=''){
     $db = JFactory::getDBO();
     
     $query = $db->getQuery(true);    
     $query
         ->select('id')
         ->from($db->quoteName('#__hajj_users'));
+    if ($where!='') {
+      $query->where($where);
+    }
     
     $db->setQuery($query);
     $db->execute();
