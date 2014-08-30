@@ -23,8 +23,11 @@ class HajjModelAdmin extends JModelLegacy {
     $query = $db->getQuery(true);    
     $query
         ->select('*')
-        ->from($db->quoteName('#__hajj_users'))
-        ->where($where);
+        ->from($db->quoteName('#__hajj_users'));
+    if ($where!='') {
+      $query->where($where);
+    }
+        
     
     $db->setQuery($query, $offset, $limit);
     $results = $db->loadObjectList();
