@@ -683,13 +683,14 @@ class HajjFieldHelper {
 |------------------------------------------------------------------------------------
 */
   public static function getFormPayment($data = "", $idHajj = 0, $idPayment = 0, $is_admin = false){
+    $readonly = ($is_admin == true && $data!='') ? 'disabled' : '';
     ?>
 
     <form action="index.php?option=com_hajj&task=hajj.setPayment"  enctype="multipart/form-data" method="post" accept-charset="utf-8">
       <div class="row-fluid">
         <div class="span4">
-          <label for="amount">المبلغ</label>
-          <input type="number" name="amount" id="amount" value="<?php echo ($data != "") ? $data->amount : "" ?>" required>
+          <label for="amount">مبلغ الدفعة</label>
+          <input type="number" name="amount" id="amount" value="<?php echo ($data != "") ? $data->amount : "" ?>" required <?php echo $readonly ?>>
         </div>
         <div class="span4">
           <label for="account_owner">صاحب الحساب</label>
