@@ -855,7 +855,7 @@ class HajjFieldHelper {
       <div class="row-fluid">
         <div class="span3">
           <input type="submit" name="submit" value="تصفية" class="btn btn-success mt25">
-          <a href="index.php?option=com_hajj&task=admin.hajjs&Itemid=241" class="btn btn-default mt25">حذف</a>
+          <a href="index.php?option=com_hajj&task=admin.hajjs&Itemid=241" class="btn btn-default mt25">الكل</a>
         </div>
 
         <div class="span3">
