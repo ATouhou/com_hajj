@@ -729,7 +729,10 @@ class HajjFieldHelper {
       </div>
       <?php if ($is_admin): ?>
        <div class="row-fluid">
-        <div class="span4 offset8">
+       <div class="span8">
+         <img src="index.php?option=com_hajj&task=admin.getImgPayment&img=<?php echo $data->attachment ?>" alt="">
+       </div>
+        <div class="span4">
           <label for="id_hajj">رقم الحجز</label>
           <?php HajjFieldHelper::getListHajjId($idHajj) ?>
          </div>
@@ -907,7 +910,7 @@ class HajjFieldHelper {
       <div class="row-fluid">
         <div class="span3">
           <input type="submit" name="submit" value="تصفية" class="btn btn-success mt25">
-          <a href="index.php?option=com_hajj&view=payments&Itemid=249" class="btn btn-default mt25">الكل</a>
+          <a href="index.php?option=com_hajj&view=payments&Itemid=249" class="btn btn-default mt25">الطلبات</a>
         </div>
 
         <div class="span3">

@@ -43,7 +43,9 @@ class HajjModelPayments extends JModelLegacy {
     $query = $db->getQuery(true);    
     $query
         ->select('*')
-        ->from($db->quoteName('#__hajj_payments'));
+        ->from($db->quoteName('#__hajj_payments'))
+        ->order('id_hajj');
+
     if ($where!='') {
       $query->where($where);
     }
