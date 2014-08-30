@@ -37,14 +37,16 @@ class HajjModelPayments extends JModelLegacy {
 | Get All Payments
 |------------------------------------------------------------------------------------
 */
-  public function getPayments(){
+  public function getPayments($where=''){
     $db = JFactory::getDBO();
     
     $query = $db->getQuery(true);    
     $query
         ->select('*')
         ->from($db->quoteName('#__hajj_payments'));
-    
+    if ($where!='') {
+      $query->where($where);
+    }
     $db->setQuery($query);
     $results = $db->loadObjectList();
     

@@ -35,7 +35,7 @@ $ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($data), 
 
 <?php 
   // Get the Filter Form
-  HajjFieldHelper::getFormFilter($this->register_status, $this->hajj_program, $this->office_branch);
+  HajjFieldHelper::getFormFilterHajjs($this->register_status, $this->hajj_program, $this->office_branch);
 ?>
 <table class="allhajjs table table-condensed table-bordered ">
   <thead>

@@ -38,12 +38,25 @@ class hajjViewPayments extends JViewLegacy
       $this->idHajj = $model->getIdNumber($idUser);
 
       
+      // Get Filer
+      $jinput = JFactory::getApplication()->input;
+
+      // Create Filters
+      $this->date_filter    = $jinput->get('date_filter','');
+      $this->id_filter      = $jinput->get('id_filter','');
+      $this->id_hajj = $jinput->get('id_hajj','');
+      
+      $where = '1=1';
+      $where .= ($this->date_filter!='') ? ' AND date = "'.$this->date_filter.'"': '';
+      $where .= ($this->id_filter!='') ? ' AND id = '.$this->id_filter: '';
+      $where .= ($this->id_hajj!='') ? ' AND id_hajj = '.$this->id_hajj: '';
+
       // Get the DATA
       $model        = JModelLegacy::getInstance('Payments', 'HajjModel');
-      $this->data   = ($this->is_admin) ? $model->getPayments($this->idHajj) : $model->getMyPayments($this->idHajj);
+      $this->data   = ($this->is_admin) ? $model->getPayments($where) : $model->getMyPayments($this->idHajj);
+
       
       // If we select an id we sould edit it in the form
-      $jinput       = JFactory::getApplication()->input;
       $id           = $jinput->get('id', 0);
       $this->toEdit = "";
 

@@ -43,6 +43,12 @@ $toEdit = $this->toEdit;
 ?>
 
 <h1>شاشة الدفعــات</h1>
+
+<?php 
+  // Get the Filter Form
+  HajjFieldHelper::getFormFilterPayments($this->date_filter, $this->id_filter, $this->id_hajj);
+?>
+
 <table class="allhajjs table table-condensed table-bordered">
   <thead>
     <tr>

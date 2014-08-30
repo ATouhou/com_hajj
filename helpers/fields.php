@@ -849,7 +849,7 @@ class HajjFieldHelper {
 | Get Form Filter
 |------------------------------------------------------------------------------------
 */
-  public static function getFormFilter($register_status="", $hajj_program="", $office_branch=""){
+  public static function getFormFilterHajjs($register_status="", $hajj_program="", $office_branch=""){
   ?>
     <form action="index.php?option=com_hajj&task=admin.hajjs&Itemid=241" method="post" accept-charset="utf-8">
       <div class="row-fluid">
@@ -888,6 +888,41 @@ class HajjFieldHelper {
                 </option>
             <?php endforeach ?>
           </select>
+        </div>
+
+      </div>
+
+    </form>
+  <?php 
+  } 
+
+/*
+|------------------------------------------------------------------------------------
+| Get Form Filter 
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormFilterPayments($date_filter='', $id_filter='', $id_hajj=''){
+  ?>
+    <form action="index.php?option=com_hajj&view=payments&Itemid=249" method="post" accept-charset="utf-8">
+      <div class="row-fluid">
+        <div class="span3">
+          <input type="submit" name="submit" value="تصفية" class="btn btn-success mt25">
+          <a href="index.php?option=com_hajj&view=payments&Itemid=249" class="btn btn-default mt25">الكل</a>
+        </div>
+
+        <div class="span3">
+          <label for="date_filter">التاريخ</label>
+          <input type="text" class="datepicker" id="date_filter" name="date_filter" value="<?php echo $date_filter ?>" placeholder="">
+        </div>
+
+        <div class="span3">
+          <label for="id_filter">رقم الدفعة</label>
+          <input type="text" name="id_filter" id="id_filter" value="<?php echo $id_filter ?>" placeholder="">
+        </div>
+
+        <div class="span3">
+          <label for="id_hajj">رقم الحجز</label>
+          <input type="text" name="id_hajj" id="id_hajj" value="<?php echo $id_hajj ?>" placeholder="">
         </div>
 
       </div>
