@@ -40,12 +40,19 @@ class HajjControllerAdmin extends JControllerLegacy
     $offset = $jinput->get('p','1');
 
     // Filters
-    $register_status = $jinput->get('register_status','');
-    $office_branch   = $jinput->get('office_branch','');
-    $hajj_program    = $jinput->get('hajj_program','');
-    $sexe            = $jinput->get('sexe','');
+    $register_status = $jinput->get('register_status','', 'STRING');
+    $office_branch   = $jinput->get('office_branch','', 'STRING');
+    $hajj_program    = $jinput->get('hajj_program','', 'STRING');
+    $sexe            = $jinput->get('sexe','', 'STRING');
+    $deny            = $jinput->get('deny','', 'STRING');
     
-    $where = 'register_status != 3 AND register_status != 5';
+    
+    if ($deny != '') {// We display deny Hajjs
+      $where = 'register_status = 3 OR register_status = 5';
+    }else{// We display activated Hajjs
+      $where = 'register_status != 3 AND register_status != 5';
+    }
+    
     $where .= ($register_status!='') ? ' AND register_status = '.$register_status: '';
     $where .= ($office_branch!='') ? ' AND office_branch = '.$office_branch: '';
     $where .= ($hajj_program!='') ? ' AND hajj_program = '.$hajj_program: '';
@@ -68,6 +75,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $view->assignRef('office_branch', $office_branch); // assign data from the model
     $view->assignRef('hajj_program', $hajj_program); // assign data from the model
     $view->assignRef('sexe', $sexe); // assign data from the model
+    $view->assignRef('deny', $deny); // assign data from the model
 
     $view->display(); // display the view
   }

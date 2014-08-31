@@ -18,6 +18,7 @@ $url  = 'index.php?option=com_hajj&task=admin.hajjs&Itemid=241';
 $url .= ($this->register_status != "") ? '&register_status='.$this->register_status : '';
 $url .= ($this->office_branch != "") ? '&office_branch='.$this->office_branch : '';
 $url .= ($this->hajj_program != "") ? '&hajj_program='.$this->hajj_program : '';
+$url .= ($this->deny != "") ? '&deny='.$this->deny : '';
 $url .= '&p=';
 
 $data = $this->data;
@@ -35,7 +36,9 @@ $ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($data), 
 
 <?php 
   // Get the Filter Form
+if ($this->deny == "") {// 
   HajjFieldHelper::getFormFilterHajjs($this->register_status, $this->hajj_program, $this->office_branch);
+}
 ?>
 <table class="allhajjs table table-condensed table-bordered ">
   <thead>
