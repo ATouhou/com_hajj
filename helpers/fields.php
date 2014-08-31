@@ -16,7 +16,7 @@ class HajjFieldHelper {
     public static $RHS              = array("O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-");
     public static $hajjProgram      = array("برنامج الفرسان", "برنامج التميز", "برنامج الوسام", "برنامج الصفوة");
     public static $officeBranch     = array("مكة المكرمة", "المدينة المنورة", "جدة");
-    public static $status_hajjs     = array("تحت التدقيق والمراجعة", "مقبول", "مرفوض", "تم الدفع", "الغاء الحجز");
+    public static $status_hajjs     = array("تحت التدقيق والمراجعة", "مقبول", "مرفوض", "تم الدفع", "الغاء الحجز", "تصريح", "تسكين");
     public static $reason_exception = array("محرم", "طبيب", "عصبة نساء", "مع محرمها", "اداري", "عامل في الحملة", "ممرضة", "حج عن متوفي");
     public static $account_owner    = array("مصرف الراجحي", "بنك البلاد", "البنك الأهلي");
     public static $status_payment   = array("تحت التدقيق", "مقبولة", "مرفوضة");
@@ -353,7 +353,7 @@ class HajjFieldHelper {
     }
 
     // If read only we add alert
-    if ($data->transfer_status): ?>
+    if ($data->transfer_status && !$is_admin): ?>
       <div class="alert fade in alert-error">
         <button type="button" class="close" data-dismiss="alert">×</button>
         <strong>لا يمكنك تعديل البيانات</strong> لقد تم توقيف التحويل لديك
@@ -362,7 +362,7 @@ class HajjFieldHelper {
 
     <?php
     // If read only we add alert
-    if ($data->register_status == '4'): ?>
+    if ($data->register_status == '4' && !$is_admin): ?>
       <div class="alert fade in alert-error">
         <button type="button" class="close" data-dismiss="alert">×</button>
         <strong>لا يمكنك تعديل البيانات</strong> لقد تم قبولك
@@ -895,9 +895,11 @@ class HajjFieldHelper {
           <select name="register_status" id="register_status">
               <option value=""></option>
             <?php foreach (self::$status_hajjs as $key => $value): ?>
+              <?php if ($key+1 != 3 && $key+1 != 5): ?>
                 <option <?php echo ($register_status == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>">
                   <?php echo $value ?>
-                </option>
+                </option>                
+              <?php endif ?>
             <?php endforeach ?>
           </select>
         </div>

@@ -45,7 +45,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $hajj_program    = $jinput->get('hajj_program','');
     $sexe            = $jinput->get('sexe','');
     
-    $where = '1=1';
+    $where = 'register_status != 3 AND register_status != 5';
     $where .= ($register_status!='') ? ' AND register_status = '.$register_status: '';
     $where .= ($office_branch!='') ? ' AND office_branch = '.$office_branch: '';
     $where .= ($hajj_program!='') ? ' AND hajj_program = '.$hajj_program: '';

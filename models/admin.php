@@ -247,11 +247,12 @@ class HajjModelAdmin extends JModelLegacy {
         ->from($db->quoteName('#__hajj_users', 'HU'))
         ->join('INNER', $db->quoteName('#__hajj_program', 'HP') . 
           ' ON (' . $db->quoteName('HP.id') . ' = ' . $db->quoteName('HU.hajj_program') . ')')
-        ->leftJoin('#__hajj_users as fils ON fils.addon = HU.id ')
+        ->leftJoin('#__hajj_users as fils ON (fils.addon = HU.id AND fils.register_status != 5 AND fils.register_status != 3)')
+        ->where($db->quoteName('HU.addon') . ' = 0')
+        ->where($db->quoteName('HU.register_status') . ' = 2 ')
         ->group($db->quoteName('HU.id'))
-        ->where($db->quoteName('HU.addon') . ' = 0 AND HU.register_status = 2')
         ->order($db->quoteName('HU.id'));
-    
+
     $db->setQuery($query, $offset, $limit);
     $Hajjs = $db->loadObjectList();
     
