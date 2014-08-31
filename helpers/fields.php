@@ -353,10 +353,19 @@ class HajjFieldHelper {
     }
 
     // If read only we add alert
-    if ($all_read_only): ?>
+    if ($data->transfer_status): ?>
       <div class="alert fade in alert-error">
         <button type="button" class="close" data-dismiss="alert">×</button>
         <strong>لا يمكنك تعديل البيانات</strong> لقد تم توقيف التحويل لديك
+      </div>
+    <?php endif ?>
+
+    <?php
+    // If read only we add alert
+    if ($data->register_status == '4'): ?>
+      <div class="alert fade in alert-error">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>لا يمكنك تعديل البيانات</strong> لقد تم قبولك
       </div>
     <?php endif ?>
 
@@ -730,7 +739,7 @@ class HajjFieldHelper {
       <?php if ($is_admin): ?>
        <div class="row-fluid">
        <div class="span8">
-         <img src="index.php?option=com_hajj&task=admin.getImgPayment&img=<?php echo $data->attachment ?>" alt="">
+         <img class="attachment" src="index.php?option=com_hajj&task=admin.getImgPayment&img=<?php echo $data->attachment ?>" alt="">
        </div>
         <div class="span4">
           <label for="id_hajj">رقم الحجز</label>
