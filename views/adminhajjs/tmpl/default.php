@@ -49,8 +49,9 @@ $ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($data), 
       <th>برنامج الحج</th>
       <th>الجنسية</th>
       <th>حالة الحجز</th>
+      <!-- <th>توقيت التسجيل</th> -->
       <th>رقم حجز المرافق</th>
-      <th>التحويل</th>
+      <!-- <th>التحويل</th> -->
     </tr>
   </thead>
   <?php foreach ($data as $key => $value): ?>
@@ -64,8 +65,9 @@ $ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($data), 
       <td><?php echo $ProgramList[$value->hajj_program] ?></td>
       <td><?php echo HajjFieldHelper::getNationnality($value->nationality) ?></td>
       <td><?php echo HajjFieldHelper::status_register($value->register_status) ?></td>
+      <!-- <td><?php echo $value->date_register ?></td> -->
       <td><?php echo $value->addon ?></td>
-      <td><?php echo ($value->transfer_status)? 'موقف':'نشط'  ?></td>
+      <!-- <td><?php echo ($value->transfer_status)? 'موقف':'نشط'  ?></td> -->
     </tr>
   <?php endforeach ?>
 </table>
