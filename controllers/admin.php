@@ -35,7 +35,7 @@ class HajjControllerAdmin extends JControllerLegacy
 |------------------------------------------------------------------------------------
 */
   public function Hajjs(){
-    
+
     $jinput = JFactory::getApplication()->input;
     $offset = $jinput->get('p','1');
 
@@ -63,6 +63,8 @@ class HajjControllerAdmin extends JControllerLegacy
     $start   = ($offset - 1) * $limit ;
     
     $model   = $this->getModel("Admin");
+    // Update all empty register status
+    $model->updateEmptyStatus();
     $result  = $model->getHajjs($start, $limit,$where);
     $nbHajjs = $model->getNbHajjs($where);
     

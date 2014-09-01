@@ -412,4 +412,29 @@ class HajjModelAdmin extends JModelLegacy {
     return($result);
   }
 
+/*
+|------------------------------------------------------------------------------------
+| set 1 for empty register_status
+|------------------------------------------------------------------------------------
+*/
+  public function updateEmptyStatus(){
+    $db = JFactory::getDbo();
+    $query = $db->getQuery(true);
+     
+    // Fields to update.
+    $fields = array(
+        $db->quoteName('register_status') . ' = "1"' 
+    );
+     
+    // Conditions for which records should be updated.
+    $conditions = array(
+        $db->quoteName('register_status') . ' = ""' 
+    );
+     
+    $query->update($db->quoteName('#__hajj_users'))->set($fields)->where($conditions);
+     
+    $db->setQuery($query);
+     
+    $result = $db->query();
+  }
 }
