@@ -126,24 +126,21 @@ class HajjFieldHelper {
       ?>
       <select class="span4" name="birthday1" id="birthday" required> 
         <option value="">اليوم </option>
-        <?php for ($i=1; $i < 31; $i++) :?>
+        <?php for ($i=1; $i < 32; $i++) :?>
             <option <?php echo ($date == $i) ? "selected" : "" ?> value="<?php echo $i ?>"><?php echo $i ?></option> 
         <?php endfor ?>
       </select>
 
       <select class="span4" name="birthday2">
         <option <?php echo ($month == "") ? "selected"  : "" ?> value="0">الشهر</option>
-          <?php foreach (self::$Months as $key => $value): ?>
-              <option <?php echo ($month == $key+1) ? "selected"  : "" ?> value="<?php echo $key+1 ?>"><?php echo $value ?></option>
-          <?php endforeach ?>
+          <?php for ($i=1; $i < 13; $i++) :?>
+              <option <?php echo ($month == $i) ? "selected" : "" ?> value="<?php echo $i ?>"><?php echo $i ?></option> 
+          <?php endfor ?>
+
       </select>
 
-      <select class="span4" name="birthday3">
-        <option value="">السنه</option>
-        <?php for ($i=1435; $i > 1330; $i--) : ?>
-            <option <?php echo ($year == $i) ? "selected" : "" ?> value="<?php echo $i ?>"><?php echo $i ?></option>
-        <?php endfor ?>
-      </select>
+      <input type="text" class="span4" name="birthday3" value="<?php echo $year ?>" placeholder="السنه">
+
     <?php
   }
 
