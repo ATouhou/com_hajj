@@ -293,6 +293,10 @@ class HajjControllerAdmin extends JControllerLegacy
 */
   public function benefits(){
     
+    require_once JPATH_COMPONENT . '/helpers/hajj.php';
+    HajjFrontendHelper::updateHajjsPayment();
+
+    
     $jinput = JFactory::getApplication()->input;
     $offset = $jinput->get('p','1');
     $limit  = 20;
