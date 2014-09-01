@@ -16,18 +16,18 @@ class HajjFrontendHelper {
 | Register new User "Hajj"
 |------------------------------------------------------------------------------------
 */
-  public static function register_user ($id_number, $mobile, $email, $first_name){ 
+  public static function register_user($id_number, $password, $password2, $email, $first_name,$groups=array("1","2")){ 
       
     jimport('joomla.user.helper');
     
     $data = array(
       "name"=>$first_name,
       "username"=>$id_number,
-      "password"=>$mobile,
-      "password2"=>$mobile,
+      "password"=>$password,
+      "password2"=>$password2,
       "email"=>$email,
       "block"=>0,
-      "groups"=>array("1","2")
+      "groups"=>$groups
     );
 
     $user = new JUser;

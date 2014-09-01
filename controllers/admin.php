@@ -162,6 +162,49 @@ class HajjControllerAdmin extends JControllerLegacy
     $app->redirect('index.php?option=com_hajj&view=adminPrograms', 'تم حفظ البيانات بنجاح', 'success');
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Admin set Personnel
+|------------------------------------------------------------------------------------
+*/
+  public function setPersonnel(){
+    $app = JFactory::getApplication();
+    $jinput = $app->input;
+
+    $user                     = new stdClass();
+    $personnel                = new stdClass();
+    $personnel->id            = $jinput->get('id','','STRING');
+    $personnel->office_branch = $jinput->get('office_branch','','STRING');
+    $personnel->authority     = $jinput->get('authority','','STRING');
+    $personnel->phone         = $jinput->get('phone','','STRING');
+    
+    $user->email              = $jinput->get('email','','STRING');
+    $user->name               = $jinput->get('name','','STRING');
+    $user->password1          = $jinput->get('password1','','STRING');
+    $user->password2          = $jinput->get('password2','','STRING');
+    $user->username           = $jinput->get('username','','STRING');
+    
+    $url = 'index.php?option=com_hajj&view=adminPersonnel&Itemid=290';
+
+    // Check same password 
+    if ($user->password1 != $user->password2) {
+      $app->redirect($url, 'يرجى وضع نفس كلمة السر', 'error');
+    }
+
+    
+    if ($personnel->id != "") { // Edit
+      $this->getModel('personnels')->editPersonnel($personnel);
+    }else{ // New Personnel
+      
+      // Save the user in Joomla user
+      require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
+      $personnel->id_user = HajjFrontendHelper::register_user($user->username, $user->password1,$user->password1, $user->email, $user->name, array("7"));
+      $this->getModel('personnels')->setPersonnel($personnel);
+    }
+
+    $app->redirect($url, 'تم حفظ البيانات بنجاح', 'success');
+  }
+
 
 /*
 |------------------------------------------------------------------------------------

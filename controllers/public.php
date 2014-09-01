@@ -76,7 +76,7 @@ class HajjControllerPublic extends JControllerLegacy
     }
 
 
-    $id_user = HajjFrontendHelper::register_user($obj->id_number, $obj->mobile, $obj->email, $obj->first_name);
+    $id_user = HajjFrontendHelper::register_user($obj->id_number, $obj->mobile, $obj->mobile, $obj->email, $obj->first_name);
 
     if (!is_numeric($id_user)) { // Problem
       $app->redirect("index.php?option=com_hajj&view=newhajj", 

@@ -21,7 +21,8 @@ class HajjFieldHelper {
     public static $account_owner    = array("مصرف الراجحي", "بنك البلاد", "البنك الأهلي");
     public static $status_payment   = array("تحت التدقيق", "مقبولة", "مرفوضة");
     public static $sexe             = array("رجال", "نساء");
-    public static $status_tents      = array("مقفل", "شاغر");
+    public static $status_tents     = array("مقفل", "شاغر");
+    public static $authority        = array("مدير", "محاسب", "موظف فرع");
 
 /*
 |------------------------------------------------------------------------------------
@@ -77,6 +78,23 @@ class HajjFieldHelper {
       <select name="nationality" id="nationality" required>
         <option value=""></option>
         <?php foreach (self::$Nationnality as $key => $value): ?>
+            <option <?php echo ($active == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>"><?php echo $value ?></option>
+        <?php endforeach ?>
+      </select>
+    <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Get list of Nation
+|------------------------------------------------------------------------------------
+*/
+  public static function getListAuthority($active = ""){ 
+    //var_dump(self::$Nationnality);
+    ?>
+      <select name="authority" id="authority" required>
+        <option value=""></option>
+        <?php foreach (self::$authority as $key => $value): ?>
             <option <?php echo ($active == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>"><?php echo $value ?></option>
         <?php endforeach ?>
       </select>
@@ -828,6 +846,83 @@ class HajjFieldHelper {
         </div>
         <input type="hidden" name="id" value="<?php echo ($toEdit != "") ? $toEdit->id : "" ?>">
       </div>
+
+      <input type="submit" name="" value="حفظ" class="btn btn-success">
+
+    </form>
+
+    <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Get the Form of Branchs
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormPersonnel($toEdit = ""){
+
+    ?>
+
+    <form action="index.php?option=com_hajj&task=admin.setPersonnel" method="post" accept-charset="utf-8">
+      <div class="row-fluid">
+
+        <div class="span4">
+          <label for="phone">رقم الجوال</label>
+          <input type="text" name="phone" id="phone" value="<?php echo ($toEdit != "") ? $toEdit->phone : "" ?>" required>
+        </div>
+
+        <div class="span4">
+          <label for="username">اسم المستخدم</label>
+          <input type="text" name="username" id="username" value="<?php echo ($toEdit != "") ? $toEdit->username : "" ?>" required>
+        </div>
+
+        <div class="span4">
+          <label for="name">اسم الموظف</label>
+          <input type="text" name="name" id="name" value="<?php echo ($toEdit != "") ? $toEdit->name : "" ?>" required>
+        </div>
+      </div>
+
+      <div class="row-fluid">
+        <div class="span4">
+          <label for="email">البريد الالكتروني</label>
+          <input type="email" name="email" id="email" value="<?php echo ($toEdit != "") ? $toEdit->email : "" ?>" required>
+        </div>
+
+        <div class="span4">
+          <label for="office_branch">الفرع</label>
+          <?php if ($toEdit==''): ?>
+            <?php self::GetOfficeBranch("", true) ?>
+          <?php else: ?>
+            <?php self::GetOfficeBranch($toEdit->office_branch, true) ?>
+          <?php endif ?>
+          
+        </div>
+
+        <div class="span4">
+          <label for="authority">الصلاحيات</label>
+          <?php if ($toEdit==''): ?>
+            <?php self::getListAuthority("", true) ?>
+          <?php else: ?>
+            <?php self::getListAuthority($toEdit->authority) ?>
+          <?php endif ?>
+        </div>
+      </div>
+
+      <div class="row-fluid">
+        <div class="span4">
+          <input type="hidden" name="id" value="<?php echo ($toEdit != "") ? $toEdit->id : "" ?>">
+        </div>
+        <div class="span4">
+          <label for="password1">أعد كلمة المرور</label>
+          <input type="password" name="password1" id="password1" value="" <?php echo ($toEdit=="")? 'required' : '' ?>>
+        </div>
+
+        <div class="span4">
+          <label for="password2">كلمة المرور</label>
+          <input type="password" name="password2" id="password2" value="" <?php echo ($toEdit=="")? 'required' : '' ?>>
+        </div>
+      </div>
+
 
       <input type="submit" name="" value="حفظ" class="btn btn-success">
 
