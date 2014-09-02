@@ -12,7 +12,7 @@ require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 $status_hajjs = HajjFieldHelper::$status_hajjs;
 
 $data = $this->data;
-var_dump($data);
+//var_dump($data);
 
 $th = '';
 $td = '';

@@ -9,28 +9,30 @@
 
 defined('_JEXEC') or die;
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
-$status_hajjs = HajjFieldHelper::$status_hajjs;
+$Nationnality = HajjFieldHelper::$Nationnality;
 
 $data = $this->data;
+$sexe = array("m" => "رجال", "f" => "نسـاء");
+
 //var_dump($data);
 
-$th = '';
-$td = '';
-foreach ($data as $key => $value) {
-  $th .= '<th>'.$value->name.'</th>';
-  $td .= '<td><a href="index.php?option=com_hajj&task=admin.hajjs&Itemid=241&hajj_program='.$value->id.'">'.$value->count.'</a></td>';
-}
 
 ?>
 
-<h1>تقرير حسب برنامج الحج</h1>
+<h1>تقرير حسب البلد</h1>
 <table class="allhajjs table table-condensed table-bordered">
   <thead>
     <tr>
-    <?php echo $th ?>
+      <th>البلد</th>
+      <th>العدد</th>
     </tr>
   </thead>
-  <tr>
-    <?php echo $td ?>
-  </tr>
+  
+  <?php foreach ($data as $key => $value): ?>
+    <tr>
+      <td><?php echo $Nationnality[$value->nationality-1] ?></td>
+      <td><?php echo $value->count ?></td>
+    </tr>
+  <?php endforeach ?>
+
 </table>

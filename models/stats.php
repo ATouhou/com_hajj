@@ -73,5 +73,42 @@ class HajjModelStats extends JModelLegacy {
     return $results;
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Get Status By Sexe
+|------------------------------------------------------------------------------------
+*/
+  public function getSexe(){
+    $db = JFactory::getDBO();
+    
+    $query = $db->getQuery(true);    
+    $query
+        ->select(array('sexe', 'count(sexe) as count'))
+        ->from($db->quoteName('#__hajj_users'))
+        ->group($db->quoteName('sexe'));
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+    
+    return $results;
+  }
+/*
+|------------------------------------------------------------------------------------
+| Get Status By Sexe
+|------------------------------------------------------------------------------------
+*/
+  public function getNationality(){
+    $db = JFactory::getDBO();
+    
+    $query = $db->getQuery(true);    
+    $query
+        ->select(array('nationality', 'count(nationality) as count'))
+        ->from($db->quoteName('#__hajj_users'))
+        ->group($db->quoteName('nationality'));
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+    
+    return $results;
+  }
+
 
 }

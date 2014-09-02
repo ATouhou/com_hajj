@@ -77,7 +77,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $where .= ($register_status!='') ? ' AND register_status = '.$register_status: '';
     $where .= ($office_branch!='') ? ' AND office_branch = '.$office_branch: '';
     $where .= ($hajj_program!='') ? ' AND hajj_program = '.$hajj_program: '';
-    $where .= ($sexe!='') ? ' AND sexe = '.$sexe: '';
+    $where .= ($sexe!='') ? ' AND sexe = "'.$sexe.'"': '';
 
     // Pagination
     $limit   = 20;
