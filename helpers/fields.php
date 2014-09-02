@@ -23,6 +23,7 @@ class HajjFieldHelper {
     public static $sexe             = array("رجال", "نساء");
     public static $status_tents     = array("مقفل", "شاغر");
     public static $authority        = array(10=>"مدير", 11=>"محاسب", 12=>"موظف فرع");
+    public static $documents        = array("البطاقة الشخصية", "إقامة", "كرت العائلة", "خطاب الكفيل", "صورة شخصية", "كرت التطعيم مع فصيلة الدم");
 
 /*
 |------------------------------------------------------------------------------------
