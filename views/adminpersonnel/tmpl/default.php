@@ -11,9 +11,11 @@ defined('_JEXEC') or die;
 
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
-$data = $this->data;
-$toEdit = $this->toEdit;
+$data         = $this->data;
+$toEdit       = $this->toEdit;
 
+$officeBranch = HajjFieldHelper::$officeBranch;
+$authority    = HajjFieldHelper::$authority;
 //var_dump($data);
 
 
@@ -65,8 +67,8 @@ $toEdit = $this->toEdit;
       <td><?php echo $value->username ?></td>
       <td><?php echo $value->phone ?></td>
       <td><?php echo $value->email ?></td>
-      <td><?php echo HajjFieldHelper::$officeBranch[$value->office_branch-1] ?></td>
-      <td><?php echo HajjFieldHelper::$authority[$value->authority-1]?></td>
+      <td><?php echo $officeBranch[$value->office_branch-1] ?></td>
+      <td><?php echo $authority[$value->authority]?></td>
     </tr>
   <?php endforeach ?>
 </table>

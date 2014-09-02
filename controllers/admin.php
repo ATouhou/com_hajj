@@ -15,6 +15,16 @@ jimport('joomla.application.component.controller');
 class HajjControllerAdmin extends JControllerLegacy
 {
 
+  /*
+    08 -> Super Users
+    10 -> HajjAdmin
+    11 -> HajjFinance
+    12 -> HajjManager
+  */
+  private $allowedGroup = array(8,10,11,12);
+  private $group;
+  private $user_id;
+
 /*
 |------------------------------------------------------------------------------------
 | Change the construct
@@ -22,10 +32,13 @@ class HajjControllerAdmin extends JControllerLegacy
 */
   public function __construct(){
    
-    if (!JFactory::getUser()->authorise('core.manage', 'com_hajj'))
-    {
+    $this->user_id = JFactory::getUser()->id;
+    $this->group   = JAccess::getGroupsByUser($this->user_id, false)[0];
+
+    if(!is_numeric(array_search($this->group,$this->allowedGroup))){
       return JError::raiseWarning(404, "JText::_('JERROR_ALERTNOAUTHOR')");
     }
+   
     parent::__construct();
   }
 
@@ -35,6 +48,7 @@ class HajjControllerAdmin extends JControllerLegacy
 |------------------------------------------------------------------------------------
 */
   public function Hajjs(){
+
 
     $jinput = JFactory::getApplication()->input;
     $offset = $jinput->get('p','1');
@@ -53,6 +67,13 @@ class HajjControllerAdmin extends JControllerLegacy
       $where = 'register_status != 3 AND register_status != 5';
     }
     
+    if ($this->group == 12) { // This is a Manager
+      $where          .= ' AND register_status!= 4'; // Hide 'Tama daf3'
+      $personnelsModel = $this->getModel("Personnels"); // Get the model
+      $office_branch   = $personnelsModel->getPersonnels('id_user = '.$this->user_id)[0]->office_branch; // Get the branch
+      $where          .= ' AND office_branch = ' . $office_branch; // Set the branch for the select
+    }
+
     $where .= ($register_status!='') ? ' AND register_status = '.$register_status: '';
     $where .= ($office_branch!='') ? ' AND office_branch = '.$office_branch: '';
     $where .= ($hajj_program!='') ? ' AND hajj_program = '.$hajj_program: '';
@@ -200,7 +221,7 @@ class HajjControllerAdmin extends JControllerLegacy
       
       // Save the user in Joomla user
       require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
-      $personnel->id_user = HajjFrontendHelper::register_user($user->username, $user->password1,$user->password1, $user->email, $user->name, array("7"));
+      $personnel->id_user = HajjFrontendHelper::register_user($user->username, $user->password1,$user->password1, $user->email, $user->name, array($personnel->authority));
       $this->getModel('personnels')->setPersonnel($personnel);
     }
 
@@ -422,4 +443,5 @@ class HajjControllerAdmin extends JControllerLegacy
       $app->redirect('index.php?option=com_hajj&task=admin.hajjs', 'خطأ SQL', 'error');
     }
   }
+
 }

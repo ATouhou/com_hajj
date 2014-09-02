@@ -22,7 +22,7 @@ class HajjFieldHelper {
     public static $status_payment   = array("تحت التدقيق", "مقبولة", "مرفوضة");
     public static $sexe             = array("رجال", "نساء");
     public static $status_tents     = array("مقفل", "شاغر");
-    public static $authority        = array("مدير", "محاسب", "موظف فرع");
+    public static $authority        = array(10=>"مدير", 11=>"محاسب", 12=>"موظف فرع");
 
 /*
 |------------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ class HajjFieldHelper {
       <select name="authority" id="authority" required>
         <option value=""></option>
         <?php foreach (self::$authority as $key => $value): ?>
-            <option <?php echo ($active == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>"><?php echo $value ?></option>
+            <option <?php echo ($active == $key) ? "selected" : "" ?> value="<?php echo $key ?>"><?php echo $value ?></option>
         <?php endforeach ?>
       </select>
     <?php
