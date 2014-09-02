@@ -32,4 +32,46 @@ class HajjModelStats extends JModelLegacy {
   }
 
 
+/*
+|------------------------------------------------------------------------------------
+| Get Status By Branch
+|------------------------------------------------------------------------------------
+*/
+  public function getBranch(){
+    $db = JFactory::getDBO();
+    
+    $query = $db->getQuery(true);    
+    $query
+        ->select(array('branch.id','branch.name', 'count(office_branch) as count'))
+        ->from($db->quoteName('#__hajj_users', 'HU'))
+        ->leftJoin('#__hajj_branch as branch ON (branch.id=HU.office_branch)')
+        ->group($db->quoteName('office_branch'));
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+    
+    return $results;
+  }
+
+
+/*
+|------------------------------------------------------------------------------------
+| Get Status By Program
+|------------------------------------------------------------------------------------
+*/
+  public function getProgram(){
+    $db = JFactory::getDBO();
+    
+    $query = $db->getQuery(true);    
+    $query
+        ->select(array('program.id','program.name', 'count(hajj_program) as count'))
+        ->from($db->quoteName('#__hajj_users', 'HU'))
+        ->leftJoin('#__hajj_program as program ON (program.id=HU.hajj_program)')
+        ->group($db->quoteName('hajj_program'));
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+    
+    return $results;
+  }
+
+
 }

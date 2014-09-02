@@ -742,7 +742,7 @@ class HajjFieldHelper {
         <?php endif ?>
         <div class="span4 <?php echo (!$is_admin) ? "offset4" : "" ?>">
           <label for="attachment">ارفاق السند</label>
-          <input type="file" name="attachment" id="attachment" value="" <?php echo ($data == "") ? "required" : "" ?>>
+          <input type="file" name="attachment" id="attachment" value="">
         </div>
         <div class="span4">
           <?php require_once JPATH_COMPONENT.'/helpers/' .'components.php'; ?>

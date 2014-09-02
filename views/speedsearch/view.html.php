@@ -17,6 +17,24 @@ jimport('joomla.application.component.view');
  */
 class hajjViewSpeedSearch extends JViewLegacy
 {
+  /*
+    08 -> Super Users
+    10 -> HajjAdmin
+    11 -> HajjFinance
+    12 -> HajjManager
+  */
+  private $allowedGroup = array(8,10,11,12);
+  private $group;
+  private $user_id;
+
+  public function __construct(){
+   
+    $this->user_id = JFactory::getUser()->id;
+    $this->group   = JAccess::getGroupsByUser($this->user_id, false)[0];
+
+    parent::__construct();
+  }
+
 
   /**
    * Display the view
@@ -29,7 +47,13 @@ class hajjViewSpeedSearch extends JViewLegacy
       $id_number   = $jinput->get('id_number','');
       $mobile    = $jinput->get('mobile','');
       
-      $where = '1=1';
+      $where='';
+      if ($this->group == 12) { // This is a Manager
+        $personnelsModel =  JModelLegacy::getInstance('Personnels', 'HajjModel'); // Get the model
+        $office_branch   = $personnelsModel->getPersonnels('id_user = '.$this->user_id)[0]->office_branch; // Get the branch
+        $where           .= 'office_branch = ' . $office_branch; // Set the branch for the select
+      }
+      
       $where .= ($id!='') ? ' AND id = '.$id: '';
       $where .= ($id_number!='') ? ' AND id_number = '.$id_number: '';
       $where .= ($mobile!='') ? ' AND mobile = '.$mobile: '';

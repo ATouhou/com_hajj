@@ -18,29 +18,37 @@ $toEdit = $this->toEdit;
 
 ?>
 
-<?php if ($toEdit == ""): ?>
-  <div class="accordion" id="accordion2">
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-          <span class="btn">اضافة</span>
-        </a>
-      </div>
-      <div id="collapseOne" class="accordion-body collapse">
-        <div class="accordion-inner">
-        
-        <?php
-          HajjFieldHelper::getFormPayment($toEdit, $this->idHajj, $this->idPayment, $this->is_admin);
-        ?>
+<?php if ($this->is_admin): ?>
+  <?php if ($toEdit == ""): ?>
+    <div class="accordion" id="accordion2">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+            <span class="btn">اضافة</span>
+          </a>
+        </div>
+        <div id="collapseOne" class="accordion-body collapse">
+          <div class="accordion-inner">
+          
+          <?php
+            HajjFieldHelper::getFormPayment($toEdit, $this->idHajj, $this->idPayment, $this->is_admin);
+          ?>
+          </div>
         </div>
       </div>
     </div>
+  <?php 
+    else: 
+      HajjFieldHelper::getFormPayment($toEdit, $this->idHajj, $this->idPayment, $this->is_admin);
+    endif 
+  ?>
+<?php else: ?>
+  <div class="alert fade in alert-info">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    لا يمكنك اضافة دفعة وذلك حسب توجيهات ادارة الشركة
   </div>
-<?php 
-  else: 
-    HajjFieldHelper::getFormPayment($toEdit, $this->idHajj, $this->idPayment, $this->is_admin);
-  endif 
-?>
+<?php endif ?>
+
 
 <h1>شاشة الدفعــات</h1>
 
