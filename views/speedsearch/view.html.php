@@ -47,7 +47,7 @@ class hajjViewSpeedSearch extends JViewLegacy
       $id_number   = $jinput->get('id_number','');
       $mobile    = $jinput->get('mobile','');
       
-      $where='';
+      $where='1=1 ';
       if ($this->group == 12) { // This is a Manager
         $personnelsModel =  JModelLegacy::getInstance('Personnels', 'HajjModel'); // Get the model
         $office_branch   = $personnelsModel->getPersonnels('id_user = '.$this->user_id)[0]->office_branch; // Get the branch
