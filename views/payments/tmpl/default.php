@@ -18,7 +18,6 @@ $toEdit = $this->toEdit;
 
 ?>
 
-<?php if ($this->is_admin): ?>
   <?php if ($toEdit == ""): ?>
     <div class="accordion" id="accordion2">
       <div class="accordion-group">
@@ -42,12 +41,6 @@ $toEdit = $this->toEdit;
       HajjFieldHelper::getFormPayment($toEdit, $this->idHajj, $this->idPayment, $this->is_admin);
     endif 
   ?>
-<?php else: ?>
-  <div class="alert fade in alert-info">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    لا يمكنك اضافة دفعة وذلك حسب توجيهات ادارة الشركة
-  </div>
-<?php endif ?>
 
 
 <h1>شاشة الدفعــات</h1>

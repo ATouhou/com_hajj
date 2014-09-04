@@ -24,10 +24,10 @@ class HajjModelAdmin extends JModelLegacy {
     $query
         ->select('*')
         ->from($db->quoteName('#__hajj_users'));
+        
     if ($where!='') {
       $query->where($where);
     }
-        
     
     $db->setQuery($query, $offset, $limit);
     $results = $db->loadObjectList();

@@ -19,6 +19,26 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList($is_admin=true);
 <h1>بحث سريع</h1>
 
 <form action="index.php?option=com_hajj&view=speedsearch" method="post" accept-charset="utf-8">
+  
+  <div class="row-fluid">
+    <div class="span3">
+      <label for="familly_name">العائلة</label>
+      <input type="text" name="familly_name" id="familly_name" value="" placeholder="">
+    </div>
+    <div class="span3">
+      <label for="third_name">الاسم الثالث</label>
+      <input type="text" name="third_name" id="third_name" value="" placeholder="">
+    </div>
+    <div class="span3">
+      <label for="second_name">الاسم الثاني</label>
+      <input type="text" name="second_name" id="second_name" value="" placeholder="">
+    </div>
+    <div class="span3">
+      <label for="first_name">الاسم الاول</label>
+      <input type="text" name="first_name" id="first_name" value="" placeholder="">
+    </div>
+    
+  </div>
   <div class="row-fluid">
     <div class="span3">
       <input type="submit" name="submit" value="بحث" class="btn btn-success mt25">
@@ -26,17 +46,17 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList($is_admin=true);
 
     <div class="span3">
       <label for="mobile">الجوال</label>
-      <input type="text" name="mobile" value="" placeholder="">
+      <input type="text" name="mobile" id="mobile" value="" placeholder="">
     </div>
 
     <div class="span3">
       <label for="id_number">الهوية/الإقامة</label>
-      <input type="text" name="id_number" value="" placeholder="">
+      <input type="text" name="id_number" id="id_number" value="" placeholder="">
     </div>
 
     <div class="span3">
       <label for="id">رقم الحجز</label>
-      <input type="text" name="id" value="" placeholder="">
+      <input type="text" name="id" id="id" value="" placeholder="">
     </div>
   </div>
 </form>
