@@ -24,6 +24,7 @@ class HajjModelStats extends JModelLegacy {
     $query
         ->select(array('register_status', 'count(register_status) as count'))
         ->from($db->quoteName('#__hajj_users'))
+        ->where($db->quoteName('register_status') . ' != 3 AND ' . $db->quoteName('register_status') . ' != 5 ')
         ->group($db->quoteName('register_status'));
     $db->setQuery($query);
     $results = $db->loadObjectList();
@@ -45,6 +46,7 @@ class HajjModelStats extends JModelLegacy {
         ->select(array('branch.id','branch.name', 'count(office_branch) as count'))
         ->from($db->quoteName('#__hajj_users', 'HU'))
         ->leftJoin('#__hajj_branch as branch ON (branch.id=HU.office_branch)')
+        ->where($db->quoteName('register_status') . ' != 3 AND ' . $db->quoteName('register_status') . ' != 5 ')
         ->group($db->quoteName('office_branch'));
     $db->setQuery($query);
     $results = $db->loadObjectList();
@@ -66,6 +68,7 @@ class HajjModelStats extends JModelLegacy {
         ->select(array('program.id','program.name', 'count(hajj_program) as count'))
         ->from($db->quoteName('#__hajj_users', 'HU'))
         ->leftJoin('#__hajj_program as program ON (program.id=HU.hajj_program)')
+        ->where($db->quoteName('HU.register_status') . ' != 3 AND ' . $db->quoteName('HU.register_status') . ' != 5 ')
         ->group($db->quoteName('hajj_program'));
     $db->setQuery($query);
     $results = $db->loadObjectList();
@@ -85,6 +88,7 @@ class HajjModelStats extends JModelLegacy {
     $query
         ->select(array('sexe', 'count(sexe) as count'))
         ->from($db->quoteName('#__hajj_users'))
+        ->where($db->quoteName('register_status') . ' != 3 AND ' . $db->quoteName('register_status') . ' != 5 ')        
         ->group($db->quoteName('sexe'));
     $db->setQuery($query);
     $results = $db->loadObjectList();
@@ -103,6 +107,7 @@ class HajjModelStats extends JModelLegacy {
     $query
         ->select(array('nationality', 'count(nationality) as count'))
         ->from($db->quoteName('#__hajj_users'))
+        ->where($db->quoteName('register_status') . ' != 3 AND ' . $db->quoteName('register_status') . ' != 5 ')
         ->group($db->quoteName('nationality'));
     $db->setQuery($query);
     $results = $db->loadObjectList();
