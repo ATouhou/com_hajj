@@ -22,7 +22,7 @@ class HajjFieldHelper {
     public static $status_payment   = array("تحت التدقيق", "مقبولة", "مرفوضة");
     public static $sexe             = array("رجال", "نساء");
     public static $status_tents     = array("مقفل", "شاغر");
-    public static $authority        = array(10=>"مدير", 11=>"محاسب", 12=>"موظف فرع");
+    public static $authority        = array(10=>"مدير", 11=>"محاسب", 12=>"موظف فرع", 13=>"جاما");
     public static $documents        = array("البطاقة الشخصية", "إقامة", "كرت العائلة", "خطاب الكفيل", "صورة شخصية", "كرت التطعيم مع فصيلة الدم");
 
 /*
@@ -140,7 +140,7 @@ class HajjFieldHelper {
 
       </select>
 
-      <input type="text" class="span4" name="birthday3" value="<?php echo $year ?>" placeholder="السنه">
+      <input type="text" class="span4" name="birthday3" value="<?php echo $year ?>" placeholder="السنه" pattern="[0-9]{4}|[١-٩]{4}" required>
 
     <?php
   }
@@ -755,7 +755,9 @@ class HajjFieldHelper {
       <?php if ($is_admin): ?>
        <div class="row-fluid">
        <div class="span8">
-         <img class="attachment" src="index.php?option=com_hajj&task=admin.getImgPayment&img=<?php echo $data->attachment ?>" alt="">
+         <?php if ($data != ""): ?>
+          <img class="attachment" src="index.php?option=com_hajj&task=admin.getImgPayment&img=<?php echo $data->attachment ?>" alt="">
+         <?php endif ?>
        </div>
         <div class="span4">
           <label for="id_hajj">رقم الحجز</label>
@@ -1036,6 +1038,52 @@ class HajjFieldHelper {
 
     </form>
   <?php 
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| get Form 
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormAddDocument($Hajjs, $toEdit=''){
+    //var_dump($Hajjs);
+    ?>
+
+    <form action="index.php?option=com_hajj&task=hajj.setDocument" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+      <div class="row-fluid">
+        <div class="span4">
+          <label for="attachment">ارفاق السند</label>
+          <input type="file" name="attachment" id="attachment" value="" placeholder="" <?php echo ($toEdit == '') ? 'required' : '' ?>>
+        </div>
+        <div class="span4">
+          <label for="document">نوع المستند</label>
+          <select name="document" id="document" required>
+            <option value=""></option>
+          <?php foreach (self::$documents as $key => $document): ?>
+            <option value="<?php echo $key ?>" <?php echo ($toEdit!='' && $toEdit->document == $key) ? 'selected' : '' ?>><?php echo $document ?></option>
+          <?php endforeach ?>
+          </select>
+        </div>
+        <div class="span4">
+          <label for="id_hajj">رقم الحجز</label>
+          <select name="id_hajj" id="id_hajj" required>
+            <option value=""></option>
+            <?php foreach ($Hajjs as $key => $hajj): ?>
+              <option value="<?php echo $hajj->id ?>" <?php echo ($toEdit!='' && $toEdit->id_hajj == $hajj->id) ? 'selected' : '' ?>><?php echo $hajj->id . ' - ' . $hajj->first_name . ' ' .$hajj->familly_name  ?></option>
+            <?php endforeach ?>
+          </select>
+        </div>
+      </div>
+
+      <?php if ($toEdit != ''): ?>
+        <img class="attachment" src="index.php?option=com_hajj&task=hajj.getImgDocument&img=<?php echo $toEdit->link ?>" alt="">
+      <?php endif ?>
+      <br>
+      <input type="hidden" name="id" value="<?php echo ($toEdit !='' ) ? $toEdit->id : '' ?>" placeholder="">
+      <input type="submit" name="" value="حفظ" class="btn btn-success">
+    </form>
+
+    <?php
   }
 
 

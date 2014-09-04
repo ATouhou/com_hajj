@@ -16,7 +16,7 @@ class HajjFrontendHelper {
 | Register new User "Hajj"
 |------------------------------------------------------------------------------------
 */
-  public static function register_user($id_number, $password, $password2, $email, $first_name,$groups=array("1","2")){ 
+  public static function register_user($id_number, $password, $password2, $email, $first_name,$groups=array("2")){ 
       
     jimport('joomla.user.helper');
     

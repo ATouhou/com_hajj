@@ -55,6 +55,15 @@ class HajjControllerHajj extends JControllerLegacy
       $redirect  =preg_replace($pattern, '', $redirect);
 
     }else{// This is an admin
+
+      // Check if a simple manager set the register_status to "tama daf3"
+      $user_id = JFactory::getUser()->id;
+      $group   = JAccess::getGroupsByUser($user_id, false)[0];
+      if ($group == 12 && $obj->register_status == 4) {
+        $redirect = $_SERVER['HTTP_REFERER'];
+        $app->redirect($redirect, "لا يمكنك تحديث حالة الحجز الى تم الدفع وذلك حسب توجيهات ادارة الشركة", 'error');
+      }
+
       $obj->topay = $jinput->get('topay','','STRING');
       switch ($obj->register_status) {  // Switch to send SMS
         case '2':
@@ -223,6 +232,166 @@ class HajjControllerHajj extends JControllerLegacy
     }
 
     $app->redirect("index.php?option=com_hajj&view=payments", $txt, 'success');
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Add Documents View
+|------------------------------------------------------------------------------------
+*/
+  public function addDocument(){
+    /*
+      02 -> Hajj
+      08 -> Super Users
+      10 -> HajjAdmin
+      11 -> HajjFinance
+      12 -> HajjManager
+    */
+
+    // Get the type of user
+      $app   = JFactory::getApplication();
+      $ID    = JFactory::getUser()->id;
+      $group = JAccess::getGroupsByUser($ID, false)[0];
+      if (!$ID) {
+        jimport( 'joomla.error.error' );
+        return JError::raiseWarning(404, "JText::_('JERROR_ALERTNOAUTHOR')");
+      }
+      
+      $where = 'register_status = 4'; // Only Tama daf3 Hajj
+
+    // Get list of id_hajj for the form
+      if ($group == 2) { // This is a hajj
+        // Get the id hajj
+        $id_hajj        = $this->getModel('hajj')->getIdNumber($ID);
+        $where          .= ' AND id = '.$id_hajj.' OR addon = '.$id_hajj; // We display the hajj and the addon
+      }else if  ($group == 12){ //HajjManager
+        $office_branch  = $this->getModel('Personnels')->getPersonnels('id_user = '.$ID)[0]->office_branch;// Get the branch of the Manager
+        $where          .= ' AND office_branch = '.$office_branch;
+      }
+
+      $allHajjs = $this->getModel('admin')->getHajjs(0,0,$where);
+
+    // get the table of List Document
+      // Construct the id list
+      $idsHajjs = array();
+      foreach ($allHajjs as $key => $hajj) {
+        array_push($idsHajjs, $hajj->id);
+      }
+
+      $idsHajjsString = implode(', ', $idsHajjs);
+      
+      $data = $this->getModel('Documents')->getDocuments('id_hajj IN ('.$idsHajjsString.')');
+      $view = $this->getView('addDocument', 'html'); //get the view
+
+      // Check if we have something to edit
+      $id = $app->input->get('id','');
+      $toEdit='';
+      if ($id != '') { // Something to edit
+        foreach ($data as $key => $value) {
+          if ($value->id == $id) {
+            $toEdit = $value;
+          }
+        }
+      }
+      
+      $view->assignRef('data', $data); // assign data from the model
+      $view->assignRef('allHajjs', $allHajjs); // assign idsHajjs from the model
+      $view->assignRef('toEdit', $toEdit); // assign idsHajjs from the model
+      $view->display(); // display the view
+
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Set the Documents 
+|------------------------------------------------------------------------------------
+*/
+  public function setDocument(){
+    $app = JFactory::getApplication();
+    $jinput = $app->input;
+    $jfiles = $jinput->files;
+
+    $obj           = new stdClass();
+    $obj->id       = $jinput->get('id', '0');
+    $obj->id_hajj  = $jinput->get('id_hajj', '0');
+    $obj->document = $jinput->get('document', '0');
+    $attachment    = $jfiles->get('attachment');
+
+    // Define errorMSG
+    $errorMSG = "";
+    $fileUploaded = ($attachment['name'] == '') ? False : True ; 
+
+    // If new item and no file
+    if ($obj->id == 0 && !$fileUploaded) {
+      $errorMSG = "يرجى ارفاق السند (png/jpg)";
+    }
+
+    // Check Errors
+    if ($attachment['error'] != 0) {
+      $errorMSG = "خطأ في ملف";
+    }
+
+    //check for filesize
+    if ($attachment['size'] > 2000000) {
+      $errorMSG = "ملف أكبر من 2MB";
+    }
+
+    // Check for Extension
+    if ($attachment['type'] != "" && $attachment['type'] != "application/pdf" && $attachment['type'] != "image/jpeg" && $attachment['type'] != "image/png" ) {
+      $errorMSG = "يرجى ارفاق السند (png/jpg)";
+    }
+
+   
+    // Make the redirection
+    if ($errorMSG != "" && $obj->id == 0) { // Error and new Item
+      $app->redirect("index.php?option=com_hajj&task=hajj.adddocument", $errorMSG, 'error');
+    }else{// No error
+      if ($obj->id == 0) { // New Item
+        $obj->id = $this->getModel('Documents')->setDocument($obj);
+        $txt     = "تمت الإضافة بنجاح";
+      }else{ // Edit Item
+        $this->getModel('Documents')->editDocument($obj);
+        $txt = "تم التعديل بنجاح";
+      }
+    }
+
+    // Move the file
+    if ($fileUploaded) {
+      jimport('joomla.filesystem.file');
+      jimport('joomla.filesystem.folder');
+      $name         = $obj->id_hajj.'-'.$obj->document;// idhhaj-document    Ex : 102-2
+      $originalname = $attachment['name'];
+      $fileTemp     = $attachment['tmp_name'];
+      $ext          = array_pop(explode('.', $originalname));
+      $fileName     = $name . "." . $ext;
+      $uploadPath   = JPATH_SITE.'/media/com_hajj/documents/img-'.$fileName;
+      if(!JFile::upload($fileTemp, $uploadPath)){
+        echo JText::_( 'ERROR MOVING FILE' );
+        $txt .= ", ولم يتم ارفاق السند";
+      }else{
+        $obj->link = 'img-' . $fileName;
+        $this->getModel('Documents')->editDocument($obj);
+        $txt .= ", و تم ارفاق السند";
+      }
+    }
+
+    $app->redirect("index.php?option=com_hajj&task=hajj.adddocument", $txt, 'success');
+
+
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Get the attachment for Document
+|------------------------------------------------------------------------------------
+*/
+  public function getImgDocument(){
+    $app     = JFactory::getApplication();
+    $jinput  = $app->input;
+    $imgName = $jinput->get("img");
+    header('Content-Type: image/jpeg');
+    readfile(JPATH_SITE.'/media/com_hajj/documents/' . $imgName);
+    exit;
   }
 
 }
