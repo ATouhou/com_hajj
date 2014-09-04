@@ -19,6 +19,40 @@ $toEdit =$this->toEdit;
 //var_dump($Hajjs);
 
 ?>
+<h1>المستندات المطلوبة</h1>
+<div class="row-fluid">
+  <div class="span6">
+    <h4>لغير السعوديين (رجال + نساء) :</h4>
+    <ol>
+      <li>خطاب الكفيل من الجوازات</li>
+      <li>عدد ٤ صور شمسية</li>
+      <li>صورة الإقامة</li>
+      <li>كرت التطعيم + فصيلة الدم</li>
+    </ol>
+    
+  </div>
+  <div class="span6">
+    <h4>للسعوديين :</h4>
+      <ul>
+        <li>الرجال :
+          <ol>
+            <li>البطاقة الشخصية</li>
+            <li>عدد ٤ صور شخصية</li>
+            <li>كرت التطعيم + فصيلة الدم</li>
+          </ol>
+        </li>
+        <li>النساء :
+          <ol>
+            <li>صورة كرت العائلة أو البطاقة الشخصية</li>
+            <li>كرت التطعيم + فصيلة الدم</li>
+          </ol>
+          
+        </li>
+      </ul>
+  </div>
+</div>
+
+
 
 <?php if ($toEdit == ""): ?>
     <div class="accordion" id="accordion2">
@@ -45,7 +79,6 @@ $toEdit =$this->toEdit;
   ?>
 
 
-<h1>المستندات المطلوبة</h1>
 
 
 <table class="allhajjs table table-condensed table-bordered">
