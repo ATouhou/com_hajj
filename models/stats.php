@@ -51,10 +51,13 @@ class HajjModelStats extends JModelLegacy {
     
     $query = $db->getQuery(true);    
     $query
-        ->select(array('branch.id','branch.name', 'count(office_branch) as count'))
+        ->select(array('branch.id','branch.name', 'count(*) as count', 'sexe'))
         ->from($db->quoteName('#__hajj_users', 'HU'))
         ->where($db->quoteName('register_status') . ' = 1 OR ' . $db->quoteName('register_status') . ' = 2 OR ' . $db->quoteName('register_status') . ' = 4 ')
-        ->group($db->quoteName('office_branch'));
+        ->group($db->quoteName('office_branch'))
+        ->group($db->quoteName('sexe'))
+        ;
+
     if ($where != '') {
         $query->innerJoin('#__hajj_branch as branch ON (branch.id=HU.office_branch AND '.$where.')');
     }else{
