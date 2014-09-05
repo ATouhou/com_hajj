@@ -101,9 +101,16 @@ class HajjControllerPublic extends JControllerLegacy
         $this->updateToPayHajj($obj->addon);
         $app->redirect("index.php?option=com_hajj&view=addons", "تم إضافة المرافق بنجاح", "success");
     }else{ // New hajj
-        // Auto login
-        HajjFrontendHelper::autologin($obj->id_number, $obj->mobile);
-        $app->redirect("index.php?option=com_hajj&view=dashboard");
+        // check if logged already
+        $user_id = JFactory::getUser()->id;
+
+        if($user_id){ // This is a manager
+            $app->redirect("index.php?option=com_hajj&task=admin.hajjs", "تم الإضافة", "success");
+        }else{
+            // Auto login
+            HajjFrontendHelper::autologin($obj->id_number, $obj->mobile);
+            $app->redirect("index.php?option=com_hajj&view=dashboard");
+        }
     }
   }
 
