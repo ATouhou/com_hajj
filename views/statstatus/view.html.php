@@ -23,8 +23,23 @@ class hajjViewStatStatus extends JViewLegacy
    */
   public function display($tpl = null)
   {   
+      /*
+        08 -> Super Users
+        10 -> HajjAdmin
+        11 -> HajjFinance
+        12 -> HajjManager
+      */
+      $user_id = JFactory::getUser()->id;
+      $group   = JAccess::getGroupsByUser($user_id, false)[0];
+      $where   = "";
+
+      if($group == 12){// this is a manager :)
+        $modelPersonnels = JModelLegacy::getInstance('Personnels', 'HajjModel');
+        $office_branch = $modelPersonnels->getPersonnels('users.id = '.$user_id)[0]->office_branch;
+        $where = 'office_branch = '.$office_branch;
+      }
       $model      = JModelLegacy::getInstance('Stats', 'HajjModel');
-      $this->data = $model->getRegister();
+      $this->data = $model->getRegister($where);
 
       parent::display($tpl);
   }
