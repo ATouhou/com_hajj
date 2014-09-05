@@ -382,7 +382,13 @@ class HajjFieldHelper {
         </div>
         <?php endif ?>
         <div class="row-fluid">
-          <div class="span4 offset8">
+          <div class="span4 offset4">
+            <?php require_once JPATH_COMPONENT.'/helpers/' .'components.php'; ?>
+            <?php HajjComponentsHelper::loadDatePicker() ?>
+            <label for="expiration_date">تاريخ انتهاء الهوية/الإقامة</label>
+            <input type="text" class="datepicker" name="expiration_date" id="expiration_date" value="">
+          </div>
+          <div class="span4">
             <label for="observation">ملاحظات المسجل</label>
             <textarea name="observation" id="observation"></textarea>
           </div>
@@ -543,10 +549,18 @@ class HajjFieldHelper {
         <?php else: ?>
           <div class="span4 offset4"></div>
         <?php endif ?>
-        
           <div class="span4">
             <label for="observation">ملاحظات المسجل</label>
             <textarea name="observation" id="observation"><?php echo $data->observation ?></textarea>
+          </div>
+        </div>
+
+        <div class="row-fluid mt25">
+          <div class="span4 offset8 ">
+            <?php require_once JPATH_COMPONENT.'/helpers/' .'components.php'; ?>
+            <?php HajjComponentsHelper::loadDatePicker() ?>
+            <label for="expiration_date">تاريخ انتهاء الهوية/الإقامة</label>
+            <input type="text" class="datepicker" name="expiration_date" id="expiration_date" value="<?php echo $data->expiration_date ?>">
           </div>
         </div>
 

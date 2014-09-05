@@ -60,6 +60,7 @@ class HajjControllerPublic extends JControllerLegacy
     $obj->hajj_program     = $jinput->get('hajj_program','','STRING');
     $obj->observation      = $jinput->get('observation','','STRING');
     $obj->reason_exception = $jinput->get('reason_exception','','STRING');
+    $obj->expiration_date  = $jinput->get('expiration_date','','STRING');
     $obj->addon            = $this->getModel("Hajj")->getIdNumber(JFactory::getUser()->id);
     $obj->register_status  = 1;
     $obj->date_register    = date("d/m/Y h:i A");
