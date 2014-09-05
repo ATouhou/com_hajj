@@ -12,6 +12,12 @@ defined('_JEXEC') or die;
 
 class HajjModelStats extends JModelLegacy {
 
+    /*
+    08 -> Super Users
+    10 -> HajjAdmin
+    11 -> HajjFinance
+    12 -> HajjManager
+  */
 /*
 |------------------------------------------------------------------------------------
 | Get Status By Status register
@@ -24,7 +30,6 @@ class HajjModelStats extends JModelLegacy {
     $query
         ->select(array('register_status', 'count(register_status) as count'))
         ->from($db->quoteName('#__hajj_users'))
-        ->where($db->quoteName('register_status') . ' = 1 OR ' . $db->quoteName('register_status') . ' = 2 OR ' . $db->quoteName('register_status') . ' = 4 ')
         ->group($db->quoteName('register_status'));
     $db->setQuery($query);
     $results = $db->loadObjectList();

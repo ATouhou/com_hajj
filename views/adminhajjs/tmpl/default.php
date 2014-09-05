@@ -30,6 +30,23 @@ $ThePagination    = HajjComponentsHelper::getPagination($url, $this->nbHajjs, 20
 $ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($data), $url);
 
 ?>
+<div class="accordion" id="accordion2">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+        <span class="btn">اضافة</span>
+      </a>
+    </div>
+    <div id="collapseOne" class="accordion-body collapse">
+      <div class="accordion-inner">
+      
+      <?php
+        HajjFieldHelper::getFormHajj();
+      ?>
+      </div>
+    </div>
+  </div>
+</div>
 <h1>طلبات الحجز</h1>
 <?php echo $ThePager ?>
 <?php echo $ThePagination; ?>
