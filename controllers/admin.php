@@ -68,7 +68,6 @@ class HajjControllerAdmin extends JControllerLegacy
     }
     
     if ($this->group == 12) { // This is a Manager
-      $where          .= ' AND register_status!= 4'; // Hide 'Tama daf3'
       $personnelsModel = $this->getModel("Personnels"); // Get the model
       $office_branch   = $personnelsModel->getPersonnels('id_user = '.$this->user_id)[0]->office_branch; // Get the branch
       $where          .= ' AND office_branch = ' . $office_branch; // Set the branch for the select
