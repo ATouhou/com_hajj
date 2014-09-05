@@ -345,7 +345,13 @@ class HajjFieldHelper {
           </div>
         </div>
         <?php endif ?>
-        <input type="submit" value="حجز و تسجيل" class="btn btn-success">
+        <div class="row-fluid">
+          <div class="span4 offset8">
+            <label for="observation">ملاحظات المسجل</label>
+            <textarea name="observation" id="observation"></textarea>
+          </div>
+        </div>
+        <input type="submit" value="حجز و تسجيل" class="btn btn-success mt25">
       </form>
     <?php
 }
@@ -480,16 +486,23 @@ class HajjFieldHelper {
             <?php HajjFieldHelper::getListStatusHajjs($data->register_status) ?>
           </div>
         <?php else : ?>
-          <div class="span4"></div><div class="span4"></div>
+          <div class="span4"></div>
+          <div class="span4"></div>
         <?php endif ?>
           <div class="span4">
             <label>توقيت التسجيل</label>
             <input class="date_register" type="text" disabled value="<?php echo $data->date_register ?>" placeholder="">
           </div>
         </div>
+        <div class="row-fluid">
+          <div class="span4 offset8">
+            <label for="observation">ملاحظات المسجل</label>
+            <textarea name="observation" id="observation"><?php echo $data->observation ?></textarea>
+          </div>
+        </div>
 
         <input type="hidden" name="id" value="<?php echo $data->id ?>">
-        <input type="submit" value="حفظ التعديل" class="btn btn-success">
+        <input type="submit" value="حفظ التعديل" class="btn btn-success mt25">
       </form>
     <?php
   }

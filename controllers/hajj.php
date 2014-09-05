@@ -42,6 +42,7 @@ class HajjControllerHajj extends JControllerLegacy
     $obj->email           = $jinput->get('email','','STRING');
     $obj->office_branch   = $jinput->get('office_branch','','STRING');
     $obj->hajj_program    = $jinput->get('hajj_program','','STRING');
+    $obj->observation     = $jinput->get('observation','','STRING');
     $obj->register_status = $jinput->get('register_status','','STRING');
     
 
