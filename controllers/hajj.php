@@ -46,8 +46,9 @@ class HajjControllerHajj extends JControllerLegacy
     $obj->sort_bed        = $jinput->get('sort_bed', 0);
     $obj->relationship    = $jinput->get('relationship', 0);
     $obj->register_status = $jinput->get('register_status','','STRING');
-    $obj->expiration_date = $jinput->get('expiration_date','','STRING');
-    
+    $obj->expiration_date = $jinput->get('expiration_date1','','STRING') . '/';
+    $obj->expiration_date.= $jinput->get('expiration_date2','','STRING') . '/';
+    $obj->expiration_date.= $jinput->get('expiration_date3','','STRING');
 
 
     //$this->getModel('Hajj')->setEditHajj($obj);

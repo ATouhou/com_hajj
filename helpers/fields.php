@@ -183,6 +183,38 @@ class HajjFieldHelper {
 
 /*
 |------------------------------------------------------------------------------------
+| Get Birthday fields
+|------------------------------------------------------------------------------------
+*/
+  public static function getDateExpiration($active = ""){
+        
+      if ($active == "") {
+          $date = $month = $year = "";
+      }else{
+          list($date, $month, $year) = explode("/", $active);            
+      }
+      ?>
+      <select class="span4" name="expiration_date1" id="expiration_date"> 
+        <option value="">اليوم </option>
+        <?php for ($i=1; $i < 32; $i++) :?>
+            <option <?php echo ($date == $i) ? "selected" : "" ?> value="<?php echo $i ?>"><?php echo $i ?></option> 
+        <?php endfor ?>
+      </select>
+
+      <select class="span4" name="expiration_date2">
+        <option <?php echo ($month == "") ? "selected"  : "" ?> value="0">الشهر</option>
+          <?php for ($i=1; $i < 13; $i++) :?>
+            <option <?php echo ($month == $i) ? "selected" : "" ?> value="<?php echo $i ?>"><?php echo $i ?></option> 
+          <?php endfor ?>
+      </select>
+
+      <input type="text" class="span4" name="expiration_date3" value="<?php echo $year ?>" placeholder="السنه" pattern="[0-9]{4}|[١-٩]{4}">
+
+    <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
 | Get RH List
 |------------------------------------------------------------------------------------
 */
@@ -384,7 +416,7 @@ class HajjFieldHelper {
             <?php require_once JPATH_COMPONENT.'/helpers/' .'components.php'; ?>
             <?php HajjComponentsHelper::loadDatePicker() ?>
             <label for="expiration_date">تاريخ انتهاء الهوية/الإقامة</label>
-            <input type="text" class="datepicker" name="expiration_date" id="expiration_date" value="">
+            <?php self::getDateExpiration() ?>
           </div>
           <div class="span4">
             <label for="observation">ملاحظات المسجل</label>
@@ -562,7 +594,7 @@ class HajjFieldHelper {
             <?php require_once JPATH_COMPONENT.'/helpers/' .'components.php'; ?>
             <?php HajjComponentsHelper::loadDatePicker() ?>
             <label for="expiration_date">تاريخ انتهاء الهوية/الإقامة</label>
-            <input type="text" class="datepicker" name="expiration_date" id="expiration_date" value="<?php echo $data->expiration_date ?>">
+            <?php self::getDateExpiration($data->expiration_date) ?>
           </div>
         </div>
 
