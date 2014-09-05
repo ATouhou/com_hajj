@@ -261,7 +261,7 @@ class HajjControllerHajj extends JControllerLegacy
         return JError::raiseWarning(404, "JText::_('JERROR_ALERTNOAUTHOR')");
       }
       
-      $where = 'register_status = 4'; // Only Tama daf3 Hajj
+      $where = 'register_status = 6'; // Only Tama daf3 Hajj
 
     // Get list of id_hajj for the form
       if ($group == 2) { // This is a hajj
@@ -284,7 +284,8 @@ class HajjControllerHajj extends JControllerLegacy
 
       $idsHajjsString = implode(', ', $idsHajjs);
       
-      $data = $this->getModel('Documents')->getDocuments('Documents.id_hajj IN ('.$idsHajjsString.')');
+      $where = ($idsHajjsString == '') ? '': 'Documents.id_hajj IN ('.$idsHajjsString.')';
+      $data = $this->getModel('Documents')->getDocuments($where);
       $view = $this->getView('addDocument', 'html'); //get the view
 
       // Check if we have something to edit
