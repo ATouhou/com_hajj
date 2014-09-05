@@ -199,7 +199,7 @@ class HajjControllerHajj extends JControllerLegacy
 
 
     // Make the redirection
-    if ($errorMSG != "" && $obj->id == 0) { // Error and new Item
+    if ($attachment['name'] != "" && $errorMSG != "") { // Error and new Item
       $app->redirect("index.php?option=com_hajj&view=payments", $errorMSG, 'error');
     }else{// No error
       if ($obj->id == 0) {// New Item

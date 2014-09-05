@@ -76,7 +76,9 @@ $toEdit = $this->toEdit;
       <td><?php echo HajjFieldHelper::$status_payment[$payment->status-1] ?></td>
       <?php if ($this->is_admin): ?>
         <td>
-          <a href="<?php echo 'index.php?option=com_hajj&task=admin.getImgPayment&img='.$payment->attachment; ?>">السند</a>
+          <?php if ($payment->attachment): ?>
+            <a href="<?php echo 'index.php?option=com_hajj&task=admin.getImgPayment&img='.$payment->attachment; ?>">السند</a>
+          <?php endif ?>
         </td>
       <?php endif ?>
      
