@@ -17,7 +17,7 @@ $toEdit = $this->toEdit;
 //var_dump($data);
 
 ?>
-
+<?php if (!$this->is_manager): ?>
   <?php if ($toEdit == ""): ?>
     <div class="accordion" id="accordion2">
       <div class="accordion-group">
@@ -41,6 +41,7 @@ $toEdit = $this->toEdit;
       HajjFieldHelper::getFormPayment($toEdit, $this->idHajj, $this->idPayment, $this->is_admin);
     endif 
   ?>
+<?php endif ?>
 
 
 <h1>شاشة الدفعــات</h1>
