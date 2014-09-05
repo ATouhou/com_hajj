@@ -24,7 +24,8 @@ class HajjFieldHelper {
     public static $status_tents     = array("مقفل", "شاغر");
     public static $authority        = array(10=>"مدير", 11=>"محاسب", 12=>"موظف فرع", 13=>"جاما");
     public static $documents        = array("البطاقة الشخصية", "إقامة", "كرت العائلة", "خطاب الكفيل", "صورة شخصية", "كرت التطعيم مع فصيلة الدم");
-    public static $sort_bed        = array("سرير علوي", "سرير سفلي");
+    public static $sort_bed         = array("سرير علوي", "سرير سفلي");
+    public static $relationship     = array("أعزب", "متزوج", "أرملة", "مطلقة", "أخرى");
 
 /*
 |------------------------------------------------------------------------------------
@@ -97,6 +98,23 @@ class HajjFieldHelper {
       <select name="sort_bed" id="sort_bed" required>
         <option value=""></option>
         <?php foreach (self::$sort_bed as $key => $value): ?>
+            <option <?php echo ($active == $key) ? "selected" : "" ?> value="<?php echo $key ?>"><?php echo $value ?></option>
+        <?php endforeach ?>
+      </select>
+    <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Get list of Nation
+|------------------------------------------------------------------------------------
+*/
+  public static function getListRelationship($active = ""){ 
+    //var_dump(self::$sort_bed);
+    ?>
+      <select name="relationship" id="relationship" required>
+        <option value=""></option>
+        <?php foreach (self::$relationship as $key => $value): ?>
             <option <?php echo ($active == $key) ? "selected" : "" ?> value="<?php echo $key ?>"><?php echo $value ?></option>
         <?php endforeach ?>
       </select>
@@ -514,7 +532,11 @@ class HajjFieldHelper {
         </div>
         <div class="row-fluid">
         <?php if ($is_admin): ?>
-          <div class="span4 offset4">
+          <div class="span4">
+            <label for="relationship">الحالة الاجتماعية</label>
+            <?php HajjFieldHelper::getListRelationship($data->relationship) ?>
+          </div>
+          <div class="span4">
             <label for="sort_bed">ترتيب السرير</label>
             <?php HajjFieldHelper::getListSortBed($data->sort_bed) ?>
           </div>
