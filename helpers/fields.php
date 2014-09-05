@@ -371,16 +371,14 @@ class HajjFieldHelper {
             <?php endif ?>
           </div>
         </div>
-        <?php if ($addon): ?>
         <div class="row-fluid">
           <div class="span4"></div>
           <div class="span4"></div>
           <div class="span4">
-            <label for="email">سبب الاستثناء</label>
+            <label for="reason_exception">سبب الاستثناء</label>
             <?php self::getReasonException() ?>
           </div>
         </div>
-        <?php endif ?>
         <div class="row-fluid">
           <div class="span4 offset4">
             <?php require_once JPATH_COMPONENT.'/helpers/' .'components.php'; ?>
@@ -556,7 +554,11 @@ class HajjFieldHelper {
         </div>
 
         <div class="row-fluid mt25">
-          <div class="span4 offset8 ">
+          <div class="span4 offset4">
+            <label for="reason_exception">سبب الاستثناء</label>
+            <?php self::getReasonException($data->reason_exception) ?>
+          </div>
+          <div class="span4">
             <?php require_once JPATH_COMPONENT.'/helpers/' .'components.php'; ?>
             <?php HajjComponentsHelper::loadDatePicker() ?>
             <label for="expiration_date">تاريخ انتهاء الهوية/الإقامة</label>
