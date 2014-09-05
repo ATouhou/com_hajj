@@ -24,6 +24,7 @@ class HajjFieldHelper {
     public static $status_tents     = array("مقفل", "شاغر");
     public static $authority        = array(10=>"مدير", 11=>"محاسب", 12=>"موظف فرع", 13=>"جاما");
     public static $documents        = array("البطاقة الشخصية", "إقامة", "كرت العائلة", "خطاب الكفيل", "صورة شخصية", "كرت التطعيم مع فصيلة الدم");
+    public static $sort_bed        = array("سرير علوي", "سرير سفلي");
 
 /*
 |------------------------------------------------------------------------------------
@@ -80,6 +81,23 @@ class HajjFieldHelper {
         <option value=""></option>
         <?php foreach (self::$Nationnality as $key => $value): ?>
             <option <?php echo ($active == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>"><?php echo $value ?></option>
+        <?php endforeach ?>
+      </select>
+    <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Get list of Nation
+|------------------------------------------------------------------------------------
+*/
+  public static function getListSortBed($active = ""){ 
+    //var_dump(self::$sort_bed);
+    ?>
+      <select name="sort_bed" id="sort_bed" required>
+        <option value=""></option>
+        <?php foreach (self::$sort_bed as $key => $value): ?>
+            <option <?php echo ($active == $key) ? "selected" : "" ?> value="<?php echo $key ?>"><?php echo $value ?></option>
         <?php endforeach ?>
       </select>
     <?php
@@ -495,7 +513,16 @@ class HajjFieldHelper {
           </div>
         </div>
         <div class="row-fluid">
-          <div class="span4 offset8">
+        <?php if ($is_admin): ?>
+          <div class="span4 offset4">
+            <label for="sort_bed">ترتيب السرير</label>
+            <?php HajjFieldHelper::getListSortBed($data->sort_bed) ?>
+          </div>
+        <?php else: ?>
+          <div class="span4 offset4"></div>
+        <?php endif ?>
+        
+          <div class="span4">
             <label for="observation">ملاحظات المسجل</label>
             <textarea name="observation" id="observation"><?php echo $data->observation ?></textarea>
           </div>
