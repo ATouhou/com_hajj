@@ -57,6 +57,30 @@ class HajjModelPayments extends JModelLegacy {
   
 /*
 |------------------------------------------------------------------------------------
+| Get All Payments by Branch
+|------------------------------------------------------------------------------------
+*/
+  public function getPaymentsByBranch($where='', $branch=''){
+    $db = JFactory::getDBO();
+    
+    $query = $db->getQuery(true);    
+    $query
+        ->select(array('Payments.*'))
+        ->from($db->quoteName('#__hajj_payments', 'Payments'))
+        ->innerJoin('#__hajj_users as HU on (Payments.id_hajj = HU.id and HU.office_branch = ' . $branch.')')
+        ->order('id_hajj');
+
+    if ($where!='') {
+      $query->where($where);
+    }
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+    
+    return $results;
+  }
+  
+/*
+|------------------------------------------------------------------------------------
 | Set Payments
 |------------------------------------------------------------------------------------
 */

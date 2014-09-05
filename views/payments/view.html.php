@@ -25,11 +25,17 @@ class hajjViewPayments extends JViewLegacy
   {   
       // Get user group to check if admin
       $user_id        = JFactory::getUser()->id;
-      $this->is_admin = false;
+      $this->is_admin = $this->is_manager = false;
       $groups         = JAccess::getGroupsByUser($user_id, false);
 
       if(is_numeric(array_search(10, $groups)) || is_numeric(array_search(8, $groups))){
         $this->is_admin = true;
+      }else if(is_numeric(array_search(12, $groups))){
+        $this->is_manager = true;
+
+        // Get the branch
+        $modelPersonnels = JModelLegacy::getInstance('Personnels', 'HajjModel');
+        $managerObject = $modelPersonnels->getPersonnels('users.id = '.$user_id)[0];
       }
 
       // Get the id of hajj
@@ -53,9 +59,15 @@ class hajjViewPayments extends JViewLegacy
 
       // Get the DATA
       $model        = JModelLegacy::getInstance('Payments', 'HajjModel');
-      $this->data   = ($this->is_admin) ? $model->getPayments($where) : $model->getMyPayments($this->idHajj);
-
+      if ($this->is_admin) { // An admin
+        $this->data = $model->getPayments($where);
+      }else if($this->is_manager){ // A manager
+        $this->data = $model->getPaymentsByBranch($where, $managerObject->office_branch);
+      }else{ // Simple hajj
+        $this->data = $model->getMyPayments($this->idHajj);
+      }
       
+
       // If we select an id we sould edit it in the form
       $id           = $jinput->get('id', 0);
       $this->toEdit = "";
