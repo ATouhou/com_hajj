@@ -404,21 +404,23 @@ class HajjFieldHelper {
           </div>
         </div>
         <div class="row-fluid">
-          <div class="span4"></div>
-          <div class="span4"></div>
           <div class="span4">
-            <label for="reason_exception">سبب الاستثناء</label>
-            <?php self::getReasonException() ?>
-          </div>
-        </div>
-        <div class="row-fluid">
-          <div class="span4 offset4">
             <?php require_once JPATH_COMPONENT.'/helpers/' .'components.php'; ?>
             <?php HajjComponentsHelper::loadDatePicker() ?>
             <label for="expiration_date">تاريخ انتهاء الهوية/الإقامة</label>
             <?php self::getDateExpiration() ?>
           </div>
           <div class="span4">
+            <label for="relationship">الحالة الاجتماعية</label>
+            <?php HajjFieldHelper::getListRelationship() ?>
+          </div>
+          <div class="span4">
+            <label for="reason_exception">سبب الاستثناء</label>
+            <?php self::getReasonException() ?>
+          </div>
+        </div>
+        <div class="row-fluid">
+          <div class="span4 offset8">
             <label for="observation">ملاحظات المسجل</label>
             <textarea name="observation" id="observation"></textarea>
           </div>
@@ -568,11 +570,7 @@ class HajjFieldHelper {
         </div>
         <div class="row-fluid">
         <?php if ($is_admin): ?>
-          <div class="span4">
-            <label for="relationship">الحالة الاجتماعية</label>
-            <?php HajjFieldHelper::getListRelationship($data->relationship) ?>
-          </div>
-          <div class="span4">
+          <div class="span4 offset4">
             <label for="sort_bed">ترتيب السرير</label>
             <?php HajjFieldHelper::getListSortBed($data->sort_bed) ?>
           </div>
@@ -586,7 +584,11 @@ class HajjFieldHelper {
         </div>
 
         <div class="row-fluid mt25">
-          <div class="span4 offset4">
+          <div class="span4">
+            <label for="relationship">الحالة الاجتماعية</label>
+            <?php HajjFieldHelper::getListRelationship($data->relationship) ?>
+          </div>
+          <div class="span4">
             <label for="reason_exception">سبب الاستثناء</label>
             <?php self::getReasonException($data->reason_exception) ?>
           </div>
