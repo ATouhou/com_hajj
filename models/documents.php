@@ -22,8 +22,9 @@ class HajjModelDocuments extends JModelLegacy {
     
     $query = $db->getQuery(true);    
     $query
-        ->select('*')
-        ->from($db->quoteName('#__hajj_documents'));
+        ->select(array('Documents.*', 'HU.first_name', 'HU.sexe', 'HU.nationality'))
+        ->from($db->quoteName('#__hajj_documents','Documents'))
+        ->leftJoin('#__hajj_users as HU ON HU.id = Documents.id_hajj');
 
     if ($where!='') {
       $query->where($where);

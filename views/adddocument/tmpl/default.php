@@ -52,8 +52,6 @@ $toEdit =$this->toEdit;
   </div>
 </div>
 
-
-
 <?php if ($toEdit == ""): ?>
     <div class="accordion" id="accordion2">
       <div class="accordion-group">
@@ -78,13 +76,13 @@ $toEdit =$this->toEdit;
     endif 
   ?>
 
-
-
-
 <table class="allhajjs table table-condensed table-bordered">
   <thead>
     <tr>
       <th>رقم الحجز</th>
+      <th>الاسم الأول</th>
+      <th>الجنس</th>
+      <th>الجنسية</th>
       <th>نوع المستند</th>
       <th>المستند</th>
     </tr>
@@ -92,6 +90,9 @@ $toEdit =$this->toEdit;
   <?php foreach ($data as $key => $value): ?>
     <tr>
       <td><a href="index.php?option=com_hajj&task=hajj.adddocument&id=<?php echo $value->id ?>"><?php echo $value->id_hajj ?></a></td>
+      <td><?php echo $value->first_name ?></td>
+      <td><?php echo ($value->sexe == 'm') ? 'ذكر': 'انثى' ?></td>
+      <td><?php echo HajjFieldHelper::getNationnality($value->nationality) ?></td>
       <td><?php echo HajjFieldHelper::$documents[$value->document] ?></td>
       <td>
         <a target="_blank" href="<?php echo 'index.php?option=com_hajj&task=hajj.getImgDocument&img='.$value->link; ?>">المستند</a>

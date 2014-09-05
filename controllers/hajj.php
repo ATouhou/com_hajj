@@ -284,7 +284,7 @@ class HajjControllerHajj extends JControllerLegacy
 
       $idsHajjsString = implode(', ', $idsHajjs);
       
-      $data = $this->getModel('Documents')->getDocuments('id_hajj IN ('.$idsHajjsString.')');
+      $data = $this->getModel('Documents')->getDocuments('Documents.id_hajj IN ('.$idsHajjsString.')');
       $view = $this->getView('addDocument', 'html'); //get the view
 
       // Check if we have something to edit
