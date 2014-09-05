@@ -28,7 +28,10 @@ $ProgramList      = HajjFieldHelper::getHajjProgramList($is_admin=true);
 $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList($is_admin=true);
 $ThePagination    = HajjComponentsHelper::getPagination($url, $this->nbHajjs, 20, $this->start);
 $ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($data), $url);
-
+$sexe = array(
+  'm' => 'رجال',
+  'f' => 'نساء',
+  );
 ?>
 <div class="accordion" id="accordion2">
   <div class="accordion-group">
@@ -63,6 +66,7 @@ if ($this->deny == "") {//
       <th>الحجز</th>
       <th>الاسم الاول</th>
       <th>العائلة</th>
+      <th>الجنس</th>
       <th>رقم الهوية</th>
       <th>الجوال</th>
       <th>فرع التسجيل</th>
@@ -79,6 +83,7 @@ if ($this->deny == "") {//
       <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $value->id ?>"><?php echo $value->id ?></a></td>
       <td><?php echo $value->first_name ?></td>
       <td><?php echo $value->familly_name ?></td>
+      <td><?php echo $sexe[$value->sexe] ?></td>
       <td><?php echo $value->id_number ?></td>
       <td><?php echo $value->mobile ?></td>
       <td><?php echo $OfficeBranchList[$value->office_branch] ?></td>
