@@ -22,8 +22,10 @@ class HajjModelPayments extends JModelLegacy {
     
     $query = $db->getQuery(true);    
     $query
-        ->select('*')
-        ->from($db->quoteName('#__hajj_payments'))
+        ->select(array('Payments.*', 'HU.first_name', 'HP.name AS program_name'))
+        ->from($db->quoteName('#__hajj_payments','Payments'))
+        ->innerJoin('#__hajj_users as HU on (Payments.id_hajj = HU.id )')
+        ->innerJoin('#__hajj_program as HP on (HU.hajj_program = HP.id )')
         ->where($db->quoteName('id_hajj') . ' = '. $id);
     
     $db->setQuery($query);
@@ -42,8 +44,10 @@ class HajjModelPayments extends JModelLegacy {
     
     $query = $db->getQuery(true);    
     $query
-        ->select('*')
-        ->from($db->quoteName('#__hajj_payments'))
+        ->select(array('Payments.*', 'HU.first_name', 'HP.name AS program_name'))
+        ->from($db->quoteName('#__hajj_payments','Payments'))
+        ->innerJoin('#__hajj_users as HU on (Payments.id_hajj = HU.id )')
+        ->innerJoin('#__hajj_program as HP on (HU.hajj_program = HP.id )')
         ->order('id_hajj');
 
     if ($where!='') {
@@ -65,9 +69,10 @@ class HajjModelPayments extends JModelLegacy {
     
     $query = $db->getQuery(true);    
     $query
-        ->select(array('Payments.*'))
+        ->select(array('Payments.*', 'HU.first_name', 'HP.name AS program_name'))
         ->from($db->quoteName('#__hajj_payments', 'Payments'))
         ->innerJoin('#__hajj_users as HU on (Payments.id_hajj = HU.id and HU.office_branch = ' . $branch.')')
+        ->innerJoin('#__hajj_program as HP on (HU.hajj_program = HP.id )')
         ->order('id_hajj');
 
     if ($where!='') {

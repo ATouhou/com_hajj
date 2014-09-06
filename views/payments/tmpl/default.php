@@ -56,8 +56,9 @@ $toEdit = $this->toEdit;
     <tr>
       <th>الحجز</th>
       <th>رقم الدفعة</th>
+      <th>الاسم الاول</th>
+      <th>برنامج الحج</th>
       <th>الحساب</th>
-      <th>صاحب الحساب</th>
       <th>المبلغ</th>
       <th>التاريخ</th>
       <th>حالة الدفعة</th>
@@ -70,8 +71,9 @@ $toEdit = $this->toEdit;
     <tr>
       <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $payment->id_hajj ?>"><?php echo $payment->id_hajj ?></a></td>
       <td><a href="index.php?option=com_hajj&view=payments&id=<?php echo $payment->id ?>"><?php echo $payment->id ?></a></td>
+      <td><?php echo $payment->first_name ?></td>
+      <td><?php echo $payment->program_name ?></td>
       <td><?php echo HajjFieldHelper::$account_owner[$payment->account-1] ?></td>
-      <td><?php echo $payment->account_owner ?></td>
       <td><?php echo $payment->amount ?></td>
       <td><?php echo $payment->date ?></td>
       <td><?php echo HajjFieldHelper::$status_payment[$payment->status-1] ?></td>
