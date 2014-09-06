@@ -49,8 +49,20 @@ $ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($Hajjs),
           $topay = $hajj->topay;
           $paid  = (!isset($Payments[$ID])) ? 0 : $Payments[$ID];
           $rest  = $topay - $paid;
+
+          // Get the color
+          $class='';
+          if ($topay==0 && $paid==0) {
+            $class="bg-red";
+          }else if($topay>0 && $paid==0){
+            $class="bg-orange";
+          }else if($topay>0 && $paid>0){
+            $class="bg-yellow";
+          }else if($topay == $paid){
+            $class="bg-green";
+          }
     ?>
-    <tr>
+    <tr class="<?php echo $class ?>">
       <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $hajj->id ?>"><?php echo $hajj->id ?></a></td>
       <td><?php echo $hajj->first_name ?></td>
       <td><?php echo $hajj->familly_name ?></td>
