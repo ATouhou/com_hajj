@@ -37,7 +37,7 @@ $ThePager      = HajjComponentsHelper::getPager($this->start, sizeof($data), $ur
   </thead>
   <?php foreach ($data as $key => $value): ?>
     <tr>
-      <td><?php echo $value->id ?></td>
+      <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $value->id ?>"><?php echo $value->id ?></a></td>
       <td><?php echo $value->first_name ?></td>
       <td><?php echo $value->familly_name ?></td>
       <td><?php echo HajjFieldHelper::status_register($value->register_status) ?></td>
