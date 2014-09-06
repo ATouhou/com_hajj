@@ -14,7 +14,7 @@ require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
 require_once JPATH_COMPONENT.'/helpers/' .'components.php';
 
-$url  = 'index.php?option=com_hajj&task=admin.hajjs&Itemid=241';
+$url  = 'index.php?option=com_hajj&task=admin.hajjs&Itemid='.$this->Itemid;
 $url .= ($this->register_status != "") ? '&register_status='.$this->register_status : '';
 $url .= ($this->office_branch != "") ? '&office_branch='.$this->office_branch : '';
 $url .= ($this->hajj_program != "") ? '&hajj_program='.$this->hajj_program : '';

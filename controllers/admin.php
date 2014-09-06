@@ -59,6 +59,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $hajj_program    = $jinput->get('hajj_program','', 'STRING');
     $sexe            = $jinput->get('sexe','', 'STRING');
     $deny            = $jinput->get('deny','', 'STRING');
+    $Itemid          = $jinput->get('Itemid','', 'STRING');
     
     
     if ($deny != '') {// We display deny Hajjs
@@ -98,6 +99,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $view->assignRef('hajj_program', $hajj_program); // assign data from the model
     $view->assignRef('sexe', $sexe); // assign data from the model
     $view->assignRef('deny', $deny); // assign data from the model
+    $view->assignRef('Itemid', $Itemid); // assign data from the model
 
     $view->display(); // display the view
   }
