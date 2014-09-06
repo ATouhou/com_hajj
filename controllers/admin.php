@@ -127,10 +127,23 @@ class HajjControllerAdmin extends JControllerLegacy
 |------------------------------------------------------------------------------------
 */
   public function Sms(){
-    $result = $this->getModel("Admin")->getSMS();
+
+    $jinput = JFactory::getApplication()->input;
+    $offset = $jinput->get('p','1');
+
+    // Pagination
+    $limit   = 20;
+    $start   = ($offset - 1) * $limit ;
+
+    $model =$this->getModel("Admin");
+    $result = $model->getSMS($start, $limit);
+    $nbSMS = $model->getNbSMS();
 
     $view   = $this->getView('adminsms', 'html'); //get the view
     $view->assignRef('data', $result); // assign data from the model
+    $view->assignRef('start', $start); // assign data from the model
+    $view->assignRef('nbSMS', $nbSMS); // assign data from the model
+    
     $view->display(); // display the view
 
   }

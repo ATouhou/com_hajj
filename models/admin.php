@@ -85,7 +85,7 @@ class HajjModelAdmin extends JModelLegacy {
 | Get SMS Status
 |------------------------------------------------------------------------------------
 */
-  public function getSMS(){
+  public function getSMS($offset=0, $limit=0){
     $db = JFactory::getDBO();
     
     $query = $db->getQuery(true);    
@@ -93,10 +93,32 @@ class HajjModelAdmin extends JModelLegacy {
         ->select($db->quoteName(array('id', 'first_name', 'familly_name', 'register_status', 'sms1', 'sms2', 'sms3', 'sms4')))
         ->from($db->quoteName('#__hajj_users'));
     
-    $db->setQuery($query);
+    $db->setQuery($query, $offset, $limit);
     $results = $db->loadObjectList();
     return $results;
   }
+  
+/*
+|------------------------------------------------------------------------------------
+| Get Nb SMS
+|------------------------------------------------------------------------------------
+*/
+  public function getNbSMS(){
+    $db = JFactory::getDBO();
+    
+    $query = $db->getQuery(true);    
+    $query
+        ->select('id')
+        ->from($db->quoteName('#__hajj_users'));
+    
+    
+    $db->setQuery($query);
+    $db->execute();
+    $result = $db->getNumRows();
+    
+    return $result;
+  }
+
 
 /*
 |------------------------------------------------------------------------------------
