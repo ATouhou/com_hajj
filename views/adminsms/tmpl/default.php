@@ -11,11 +11,16 @@ defined('_JEXEC') or die;
 
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
-$data = $this->data;
-//var_dump($data);
+require_once JPATH_COMPONENT.'/helpers/' .'components.php';
 
+$data          = $this->data;
+$url           = 'index.php?option=com_hajj&task=admin.sms&Itemid=242&p=';
+$ThePagination = HajjComponentsHelper::getPagination($url, $this->nbSMS, 20, $this->start);
+$ThePager      = HajjComponentsHelper::getPager($this->start, sizeof($data), $url);
 ?>
 <h1>حالة الرسائل</h1>
+<?php echo $ThePager ?>
+<?php echo $ThePagination; ?>
 
 <table class="allhajjs table table-condensed table-bordered ">
   <thead>
@@ -43,3 +48,6 @@ $data = $this->data;
     </tr>
   <?php endforeach ?>
 </table>
+
+<?php echo $ThePager ?>
+<?php echo $ThePagination ?>
