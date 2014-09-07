@@ -68,7 +68,26 @@ $toEdit = $this->toEdit;
     </tr>
   </thead>
   <?php foreach ($data as $key => $payment): ?>
-    <tr>
+    <?php 
+      switch ($payment->status) {
+        case '1':
+          $class="bg-orange";
+          break;
+        
+        case '2':
+          $class="bg-green";
+          break;
+        
+        case '3':
+          $class="bg-red";
+          break;
+        
+        default:
+          $class='';
+          break;
+      }
+     ?>
+    <tr class="<?php echo $class ?>">
       <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $payment->id_hajj ?>"><?php echo $payment->id_hajj ?></a></td>
       <td><a href="index.php?option=com_hajj&view=payments&id=<?php echo $payment->id ?>"><?php echo $payment->id ?></a></td>
       <td><?php echo $payment->first_name ?></td>
