@@ -57,16 +57,22 @@ class hajjViewPayments extends JViewLegacy
       $where .= ($this->id_filter!='') ? ' AND id = '.$this->id_filter: '';
       $where .= ($this->id_hajj!='') ? ' AND id_hajj = '.$this->id_hajj: '';
 
+      // Pagination
+      $this->Itemid = $jinput->get('Itemid','1');
+      $offset = $jinput->get('p','1');
+      $limit   = 20;
+      $start   = ($offset - 1) * $limit ;
+
       // Get the DATA
       $model        = JModelLegacy::getInstance('Payments', 'HajjModel');
       if ($this->is_admin) { // An admin
-        $this->data = $model->getPayments($where);
+        $this->data = $model->getPayments($where, $start, $limit);
       }else if($this->is_manager){ // A manager
-        $this->data = $model->getPaymentsByBranch($where, $managerObject->office_branch);
+        $this->data = $model->getPaymentsByBranch($where, $managerObject->office_branch, $start, $limit);
       }else{ // Simple hajj
-        $this->data = $model->getMyPayments($this->idHajj);
+        $this->data = $model->getMyPayments($this->idHajj, $start, $limit);
       }
-      
+      $this->start = $offset;
 
       // If we select an id we sould edit it in the form
       $id           = $jinput->get('id', 0);

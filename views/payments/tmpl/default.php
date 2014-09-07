@@ -11,10 +11,20 @@ defined('_JEXEC') or die;
 
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
-$data = $this->data;
+require_once JPATH_COMPONENT.'/helpers/' .'components.php';
+
+$data = $this->data->results;
+$nbRows = $this->data->nbRows;
 $toEdit = $this->toEdit;
 
-//var_dump($data);
+$url  = 'index.php?option=com_hajj&view=payments&Itemid='.$this->Itemid;
+$url .= ($this->date_filter != "") ? '&date_filter='.$this->date_filter : '';
+$url .= ($this->id_filter != "") ? '&id_filter='.$this->id_filter : '';
+$url .= ($this->id_hajj != "") ? '&id_hajj='.$this->id_hajj : '';
+$url .= '&p=';
+
+$ThePagination = HajjComponentsHelper::getPagination($url, $nbRows, 20, $this->start);
+$ThePager      = HajjComponentsHelper::getPager($this->start, sizeof($data), $url);
 
 ?>
 <?php if (!$this->is_manager): ?>
@@ -50,6 +60,8 @@ $toEdit = $this->toEdit;
   // Get the Filter Form
   HajjFieldHelper::getFormFilterPayments($this->date_filter, $this->id_filter, $this->id_hajj);
 ?>
+<?php echo $ThePager ?>
+<?php echo $ThePagination; ?>
 
 <table class="allhajjs table table-condensed table-bordered">
   <thead>
@@ -107,3 +119,6 @@ $toEdit = $this->toEdit;
     </tr>
   <?php endforeach ?>
 </table>
+
+<?php echo $ThePager ?>
+<?php echo $ThePagination; ?>

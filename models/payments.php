@@ -17,7 +17,7 @@ class HajjModelPayments extends JModelLegacy {
 | Get My Payments
 |------------------------------------------------------------------------------------
 */
-  public function getMyPayments($id){
+  public function getMyPayments($id, $offset=0, $limit=0){
     $db = JFactory::getDBO();
     
     $query = $db->getQuery(true);    
@@ -28,10 +28,14 @@ class HajjModelPayments extends JModelLegacy {
         ->innerJoin('#__hajj_program as HP on (HU.hajj_program = HP.id )')
         ->where($db->quoteName('id_hajj') . ' = '. $id);
     
-    $db->setQuery($query);
-    $results = $db->loadObjectList();
+    $db->setQuery($query, $offset, $limit);
+    $obj = new stdClass();
+    $obj->results = $db->loadObjectList();
+
+    $db->execute();
+    $obj->nbRows= $db->getNumRows();
     
-    return $results;
+    return $obj;
   }
   
 /*
@@ -39,7 +43,7 @@ class HajjModelPayments extends JModelLegacy {
 | Get All Payments
 |------------------------------------------------------------------------------------
 */
-  public function getPayments($where=''){
+  public function getPayments($where='', $offset=0, $limit=0){
     $db = JFactory::getDBO();
     
     $query = $db->getQuery(true);    
@@ -53,10 +57,15 @@ class HajjModelPayments extends JModelLegacy {
     if ($where!='') {
       $query->where($where);
     }
+    $db->setQuery($query, $offset, $limit);
+    $obj = new stdClass();
+    $obj->results = $db->loadObjectList();
+
     $db->setQuery($query);
-    $results = $db->loadObjectList();
+    $db->execute();
+    $obj->nbRows= $db->getNumRows();
     
-    return $results;
+    return $obj;
   }
   
 /*
@@ -64,7 +73,7 @@ class HajjModelPayments extends JModelLegacy {
 | Get All Payments by Branch
 |------------------------------------------------------------------------------------
 */
-  public function getPaymentsByBranch($where='', $branch=''){
+  public function getPaymentsByBranch($where='', $branch='', $offset=0, $limit=0){
     $db = JFactory::getDBO();
     
     $query = $db->getQuery(true);    
@@ -78,11 +87,16 @@ class HajjModelPayments extends JModelLegacy {
     if ($where!='') {
       $query->where($where);
     }
-    $db->setQuery($query);
-    $results = $db->loadObjectList();
+    $db->setQuery($query, $offset, $limit);
+    $obj = new stdClass();
+    $obj->results = $db->loadObjectList();
+
+    $db->execute();
+    $obj->nbRows= $db->getNumRows();
     
-    return $results;
+    return $obj;
   }
+  
   
 /*
 |------------------------------------------------------------------------------------
