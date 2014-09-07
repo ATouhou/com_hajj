@@ -107,7 +107,7 @@ class HajjControllerPublic extends JControllerLegacy
         $user_id = JFactory::getUser()->id;
 
         if($user_id){ // This is a manager
-            $app->redirect("index.php?option=com_hajj&task=admin.hajjs", "تم الإضافة", "success");
+            $app->redirect("index.php?option=com_hajj&task=admin.hajjs", "تم الإضافة ورقم الحجز : ".$id, "success");
         }else{
             // Auto login
             HajjFrontendHelper::autologin($obj->id_number, $obj->mobile);
