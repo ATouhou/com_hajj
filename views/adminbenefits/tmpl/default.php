@@ -30,6 +30,12 @@ $ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($Hajjs),
 
 <?php HajjFieldHelper::getFormFilterBenefits($this->id_hajj, $this->hajj_program, $this->current_payment , $this->status_addon); ?>
 
+<ul class="inline help">
+  <li><span class="carret bg-red"></span> لا يوجد مبلغ مطلوب</li>
+  <li><span class="carret bg-orange"></span> لم يتم الدفع</li>
+  <li><span class="carret bg-yellow"></span> دفع جزئي</li>
+</ul>
+
 <table class="allhajjs table table-condensed table-bordered mt25">
   <thead>
     <tr>
