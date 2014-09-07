@@ -259,7 +259,7 @@ class HajjModelAdmin extends JModelLegacy {
 | Get All Benefits
 |------------------------------------------------------------------------------------
 */
-  public function getBenefits($offset=0, $limit=0, $where=''){
+  public function getBenefits($offset=0, $limit=0, $where='', $having=''){
     $db = JFactory::getDBO();    
 
     // Get the list of HAJJS with the addons
@@ -277,6 +277,10 @@ class HajjModelAdmin extends JModelLegacy {
 
     if ($where!='') {
       $query->where($where);
+    }
+    
+    if ($having!='') {
+      $query->having($having);
     }
 
     $db->setQuery($query, $offset, $limit);

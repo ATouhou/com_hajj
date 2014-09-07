@@ -336,23 +336,77 @@ class HajjControllerAdmin extends JControllerLegacy
     
     $jinput = JFactory::getApplication()->input;
     $offset = $jinput->get('p','1');
-    $limit  = 20;
+
+    // Filters
+    $id_hajj         = $jinput->get('id_hajj','', 'STRING');
+    $hajj_program    = $jinput->get('hajj_program','', 'STRING');
+    $current_payment = $jinput->get('current_payment','', 'STRING');
+    $status_addon    = $jinput->get('status_addon','', 'STRING');
+    $Itemid          = $jinput->get('Itemid','', 'STRING');
+
+
     
+    // Pagination
+    $limit  = 20;
     $start  = ($offset - 1) * $limit ;
     
-    $where='';
+    // Construct the WHERE
+    $where='1=1';
     // For the ACL
     if ($this->group == 12) { // This is a Manager
       $personnelsModel = $this->getModel("Personnels"); // Get the model
       $office_branch   = $personnelsModel->getPersonnels('id_user = '.$this->user_id)[0]->office_branch; // Get the branch
-      $where           = ' HU.office_branch = ' . $office_branch; // Set the branch for the select
+      $where           = ' AND HU.office_branch = ' . $office_branch; // Set the branch for the select
+    }
+
+    $where .= ($id_hajj != '') ? ' AND HU.id = '.$id_hajj: '';
+    $where .= ($hajj_program != '') ? ' AND HP.id = '.$hajj_program: '';
+    if ($current_payment != '') {
+      switch ($current_payment) {
+        case '0': //لا يوجد مبلغ مطلوب
+          $where .= ' AND HU.topay = 0';
+          break;
+        
+        case '1': //لم يتم الدفع
+          $where .= ' AND HU.paid = 0';
+          break;
+        
+        case '2': //دفع جزئي
+          $where .= ' AND HU.topay > 0 AND  HU.paid > 0';
+          break;
+        
+        default:
+          # code...
+          break;
+      }
+    }
+
+    $having = '';
+    if ($status_addon != '') {
+      switch ($status_addon) {
+        case '0':
+          $having = 'COUNT(fils.id)=0';
+          break;
+        
+        case '1':
+          $having = 'COUNT(fils.id)>0';
+          break;
+        
+        default:
+          # code...
+          break;
+      }
     }
 
     $model  = $this->getModel("Admin");
-    $result = $model->getBenefits($start, $limit,$where);
+    $result = $model->getBenefits($start, $limit,$where, $having);
     
     $view   = $this->getView('adminbenefits', 'html'); //get the view
     $view->assignRef('data', $result); // assign data from the model
+    $view->assignRef('id_hajj', $id_hajj); // assign data from the model
+    $view->assignRef('hajj_program', $hajj_program); // assign data from the model
+    $view->assignRef('current_payment', $current_payment); // assign data from the model
+    $view->assignRef('status_addon', $status_addon); // assign data from the model
     $view->assignRef('start', $offset); // assign data from the model
     $view->assignRef('nbBenefits', $result->nbRows); // assign data from the model
 

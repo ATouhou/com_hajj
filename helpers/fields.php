@@ -26,6 +26,8 @@ class HajjFieldHelper {
     public static $documents        = array("البطاقة الشخصية", "إقامة", "كرت العائلة", "خطاب الكفيل", "صورة شخصية", "كرت التطعيم مع فصيلة الدم");
     public static $sort_bed         = array("سرير علوي", "سرير سفلي");
     public static $relationship     = array("أعزب", "متزوج", "أرملة", "مطلقة", "أخرى");
+    public static $current_payment  = array("لا يوجد مبلغ مطلوب", "لم يتم الدفع", "دفع جزئي");
+    public static $status_addon     = array("أفراد", "مرافقين");
 
 /*
 |------------------------------------------------------------------------------------
@@ -766,6 +768,48 @@ class HajjFieldHelper {
 
 /*
 |------------------------------------------------------------------------------------
+| Get Form Filter 
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormFilterBenefits($id_hajj="", $hajj_program="", $current_payment ="", $status_addon=""){
+
+  ?>
+    <form class="fawj-makkah" action="index.php?option=com_hajj&task=admin.Benefits&Itemid=247" method="post" accept-charset="utf-8">
+      <div class="row-fluid">
+
+        <div class="span3">
+          <label for="id_hajj">رقم الحجز</label>
+          <input type="text" name="id_hajj" id="id_hajj" value="<?php echo $id_hajj ?>" placeholder="">
+        </div>
+
+        <div class="span3">
+          <label for="hajj_program">برنامج التسجيل</label>
+          <?php HajjFieldHelper::getHajjProgram($hajj_program, true,false,$Required=false) ?>
+        </div>
+
+        <div class="span3">
+          <label for="current_payment">حالة الدفع</label>
+          <?php HajjFieldHelper::getCurrentPayment($current_payment) ?>
+        </div>
+
+        <div class="span3">
+          <label for="status_addon">حالة المرافقين</label>
+          <?php HajjFieldHelper::getStatusAddon($status_addon) ?>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span3">
+          <input type="submit" name="submit" value="تصفية" class="btn btn-success">
+          <a href="index.php?option=com_hajj&task=admin.Benefits&Itemid=247" class="btn btn-default">الطلبات</a>
+        </div>
+      </div>
+
+    </form>
+  <?php 
+  }
+
+/*
+|------------------------------------------------------------------------------------
 | get Form 
 |------------------------------------------------------------------------------------
 */
@@ -1115,13 +1159,48 @@ class HajjFieldHelper {
 | Get Hajj Program
 |------------------------------------------------------------------------------------
 */
-  public static function getHajjProgram($active = "", $is_admin=false, $is_addon=false){    
+  public static function getHajjProgram($active = "", $is_admin=false, $is_addon=false,$Required=true){    
 
     ?>
-      <select name="hajj_program" id="hajj_program" required <?php echo ($is_addon)? 'disabled':'' ?>>
+      <select name="hajj_program" id="hajj_program" <?php echo ($Required)? 'required' : '' ?> <?php echo ($is_addon)? 'disabled':'' ?>>
         <option value=""></option>
         <?php foreach (self::getPrograms($is_admin) as $key => $value): ?>
           <option <?php echo ($active == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
+        <?php endforeach ?>
+      </select>
+    <?php
+  }
+
+
+/*
+|------------------------------------------------------------------------------------
+| Get Hajj Program
+|------------------------------------------------------------------------------------
+*/
+  public static function getCurrentPayment($active = ""){    
+
+    ?>
+      <select name="current_payment" id="current_payment">
+        <option value=""></option>
+        <?php foreach (self::$current_payment as $key => $value): ?>
+          <option <?php echo (!strcmp($active, $key)) ? "selected" : "" ?> value="<?php echo $key ?>"><?php echo $value ?></option>
+        <?php endforeach ?>
+      </select>
+    <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Get Hajj Program
+|------------------------------------------------------------------------------------
+*/
+  public static function getStatusAddon($active = ""){    
+
+    ?>
+      <select name="status_addon" id="status_addon">
+        <option value=""></option>
+        <?php foreach (self::$status_addon as $key => $value): ?>
+          <option <?php echo (!strcmp($active, $key)) ? "selected" : "" ?> value="<?php echo $key ?>"><?php echo $value ?></option>
         <?php endforeach ?>
       </select>
     <?php
@@ -1146,9 +1225,9 @@ class HajjFieldHelper {
 |  Get Office Branch
 |------------------------------------------------------------------------------------
 */
-  public static function GetOfficeBranch($active = "", $is_admin=false, $is_addon=false){
+  public static function GetOfficeBranch($active = "", $is_admin=false, $is_addon=false, $Required=true){
     ?>
-      <select name="office_branch" id="office_branch" required <?php echo ($is_addon)? 'disabled':'' ?>>
+      <select name="office_branch" id="office_branch"  <?php echo ($Required)? 'required' : '' ?> <?php echo ($is_addon)? 'disabled':'' ?>>
         <option value=""></option>
         <?php foreach (self::getBranchs($is_admin) as $key => $value): ?>
           <option <?php echo ($active == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>

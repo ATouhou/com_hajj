@@ -27,7 +27,10 @@ $ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($Hajjs),
 <h1>المستحقات والأرصدة</h1>
 <?php echo $ThePager ?>
 <?php echo $ThePagination; ?>
-<table class="allhajjs table table-condensed table-bordered ">
+
+<?php HajjFieldHelper::getFormFilterBenefits($this->id_hajj, $this->hajj_program, $this->current_payment , $this->status_addon); ?>
+
+<table class="allhajjs table table-condensed table-bordered mt25">
   <thead>
     <tr>
       <th>الحجز</th>
