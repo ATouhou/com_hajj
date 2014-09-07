@@ -61,7 +61,7 @@ if ($this->deny == "") {//
 }
 ?>
 <?php HajjComponentsHelper::export() ?>
-<a href="#" id="btnExport" data-name="طلبات الحجز.csv" class="btn btn-info mt25">تصدير بيانات الجدول إلى Excel</a>
+<a href="#" id="btnExport" data-name="طلبات الحجز.csv" class="btn btn-info mt25">تصدير الى إكسل</a>
 
 <table id="tblExport" class="allhajjs table table-condensed table-bordered mt30">
   <thead>
