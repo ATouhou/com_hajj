@@ -68,6 +68,18 @@ class HajjComponentsHelper {
     return $content;
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Export 
+|------------------------------------------------------------------------------------
+*/
+  public static function export(){
+    $doc = JFactory::getDocument();
 
+    //$doc->addScript( '//code.jquery.com/jquery-1.10.2.js' );
+    $doc->addScript( JUri::root().'/media/com_hajj/js/jquery.js' );
+    $doc->addScript( JUri::root().'/media/com_hajj/js/export-csv.js' );
+    
+  }
 
 }

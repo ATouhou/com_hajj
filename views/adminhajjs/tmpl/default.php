@@ -60,7 +60,10 @@ if ($this->deny == "") {//
   HajjFieldHelper::getFormFilterHajjs($this->register_status, $this->hajj_program, $this->office_branch);
 }
 ?>
-<table class="allhajjs table table-condensed table-bordered ">
+<?php HajjComponentsHelper::export() ?>
+<a href="#" id="btnExport" data-name="طلبات الحجز.csv" class="btn btn-info mt25">تصدير بيانات الجدول إلى Excel</a>
+
+<table id="tblExport" class="allhajjs table table-condensed table-bordered mt30">
   <thead>
     <tr>
       <th>الحجز</th>
@@ -96,7 +99,6 @@ if ($this->deny == "") {//
     </tr>
   <?php endforeach ?>
 </table>
-
 
 <?php echo $ThePager ?>
 <?php echo $ThePagination ?>
