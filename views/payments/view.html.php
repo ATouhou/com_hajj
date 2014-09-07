@@ -57,7 +57,7 @@ class hajjViewPayments extends JViewLegacy
       
       $where = '1=1';
       $where .= ($this->id_hajj!='') ? ' AND id_hajj = '.$this->id_hajj: '';
-      $where .= ($this->id_filter!='') ? ' AND id = '.$this->id_filter: '';
+      $where .= ($this->id_filter!='') ? ' AND Payments.id = '.$this->id_filter: '';
       $where .= ($this->date_filter!='') ? ' AND date = "'.$this->date_filter.'"': '';
       $where .= ($this->hajj_program!='') ? ' AND HP.id = "'.$this->hajj_program.'"': '';
       $where .= ($this->account!='') ? ' AND Payments.account = "'.$this->account.'"': '';
