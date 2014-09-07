@@ -14,7 +14,13 @@ require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
 require_once JPATH_COMPONENT.'/helpers/' .'components.php';
 
-$url      = 'index.php?option=com_hajj&task=admin.Benefits&Itemid=247&p=';
+$url      = 'index.php?option=com_hajj&task=admin.Benefits&Itemid=247';
+$url .= ($this->id_hajj != "") ? '&id_hajj='.$this->id_hajj : '';
+$url .= ($this->hajj_program != "") ? '&hajj_program='.$this->hajj_program : '';
+$url .= ($this->current_payment != "") ? '&current_payment='.$this->current_payment : '';
+$url .= ($this->status_addon != "") ? '&status_addon='.$this->status_addon : '';
+$url .='&p=';
+
 $Hajjs    = $this->data->Hajjs;
 $Payments = $this->data->Payments;
 

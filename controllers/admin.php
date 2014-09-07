@@ -344,8 +344,6 @@ class HajjControllerAdmin extends JControllerLegacy
     $status_addon    = $jinput->get('status_addon','', 'STRING');
     $Itemid          = $jinput->get('Itemid','', 'STRING');
 
-
-    
     // Pagination
     $limit  = 20;
     $start  = ($offset - 1) * $limit ;
