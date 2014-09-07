@@ -493,7 +493,7 @@ class HajjFieldHelper {
         </div>
         <?php if ($is_admin): ?>
           <div class="span4">
-            <label for="account">حالة الدفعة</label>
+            <label for="status">حالة الدفعة</label>
             <?php if ($data == ""): 
               HajjFieldHelper::getListStatusPayment();
             else: 
@@ -737,7 +737,7 @@ class HajjFieldHelper {
 | Get Form Filter 
 |------------------------------------------------------------------------------------
 */
-  public static function getFormFilterPayments($date_filter='', $id_filter='', $id_hajj=''){
+  public static function getFormFilterPayments($date_filter='', $id_filter='', $id_hajj='', $hajj_program='', $account='', $status=''){
   ?>
     <form class="fawj-makkah" action="index.php?option=com_hajj&view=payments&Itemid=249" method="post" accept-charset="utf-8">
       <div class="row-fluid">
@@ -755,6 +755,21 @@ class HajjFieldHelper {
         <div class="span3">
           <label for="date_filter">التاريخ</label>
           <input type="text" class="datepicker" id="date_filter" name="date_filter" value="<?php echo $date_filter ?>" placeholder="">
+        </div>
+      </div>
+
+      <div class="row-fluid">
+        <div class="span3">
+          <label for="hajj_program">برنامج الحج</label>
+          <?php HajjFieldHelper::getHajjProgram($hajj_program, true,false,$Required=false) ?>
+        </div>
+        <div class="span3">
+          <label for="account">الحساب</label>
+          <?php HajjFieldHelper::getListAccountOwner($account, $Required=false);?>
+        </div>
+        <div class="span3">
+          <label for="status">حالة الدفعة</label>
+          <?php HajjFieldHelper::getListStatusPayment($status, $Required=false); ?>
         </div>
         <div class="span3">
           <input type="submit" name="submit" value="تصفية" class="btn btn-success mt25">
@@ -892,9 +907,12 @@ class HajjFieldHelper {
 | Get List Status 
 |------------------------------------------------------------------------------------
 */
-  public static function getListStatusPayment($active = ""){
+  public static function getListStatusPayment($active = "", $required=true){
     ?>
-      <select name="status" id="status" required>
+      <select name="status" id="status" <?php echo ($required)? 'required': '' ?>>
+        <?php if (!$required): ?>
+          <option value=""></option>
+        <?php endif ?>
         <?php foreach (self::$status_payment as $key => $value): ?>
             <option <?php echo ($active == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>">
               <?php echo $value ?>
@@ -909,9 +927,12 @@ class HajjFieldHelper {
 | Get List Status 
 |------------------------------------------------------------------------------------
 */
-  public static function getListAccountOwner($active = ""){
+  public static function getListAccountOwner($active = "", $Required=true){
     ?>
-      <select name="account" id="account" required>
+      <select name="account" id="account" <?php echo ($Required)? 'required':'' ?>>
+        <?php if (!$Required): ?>
+          <option value=""></option>
+        <?php endif ?>
         <?php foreach (self::$account_owner as $key => $value): ?>
             <option <?php echo ($active == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>">
               <?php echo $value ?>

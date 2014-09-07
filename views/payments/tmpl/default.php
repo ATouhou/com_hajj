@@ -58,7 +58,7 @@ $ThePager      = HajjComponentsHelper::getPager($this->start, sizeof($data), $ur
 
 <?php 
   // Get the Filter Form
-  HajjFieldHelper::getFormFilterPayments($this->date_filter, $this->id_filter, $this->id_hajj);
+  HajjFieldHelper::getFormFilterPayments($this->date_filter, $this->id_filter, $this->id_hajj, $this->hajj_program, $this->account, $this->status);
 ?>
 <?php echo $ThePager ?>
 <?php echo $ThePagination; ?>

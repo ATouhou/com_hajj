@@ -57,6 +57,7 @@ class HajjModelPayments extends JModelLegacy {
     if ($where!='') {
       $query->where($where);
     }
+    
     $db->setQuery($query, $offset, $limit);
     $obj = new stdClass();
     $obj->results = $db->loadObjectList();

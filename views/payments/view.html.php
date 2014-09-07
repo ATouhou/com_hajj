@@ -48,14 +48,20 @@ class hajjViewPayments extends JViewLegacy
       $jinput = JFactory::getApplication()->input;
 
       // Create Filters
-      $this->date_filter    = $jinput->get('date_filter','');
-      $this->id_filter      = $jinput->get('id_filter','');
-      $this->id_hajj = $jinput->get('id_hajj','');
+      $this->id_hajj      = $jinput->get('id_hajj','');
+      $this->id_filter    = $jinput->get('id_filter','');
+      $this->date_filter  = $jinput->get('date_filter','');
+      $this->hajj_program = $jinput->get('hajj_program','');
+      $this->account      = $jinput->get('account','');
+      $this->status       = $jinput->get('status','');
       
       $where = '1=1';
-      $where .= ($this->date_filter!='') ? ' AND date = "'.$this->date_filter.'"': '';
-      $where .= ($this->id_filter!='') ? ' AND id = '.$this->id_filter: '';
       $where .= ($this->id_hajj!='') ? ' AND id_hajj = '.$this->id_hajj: '';
+      $where .= ($this->id_filter!='') ? ' AND id = '.$this->id_filter: '';
+      $where .= ($this->date_filter!='') ? ' AND date = "'.$this->date_filter.'"': '';
+      $where .= ($this->hajj_program!='') ? ' AND HP.id = "'.$this->hajj_program.'"': '';
+      $where .= ($this->account!='') ? ' AND Payments.account = "'.$this->account.'"': '';
+      $where .= ($this->status!='') ? ' AND Payments.status = "'.$this->status.'"': '';
 
       // Pagination
       $this->Itemid = $jinput->get('Itemid','1');
