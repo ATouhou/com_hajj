@@ -18,9 +18,12 @@ $nbRows = $this->data->nbRows;
 $toEdit = $this->toEdit;
 
 $url  = 'index.php?option=com_hajj&view=payments&Itemid='.$this->Itemid;
-$url .= ($this->date_filter != "") ? '&date_filter='.$this->date_filter : '';
-$url .= ($this->id_filter != "") ? '&id_filter='.$this->id_filter : '';
 $url .= ($this->id_hajj != "") ? '&id_hajj='.$this->id_hajj : '';
+$url .= ($this->id_filter != "") ? '&id_filter='.$this->id_filter : '';
+$url .= ($this->date_filter != "") ? '&date_filter='.$this->date_filter : '';
+$url .= ($this->hajj_program != "") ? '&hajj_program='.$this->hajj_program : '';
+$url .= ($this->account != "") ? '&account='.$this->account : '';
+$url .= ($this->status != "") ? '&status='.$this->status : '';
 $url .= '&p=';
 
 $ThePagination = HajjComponentsHelper::getPagination($url, $nbRows, 20, $this->start);
