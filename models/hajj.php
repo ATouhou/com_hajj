@@ -176,7 +176,7 @@ public function getAddons($ID){
     // Fields to update.
     $fields = array($db->quoteName('register_status') . ' = ' . 5 );
     if ($admin) {
-      array_push($fields, $db->quoteName('sms5') . ' = ' . "تم إلغاء الحجز");
+      array_push($fields, $db->quoteName('sms5') . ' = ' . "'تم إلغاء الحجز'");
     }
 
     // Update the status of the HAJJ

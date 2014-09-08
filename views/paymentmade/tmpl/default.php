@@ -45,28 +45,21 @@ $sexe = array(
     </div>
   </div>
 </div>
-<h1>طلبات الحجز</h1>
+<h1>طلبات تم الدفع</h1>
 <?php echo $ThePager ?>
 <?php echo $ThePagination; ?>
 
 
 <?php HajjComponentsHelper::export() ?>
-<a href="#" id="btnExport" data-name="طلبات الحجز.csv" class="btn btn-info mt25">تصدير الى إكسل</a>
-<a class="btn btn-danger mt25" href="index.php?option=com_hajj&task=admin.setTamaDaf3&idHajj=0">رفع للوزارة كل الحجاج</a>
+<a class="btn btn-danger mt25" href="index.php?option=com_hajj&task=admin.setTamaDaf3&idHajj=0">رفع للوزارة كل الطلبات</a>
 <table id="tblExport" class="allhajjs table table-condensed table-bordered mt30">
   <thead>
     <tr>
       <th>الحجز</th>
       <th>الاسم الاول</th>
       <th>العائلة</th>
-      <th>الجنس</th>
-      <th>رقم الهوية</th>
-      <th>الجوال</th>
       <th>فرع التسجيل</th>
       <th>برنامج الحج</th>
-      <th>الجنسية</th>
-      <th>حالة الحجز</th>
-      <!-- <th>توقيت التسجيل</th> -->
       <th>رقم حجز المرافق</th>
       <?php if (!$this->manager): ?>
         <th>الرفع للوزارة</th>
@@ -78,14 +71,8 @@ $sexe = array(
       <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $value->id ?>"><?php echo $value->id ?></a></td>
       <td><?php echo $value->first_name ?></td>
       <td><?php echo $value->familly_name ?></td>
-      <td><?php echo $sexe[$value->sexe] ?></td>
-      <td><?php echo $value->id_number ?></td>
-      <td><?php echo $value->mobile ?></td>
       <td><?php echo $OfficeBranchList[$value->office_branch] ?></td>
       <td><?php echo $ProgramList[$value->hajj_program] ?></td>
-      <td><?php echo HajjFieldHelper::getNationnality($value->nationality) ?></td>
-      <td><?php echo HajjFieldHelper::status_register($value->register_status) ?></td>
-      <!-- <td><?php echo $value->date_register ?></td> -->
       <td><?php echo $value->addon ?></td>
       <?php if (!$this->manager): ?>
         <td><a class="btn btn-danger" href="index.php?option=com_hajj&task=admin.setTamaDaf3&idHajj=<?php echo $value->id ?>">الرفع للوزارة</a></td>
