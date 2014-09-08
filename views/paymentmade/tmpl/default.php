@@ -34,7 +34,6 @@ $sexe = array(
 
 
 <?php HajjComponentsHelper::export() ?>
-<a class="btn btn-danger mt25" href="index.php?option=com_hajj&task=admin.setTamaDaf3&idHajj=0">رفع للوزارة كل الطلبات</a>
 <table id="tblExport" class="allhajjs table table-condensed table-bordered mt30">
   <thead>
     <tr>

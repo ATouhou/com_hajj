@@ -342,6 +342,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $hajj_program    = $jinput->get('hajj_program','', 'STRING');
     $current_payment = $jinput->get('current_payment','', 'STRING');
     $status_addon    = $jinput->get('status_addon','', 'STRING');
+    $orderby         = $jinput->get('orderby','HU.id', 'STRING');
     $Itemid          = $jinput->get('Itemid','', 'STRING');
 
     // Pagination
@@ -378,6 +379,7 @@ class HajjControllerAdmin extends JControllerLegacy
           break;
       }
     }
+    
 
     $having = '';
     if ($status_addon != '') {
@@ -397,7 +399,7 @@ class HajjControllerAdmin extends JControllerLegacy
     }
 
     $model  = $this->getModel("Admin");
-    $result = $model->getBenefits($start, $limit,$where, $having);
+    $result = $model->getBenefits($start, $limit,$where, $having, $orderby);
     
     $view   = $this->getView('adminbenefits', 'html'); //get the view
     $view->assignRef('data', $result); // assign data from the model
@@ -407,6 +409,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $view->assignRef('status_addon', $status_addon); // assign data from the model
     $view->assignRef('start', $offset); // assign data from the model
     $view->assignRef('nbBenefits', $result->nbRows); // assign data from the model
+    $view->assignRef('orderby', $orderby); // assign data from the model
 
     $view->display(); // display the view
   }
