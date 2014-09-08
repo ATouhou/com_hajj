@@ -27,7 +27,7 @@ class HajjFieldHelper {
     public static $sort_bed         = array("سرير علوي", "سرير سفلي");
     public static $relationship     = array("أعزب", "متزوج", "أرملة", "مطلقة", "أخرى");
     public static $current_payment  = array("لا يوجد مبلغ مطلوب", "لم يتم الدفع", "دفع جزئي");
-    public static $status_addon     = array("أفراد", "مرافقين");
+    public static $status_addon     = array("أفراد", "مجموعات");
 
 /*
 |------------------------------------------------------------------------------------
