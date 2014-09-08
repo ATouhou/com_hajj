@@ -282,28 +282,27 @@ public function getAddons($ID){
 |------------------------------------------------------------------------------------
 */
   public function setTamaDaf3($obj){
-    $db = JFactory::getDbo();
- 
-    $query = $db->getQuery(true);
-     
-    // Fields to update.
-    $fields = array(
-        $db->quoteName('register_status') . ' = ' . $obj->register_status
-    );
 
-    $conditions = array(
-      $db->quoteName('register_status') . ' = 4', // Set only تم الدفع to الرفع للوزارة
-    );
-
-    if ($obj->id != 0) {// only one Hajj
-      array_push($conditions, $db->quoteName('id') . ' = ' . $obj->id);
-    }
-     
-    $query->update($db->quoteName('#__hajj_users'))->set($fields)->where($conditions);
-     
-    $db->setQuery($query);
-     
-    $result = $db->query();
+    $result = JFactory::getDbo()->updateObject('#__hajj_users', $obj, id);
+    return $result;
   }
+
+/*
+|------------------------------------------------------------------------------------
+| Get mobiles of Hajjs after Tama Daf3
+|------------------------------------------------------------------------------------
+*/
+  public function getMobile($ID){
+    $db = JFactory::getDbo();
+    $query = $db->getQuery(true);    
+    $query
+        ->select($db->quoteName(array('mobile')))
+        ->from($db->quoteName('#__hajj_users'))
+        ->where($db->quoteName('id') . ' = '. $ID);
+    
+    $db->setQuery($query);
+    $results = $db->loadObject()->mobile;
+    return $results;
+  }     
     
 }

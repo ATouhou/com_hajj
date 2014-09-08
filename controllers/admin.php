@@ -530,13 +530,24 @@ class HajjControllerAdmin extends JControllerLegacy
     $obj                  = new stdClass();
     $obj->id              = $jinput->get('idHajj', 0);
     $obj->register_status = 6; // الرفع للوزارة
-
-    $this->getModel('hajj')->setTamaDaf3($obj);
-    if ($obj->id) {
-      $msg = 'تم رفع الحجز رقم : ' . $obj->id . ' للوزارة';
-    }else{
-      $msg = 'تم رفع للوزارة كل الحجاج';
+    if (!$obj->id) {
+      $app->redirect('index.php?option=com_hajj&view=paymentmade&Itemid=295', 'Error', 'Danger');
     }
+
+    $model = $this->getModel('hajj');
+    
+    // Get the Mobile of Hajj
+    $mobile = $model->getMobile($obj->id);
+
+    // Send the SMS
+    $obj->sms6 = "نأمل منكم رفع المستندات المطلوبة عن طريق خدماتنا الإلكترونية. لمعرفة المستندات المطلوبة فضلا راجع خدمات التسجيل.";
+    $msgcode = "064606230645064400200645064606430645002006310641063900200627064406450633062A0646062F0627062A002006270644064506370644064806280629002006390646002006370631064A06420020062E062F06450627062A06460627002006270644062506440643062A063106480646064A0629002E002006440645063906310641062900200627064406450633062A0646062F0627062A00200627064406450637064406480628062900200641063606440627002006310627062C06390020062E062F06450627062A002006270644062A0633062C064A0644002E000A";
+    if($model->setTamaDaf3($obj)){
+      require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
+      HajjFrontendHelper::sendTheSMS($mobile, $msgcode);
+    }
+
+    $msg = 'تم رفع الحجز رقم : ' . $obj->id . ' للوزارة';
     $app->redirect('index.php?option=com_hajj&view=paymentmade&Itemid=295', $msg, 'success');
   }
 
