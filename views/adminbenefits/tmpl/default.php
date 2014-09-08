@@ -19,6 +19,7 @@ $url .= ($this->id_hajj != "") ? '&id_hajj='.$this->id_hajj : '';
 $url .= ($this->hajj_program != "") ? '&hajj_program='.$this->hajj_program : '';
 $url .= ($this->current_payment != "") ? '&current_payment='.$this->current_payment : '';
 $url .= ($this->status_addon != "") ? '&status_addon='.$this->status_addon : '';
+$url .= ($this->orderby != "") ? '&orderby='.$this->orderby : '';
 $url .='&p=';
 
 $Hajjs    = $this->data->Hajjs;

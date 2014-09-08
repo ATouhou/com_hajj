@@ -814,6 +814,14 @@ class HajjFieldHelper {
       </div>
       <div class="row-fluid">
         <div class="span3">
+          <label for="orderby">ترتيب حسب</label>
+          <select name="orderby" id="orderby">
+            <option value="HU.id">رقم الحجز</option>
+            <option value="HP.id">برنامج الحج</option>
+            <option value="HU.id">حالة الدفع</option>
+          </select>
+        </div>
+        <div class="span3 mt25">
           <input type="submit" name="submit" value="تصفية" class="btn btn-success">
           <a href="index.php?option=com_hajj&task=admin.Benefits&Itemid=247" class="btn btn-default">الطلبات</a>
         </div>
