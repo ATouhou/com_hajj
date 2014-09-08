@@ -216,7 +216,7 @@ public function getAddons($ID){
     $db->setQuery($query);
     $results = $db->loadObjectList();
 
-    $IDs = array();
+    $IDs = array($ID);
     foreach ($results as $key => $value) {
       array_push($IDs, $value->id_user);
     }
