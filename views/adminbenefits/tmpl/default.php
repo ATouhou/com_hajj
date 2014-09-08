@@ -85,7 +85,13 @@ $ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($Hajjs),
       <td><?php echo $hajj->nb_addon ?></td>
       <td><?php echo $hajj->nb_addon+1 ?></td>
       <td><?php echo $topay ?></td>
-      <td><?php echo $paid ?></td>
+      <td>
+        <?php if ($paid): ?>
+          <a href="index.php?option=com_hajj&view=payments&Itemid=249&id_hajj=<?php echo $hajj->id ?>"><?php echo $paid ?></a>
+        <?php else: ?>
+            <?php echo $paid ?>
+        <?php endif ?>
+        </td>
       <td><?php echo $rest ?></td>
     </tr>
   <?php endforeach ?>
