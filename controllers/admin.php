@@ -354,7 +354,7 @@ class HajjControllerAdmin extends JControllerLegacy
     if ($this->group == 12) { // This is a Manager
       $personnelsModel = $this->getModel("Personnels"); // Get the model
       $office_branch   = $personnelsModel->getPersonnels('id_user = '.$this->user_id)[0]->office_branch; // Get the branch
-      $where           = ' AND HU.office_branch = ' . $office_branch; // Set the branch for the select
+      $where           = ' HU.office_branch = ' . $office_branch; // Set the branch for the select
     }
 
     $where .= ($id_hajj != '') ? ' AND HU.id = '.$id_hajj: '';
