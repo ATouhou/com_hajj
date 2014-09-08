@@ -66,6 +66,12 @@ $ThePager      = HajjComponentsHelper::getPager($this->start, sizeof($data), $ur
 <?php echo $ThePager ?>
 <?php echo $ThePagination; ?>
 
+<ul class="inline help">
+  <li><span class="carret bg-red"></span> مرفوضة</li>
+  <li><span class="carret bg-orange"></span> تحت التدقيق</li>
+  <li><span class="carret bg-green"></span> مقبولة</li>
+</ul>
+
 <table class="allhajjs table table-condensed table-bordered">
   <thead>
     <tr>
