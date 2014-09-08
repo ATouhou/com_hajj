@@ -518,4 +518,26 @@ class HajjControllerAdmin extends JControllerLegacy
     }
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Update the status to tama daf3
+|------------------------------------------------------------------------------------
+*/
+  public function setTamaDaf3(){
+    $app                  = JFactory::getApplication();
+    $jinput               = $app->input;
+    
+    $obj                  = new stdClass();
+    $obj->id              = $jinput->get('idHajj', 0);
+    $obj->register_status = 6; // الرفع للوزارة
+
+    $this->getModel('hajj')->setTamaDaf3($obj);
+    if ($obj->id) {
+      $msg = 'تم رفع الحجز رقم : ' . $obj->id . ' للوزارة';
+    }else{
+      $msg = 'تم رفع للوزارة كل الحجاج';
+    }
+    $app->redirect('index.php?option=com_hajj&view=paymentmade&Itemid=295', $msg, 'success');
+  }
+
 }

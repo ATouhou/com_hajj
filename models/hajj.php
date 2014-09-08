@@ -276,4 +276,34 @@ public function getAddons($ID){
     return $result;
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Set Hajjs to TamaDaf3
+|------------------------------------------------------------------------------------
+*/
+  public function setTamaDaf3($obj){
+    $db = JFactory::getDbo();
+ 
+    $query = $db->getQuery(true);
+     
+    // Fields to update.
+    $fields = array(
+        $db->quoteName('register_status') . ' = ' . $obj->register_status
+    );
+
+    $conditions = array(
+      $db->quoteName('register_status') . ' = 4', // Set only تم الدفع to الرفع للوزارة
+    );
+
+    if ($obj->id != 0) {// only one Hajj
+      array_push($conditions, $db->quoteName('id') . ' = ' . $obj->id);
+    }
+     
+    $query->update($db->quoteName('#__hajj_users'))->set($fields)->where($conditions);
+     
+    $db->setQuery($query);
+     
+    $result = $db->query();
+  }
+    
 }
