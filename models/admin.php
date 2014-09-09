@@ -259,7 +259,7 @@ class HajjModelAdmin extends JModelLegacy {
 | Get All Benefits
 |------------------------------------------------------------------------------------
 */
-  public function getBenefits($offset=0, $limit=0, $where='', $having='', $order=''){
+  public function getBenefits($offset=0, $limit=0, $where='', $having='', $order='HU.id'){
     $db = JFactory::getDBO();    
 
     // Get the list of HAJJS with the addons

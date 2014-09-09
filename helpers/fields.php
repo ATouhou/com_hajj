@@ -470,6 +470,38 @@ class HajjFieldHelper {
     ?>
 
     <form class="fawj-makkah" action="index.php?option=com_hajj&task=hajj.setPayment"  enctype="multipart/form-data" method="post" accept-charset="utf-8">
+      
+      <?php if ($is_admin): 
+        require_once JPATH_COMPONENT.'/helpers/' .'components.php';
+        HajjComponentsHelper::ajaxGetTopayPaid();
+      ?>
+        <div class="row-fluid" id="ajax-getTopayPaid">
+          <div class="span4">
+            <label for="id_hajj">رقم الحجز</label>
+            <?php HajjFieldHelper::getListHajjId($idHajj) ?>
+          </div>
+          <div class="span8">
+           <?php if ($data != ""): ?>
+            <img class="attachment" src="index.php?option=com_hajj&task=admin.getImgPayment&img=<?php echo $data->attachment ?>" alt="">
+           <?php else: // We display the Ajax request ?>
+              <div class="row-fluid">
+                <div class="span6">
+                  <label for="">المبلغ المطلوب</label>
+                  <input type="text" id="topay" name="" value="" placeholder="" readonly>
+                </div>
+                <div class="span6">
+                  <label for="">المبلغ المدفوع</label>
+                  <input type="text" id="paid" name="" value="" placeholder="" readonly>                  
+                </div>
+
+              </div>
+           <?php endif ?>
+          </div>
+        </div> 
+      <?php else: ?>
+          <input type="hidden" name="id_hajj" value="<?php echo $idHajj ?>">
+      <?php endif ?>
+
       <div class="row-fluid">
         <div class="span4">
           <label for="account">الحساب</label>
@@ -510,21 +542,6 @@ class HajjFieldHelper {
           </div>
         <?php endif ?>
       </div>
-      <?php if ($is_admin): ?>
-        <div class="row-fluid">
-          <div class="span4">
-            <label for="id_hajj">رقم الحجز</label>
-            <?php HajjFieldHelper::getListHajjId($idHajj) ?>
-          </div>
-          <div class="span8">
-           <?php if ($data != ""): ?>
-            <img class="attachment" src="index.php?option=com_hajj&task=admin.getImgPayment&img=<?php echo $data->attachment ?>" alt="">
-           <?php endif ?>
-          </div>
-        </div> 
-      <?php else: ?>
-          <input type="hidden" name="id_hajj" value="<?php echo $idHajj ?>">
-      <?php endif ?>
       <input type="hidden" name="id" value="<?php echo $idPayment ?>">
       
       <input type="submit" name="" value="حفظ" class="btn btn-success">
