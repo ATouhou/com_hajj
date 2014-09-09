@@ -116,8 +116,14 @@ class HajjControllerAdmin extends JControllerLegacy
 
     $result = $this->getModel("Admin")->getHajj($id);
 
+    $isManager = false;
+    var_dump($this->group);
+    if ($this->group == 12) { // This is a Manager
+      $isManager        = true;
+    }
     $view   = $this->getView('adminhajj', 'html'); //get the view
     $view->assignRef('data', $result); // assign data from the model
+    $view->assignRef('isManager', $isManager); // assign data from the model
     $view->display(); // display the view
   }
 

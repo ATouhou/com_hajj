@@ -20,7 +20,7 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList();
 <h1>تعديل <?php echo $data->id ?></h1>
 
 <?php 
-HajjFieldHelper::getEditFormHajj($data, $is_admin=true); // True for Admin
+HajjFieldHelper::getEditFormHajj($data, $is_admin=true,$all_read_only=false, $addon=false,$this->isManager); // True for Admin
 
 ?>
 

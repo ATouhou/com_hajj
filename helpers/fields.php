@@ -202,7 +202,10 @@ class HajjFieldHelper {
 | Get the Form of Hajj register
 |------------------------------------------------------------------------------------
 */
-  public static function getEditFormHajj($data, $is_admin=false, $all_read_only=false, $is_addon=false){
+  public static function getEditFormHajj($data, $is_admin=false, $all_read_only=false, $is_addon=false, $isManager=false){
+    if ($isManager) {
+      $all_read_only = true;
+    }
 
     // Set Email to empty
     if (strpos($data->email, "gmail.ww")) {
@@ -232,7 +235,7 @@ class HajjFieldHelper {
       </div>
     <?php endif ?>
 
-      <form class="fawj-makkah" action="index.php?option=com_hajj&task=hajj.setedithajj" method="post" accept-charset="utf-8" <?php echo ($all_read_only)? 'class="disabled"':''; ?>>
+      <form class="fawj-makkah" action="<?php echo (!$all_read_only)?'index.php?option=com_hajj&task=hajj.setedithajj' : '' ?>" method="post" accept-charset="utf-8" <?php echo ($all_read_only)? 'class="disabled"':''; ?>>
         <input type="hidden" name="id_user" value="<?php echo $data->id_user ?>">
         <div class="row-fluid">
           <div class="span4">
@@ -363,7 +366,9 @@ class HajjFieldHelper {
         </div>
 
         <input type="hidden" name="id" value="<?php echo $data->id ?>">
-        <input type="submit" value="حفظ التعديل" class="btn btn-success mt25">
+        <?php if (!$all_read_only): ?>
+          <input type="submit" value="حفظ التعديل" class="btn btn-success mt25">
+        <?php endif ?>
       </form>
     <?php
   }
