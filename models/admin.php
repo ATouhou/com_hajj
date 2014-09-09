@@ -467,4 +467,15 @@ class HajjModelAdmin extends JModelLegacy {
      
     $result = $db->query();
   }
+
+/*
+|------------------------------------------------------------------------------------
+| Accept a Hajj
+|------------------------------------------------------------------------------------
+*/
+  public function acceptHajj($obj){
+    
+    return JFactory::getDbo()->updateObject('#__hajj_users', $obj, 'id');
+    
+  }   
 }

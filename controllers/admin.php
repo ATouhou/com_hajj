@@ -117,7 +117,6 @@ class HajjControllerAdmin extends JControllerLegacy
     $result = $this->getModel("Admin")->getHajj($id);
 
     $isManager = false;
-    var_dump($this->group);
     if ($this->group == 12) { // This is a Manager
       $isManager        = true;
     }
@@ -559,5 +558,33 @@ class HajjControllerAdmin extends JControllerLegacy
     $msg = 'تم رفع الحجز رقم : ' . $obj->id . ' للوزارة';
     $app->redirect('index.php?option=com_hajj&view=paymentmade&Itemid=295', $msg, 'success');
   }
+
+/*
+|------------------------------------------------------------------------------------
+| Accept the Hajj register_status 1>2
+|------------------------------------------------------------------------------------
+*/
+  public function acceptHajj(){
+      $app                  = JFactory::getApplication();
+      $jinput               = $app->input;
+      $mobile               = $jinput->get('mobile',0);
+      
+      $obj                  = new stdClass();
+      $obj->id              = $jinput->get('id', 0);
+      $obj->register_status = 2; // الرفع للوزارة
+      $obj->sms2            = "أخي الحاج نشكر لكم اختياركم لشركة فوج مكة ونذكركم بموعد سداد المبلغ المستحق ،خلال اسبوع من تاريخه حتى يتم تأكيد حجزكم لحج هذا العام ، وتقبلوا تحياتنا وتقديرنا . تنبيه : لمعرفة طريقة السداد نأمل منكم الدخول على موقع الشركة .";
+      $msgcode              = "0623062E064A002006270644062D0627062C00200646063406430631002006440643064500200627062E062A064A0627063106430645002006440634063106430629002006410648062C00200645064306290020064806460630064306310643064500200628064506480639062F00200633062F0627062F002006270644064506280644063A00200627064406450633062A062D06420020060C062E0644062706440020062706330628064806390020064506460020062A06270631064A062E06470020062D062A06490020064A062A06450020062A06230643064A062F0020062D062C06320643064500200644062D062C00200647063006270020062706440639062706450020060C00200648062A064206280644064806270020062A062D064A0627062A0646062700200648062A0642062F064A0631064606270020002E000A062A06460628064A06470020003A0020064406450639063106410629002006370631064A064206290020062706440633062F0627062F0020064606230645064400200645064606430645002006270644062F062E0648064400200639064406490020064506480642063900200627064406340631064306290020002E";
+          
+      $model = $this->getModel('admin');
+      if ($model->acceptHajj($obj)) {
+
+        // Send the SMS
+        require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
+        HajjFrontendHelper::sendTheSMS($obj->mobile, $msgcode);
+
+        $app->redirect('index.php?option=com_hajj&task=admin.hajjs&Itemid=241', 'تم قبول الطلب بنجاح', 'success');
+      }
+      $app->redirect('index.php?option=com_hajj&task=admin.hajjs&Itemid=241', 'Error!', 'error');
+    }
 
 }
