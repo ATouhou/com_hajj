@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 require_once JPATH_COMPONENT.'/helpers/' .'components.php';
 
-$url  = 'index.php?option=com_hajj&view=paymentmade&Itemid='.$this->Itemid;
+$url  = 'index.php?option=com_hajj&view=accepthajj&Itemid='.$this->Itemid;
 $url .= '&p=';
 
 $data = $this->result;
@@ -43,9 +43,7 @@ $sexe = array(
       <th>فرع التسجيل</th>
       <th>برنامج الحج</th>
       <th>رقم حجز المرافق</th>
-      <?php if (!$this->manager): ?>
-        <th>الرفع للوزارة</th>
-      <?php endif ?>
+      <th>قبول الطلب</th>
     </tr>
   </thead>
   <?php foreach ($data as $key => $value): ?>
@@ -56,9 +54,7 @@ $sexe = array(
       <td><?php echo $OfficeBranchList[$value->office_branch] ?></td>
       <td><?php echo $ProgramList[$value->hajj_program] ?></td>
       <td><?php echo $value->addon ?></td>
-      <?php if (!$this->manager): ?>
-        <td><a class="btn btn-danger" href="index.php?option=com_hajj&task=admin.acceptHajj&id=<?php echo $value->id ?>&mobile=<?php echo $value->mobile ?>">قبول الطلب </a></td>
-      <?php endif ?>
+      <td><a class="btn btn-danger" href="index.php?option=com_hajj&task=admin.acceptHajj&id=<?php echo $value->id ?>&mobile=<?php echo $value->mobile ?>">قبول الطلب </a></td>
     </tr>
   <?php endforeach ?>
 </table>
