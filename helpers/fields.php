@@ -235,7 +235,7 @@ class HajjFieldHelper {
       </div>
     <?php endif ?>
 
-      <form class="fawj-makkah" action="<?php echo (!$all_read_only)?'index.php?option=com_hajj&task=hajj.setedithajj' : '' ?>" method="post" accept-charset="utf-8" <?php echo ($all_read_only)? 'class="disabled"':''; ?>>
+      <form class="fawj-makkah" action="index.php?option=com_hajj&task=hajj.setedithajj" method="post" accept-charset="utf-8" <?php echo ($all_read_only)? 'class="disabled"':''; ?>>
         <input type="hidden" name="id_user" value="<?php echo $data->id_user ?>">
         <div class="row-fluid">
           <div class="span4">
@@ -924,13 +924,21 @@ class HajjFieldHelper {
 */
   public static function getListStatusHajjs($active = "", $readonly="false"){
     ?>
-      <select name="register_status" id="register_status" required <?php echo ($active == 3 || $active == 5 || $readonly) ? "disabled":"" ?>>
+    <?php if ($active == 3 || $active == 5 || $readonly): ?>
+      <select name="register_status" id="register_status" required >
+        <option value="<?php echo $active ?>">
+          <?php echo self::$status_hajjs[$active-1] ?>
+        </option>
+      </select>
+    <?php else: ?>
+      <select name="register_status" id="register_status" required >
         <?php foreach (self::$status_hajjs as $key => $value): ?>
             <option <?php echo ($active == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>">
               <?php echo $value ?>
             </option>
         <?php endforeach ?>
       </select>
+    <?php endif ?>
     <?php 
   }
 

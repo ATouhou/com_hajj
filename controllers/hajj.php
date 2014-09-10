@@ -50,7 +50,6 @@ class HajjControllerHajj extends JControllerLegacy
     $obj->expiration_date.= $jinput->get('expiration_date2','','STRING') . '/';
     $obj->expiration_date.= $jinput->get('expiration_date3','','STRING');
 
-
     //$this->getModel('Hajj')->setEditHajj($obj);
     if ($obj->register_status == "") {// Not Admin
       // Save obejct and redirect
@@ -60,14 +59,6 @@ class HajjControllerHajj extends JControllerLegacy
       $redirect  =preg_replace($pattern, '', $redirect);
 
     }else{// This is an admin
-
-      // Check if a simple manager set the register_status to "tama daf3"
-      $user_id = JFactory::getUser()->id;
-      $group   = JAccess::getGroupsByUser($user_id, false)[0];
-      if ($group == 12 && $obj->register_status == 4) {
-        $redirect = $_SERVER['HTTP_REFERER'];
-        $app->redirect($redirect, "لا يمكنك تحديث حالة الحجز الى تم الدفع وذلك حسب توجيهات ادارة الشركة", 'error');
-      }
 
       $obj->topay = $jinput->get('topay','','STRING');
       switch ($obj->register_status) {  // Switch to send SMS
