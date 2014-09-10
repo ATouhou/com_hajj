@@ -1035,7 +1035,8 @@ class HajjFieldHelper {
 */
   public static function getListHajjId($active = ""){
 
-    $data = JModelLegacy::getInstance('Admin', 'HajjModel')->getHajjs();
+    $where        = 'addon = 0 AND register_status = 2';
+    $data = JModelLegacy::getInstance('Admin', 'HajjModel')->getHajjs(0,0,$where);
 
     ?>
     <select name="id_hajj" id="id_hajj" required>

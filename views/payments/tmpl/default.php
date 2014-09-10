@@ -13,18 +13,18 @@ defined('_JEXEC') or die;
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 require_once JPATH_COMPONENT.'/helpers/' .'components.php';
 
-$data = $this->data->results;
-$nbRows = $this->data->nbRows;
-$toEdit = $this->toEdit;
+$data          = $this->data->results;
+$nbRows        = $this->data->nbRows;
+$toEdit        = $this->toEdit;
 
-$url  = 'index.php?option=com_hajj&view=payments&Itemid='.$this->Itemid;
-$url .= ($this->id_hajj != "") ? '&id_hajj='.$this->id_hajj : '';
-$url .= ($this->id_filter != "") ? '&id_filter='.$this->id_filter : '';
-$url .= ($this->date_filter != "") ? '&date_filter='.$this->date_filter : '';
-$url .= ($this->hajj_program != "") ? '&hajj_program='.$this->hajj_program : '';
-$url .= ($this->account != "") ? '&account='.$this->account : '';
-$url .= ($this->status != "") ? '&status='.$this->status : '';
-$url .= '&p=';
+$url           = 'index.php?option=com_hajj&view=payments&Itemid='.$this->Itemid;
+$url          .= ($this->id_hajj != "") ? '&id_hajj='.$this->id_hajj : '';
+$url          .= ($this->id_filter != "") ? '&id_filter='.$this->id_filter : '';
+$url          .= ($this->date_filter != "") ? '&date_filter='.$this->date_filter : '';
+$url          .= ($this->hajj_program != "") ? '&hajj_program='.$this->hajj_program : '';
+$url          .= ($this->account != "") ? '&account='.$this->account : '';
+$url          .= ($this->status != "") ? '&status='.$this->status : '';
+$url          .= '&p=';
 
 $ThePagination = HajjComponentsHelper::getPagination($url, $nbRows, 20, $this->start);
 $ThePager      = HajjComponentsHelper::getPager($this->start, sizeof($data), $url);
@@ -41,7 +41,6 @@ $ThePager      = HajjComponentsHelper::getPager($this->start, sizeof($data), $ur
         </div>
         <div id="collapseOne" class="accordion-body collapse">
           <div class="accordion-inner">
-          
           <?php
             HajjFieldHelper::getFormPayment($toEdit, $this->idHajj, $this->idPayment, $this->is_admin);
           ?>

@@ -28,13 +28,17 @@ class HajjModelHajj extends JModelLegacy {
 | Get Id number by id user
 |------------------------------------------------------------------------------------
 */
-  public function getIdNumber($ID){
+  public function getIdNumber($ID, $where=''){
     $db = JFactory::getDBO();
     $query = $db->getQuery(TRUE);      
     $query
         ->select($db->quoteName(array('id')))
         ->from($db->quoteName('#__hajj_users'))
         ->where($db->quoteName('id_user') . ' = '. $ID);
+
+    if ($where != '') {
+      $query->where($where);
+    }
 
     $db->setQuery($query);
     $results = $db->loadObject();
