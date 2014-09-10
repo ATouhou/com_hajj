@@ -331,7 +331,7 @@ class HajjFieldHelper {
           </div>
           <div class="span4">
             <label for="topay">المبلغ المطلوب</label>
-            <input type="text" name="topay" id="topay" value="<?php echo $data->topay ?>" required>
+            <input type="text" name="topay" id="topay" value="<?php echo $data->topay ?>" required >
           </div>
         <?php else : ?>
           <div class="span4"></div>
@@ -366,9 +366,7 @@ class HajjFieldHelper {
         </div>
 
         <input type="hidden" name="id" value="<?php echo $data->id ?>">
-        <?php if (!$all_read_only): // only Admin can edit ?>
-          <input type="submit" value="حفظ التعديل" class="btn btn-success mt25">
-        <?php endif ?>
+        <input type="submit" value="حفظ التعديل" class="btn btn-success mt25">
         <?php if ($data->register_status == 1): ?>
           <a href="index.php?option=com_hajj&task=admin.acceptHajj&id=<?php echo $data->id ?>&mobile=<?php echo $data->mobile ?>" class="btn btn-success mt25">قبول الطلب</a>
         <?php endif ?>
