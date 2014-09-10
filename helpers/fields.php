@@ -24,8 +24,8 @@ class HajjFieldHelper {
     public static $status_tents     = array("مقفل", "شاغر");
     public static $authority        = array(10=>"مدير", 11=>"محاسب", 12=>"موظف فرع", 13=>"جاما");
     public static $documents        = array("البطاقة الشخصية", "إقامة", "كرت العائلة", "خطاب الكفيل", "صورة شخصية", "كرت التطعيم مع فصيلة الدم");
-    public static $sort_bed         = array("سرير علوي", "سرير سفلي");
-    public static $relationship     = array("أعزب", "متزوج", "أرملة", "مطلقة", "أخرى");
+    public static $sort_bed         = array("", "سرير علوي", "سرير سفلي");
+    public static $relationship     = array("", "أعزب", "متزوج", "أرملة", "مطلقة", "أخرى");
     public static $current_payment  = array("لا يوجد مبلغ مطلوب", "لم يتم الدفع", "دفع جزئي");
     public static $status_addon     = array("أفراد", "مجموعات");
 
@@ -1083,7 +1083,6 @@ class HajjFieldHelper {
     //var_dump(self::$sort_bed);
     ?>
       <select name="sort_bed" id="sort_bed" required>
-        <option value=""></option>
         <?php foreach (self::$sort_bed as $key => $value): ?>
             <option <?php echo ($active == $key) ? "selected" : "" ?> value="<?php echo $key ?>"><?php echo $value ?></option>
         <?php endforeach ?>
@@ -1100,7 +1099,6 @@ class HajjFieldHelper {
     //var_dump(self::$sort_bed);
     ?>
       <select name="relationship" id="relationship" required>
-        <option value=""></option>
         <?php foreach (self::$relationship as $key => $value): ?>
             <option <?php echo ($active == $key) ? "selected" : "" ?> value="<?php echo $key ?>"><?php echo $value ?></option>
         <?php endforeach ?>
