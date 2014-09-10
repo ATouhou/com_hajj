@@ -301,7 +301,8 @@ class HajjFieldHelper {
                 <option value="<?php echo $data->hajj_program ?>"><?php echo $hajj_program ?></option>
               </select>
             <?php else: ?>
-              <?php HajjFieldHelper::getHajjProgram($data->hajj_program, true, $is_addon) ?>
+              <?php $acl = ($isManager && $data->register_status != 1)? true : false ?>
+              <?php HajjFieldHelper::getHajjProgram($data->hajj_program, true, $acl) ?>
             <?php endif ?>
           </div>
           <div class="span4">
@@ -311,7 +312,7 @@ class HajjFieldHelper {
                 <option value="<?php echo $data->office_branch ?>"><?php echo $office_branch ?></option>
               </select>
             <?php else: ?>
-              <?php HajjFieldHelper::GetOfficeBranch($data->office_branch, true, $is_addon) ?>
+              <?php HajjFieldHelper::GetOfficeBranch($data->office_branch, true, $acl) ?>
             <?php endif ?>
           </div>
           <div class="span4">
@@ -327,11 +328,11 @@ class HajjFieldHelper {
         <?php if ($is_admin): ?>
           <div class="span4">
             <label for="register_status">حالة الحجز</label>
-            <?php HajjFieldHelper::getListStatusHajjs($data->register_status) ?>
+            <?php HajjFieldHelper::getListStatusHajjs($data->register_status, $isManager) ?>
           </div>
           <div class="span4">
             <label for="topay">المبلغ المطلوب</label>
-            <input type="text" name="topay" id="topay" value="<?php echo $data->topay ?>" required >
+            <input type="text" name="topay" id="topay" value="<?php echo $data->topay ?>" required <?php echo ($isManager)? 'readonly':'' ?>>
           </div>
         <?php else : ?>
           <div class="span4"></div>
@@ -921,9 +922,9 @@ class HajjFieldHelper {
 | Get List Status Hajjs
 |------------------------------------------------------------------------------------
 */
-  public static function getListStatusHajjs($active = ""){
+  public static function getListStatusHajjs($active = "", $readonly="false"){
     ?>
-      <select name="register_status" id="register_status" required <?php echo ($active == 3 || $active == 5) ? "disabled":"" ?>>
+      <select name="register_status" id="register_status" required <?php echo ($active == 3 || $active == 5 || $readonly) ? "disabled":"" ?>>
         <?php foreach (self::$status_hajjs as $key => $value): ?>
             <option <?php echo ($active == $key+1) ? "selected" : "" ?> value="<?php echo $key+1 ?>">
               <?php echo $value ?>
@@ -1211,10 +1212,10 @@ class HajjFieldHelper {
 | Get Hajj Program
 |------------------------------------------------------------------------------------
 */
-  public static function getHajjProgram($active = "", $is_admin=false, $is_addon=false,$Required=true){    
+  public static function getHajjProgram($active = "", $is_admin=false, $readonly=false,$Required=true){    
 
     ?>
-      <select name="hajj_program" id="hajj_program" <?php echo ($Required)? 'required' : '' ?> <?php echo ($is_addon)? 'disabled':'' ?>>
+      <select name="hajj_program" id="hajj_program" <?php echo ($Required)? 'required' : '' ?> <?php echo ($readonly)? 'disabled':'' ?>>
         <option value=""></option>
         <?php foreach (self::getPrograms($is_admin) as $key => $value): ?>
           <option <?php echo ($active == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
