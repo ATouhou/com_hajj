@@ -1082,7 +1082,7 @@ class HajjFieldHelper {
   public static function getListSortBed($active = ""){ 
     //var_dump(self::$sort_bed);
     ?>
-      <select name="sort_bed" id="sort_bed" required>
+      <select name="sort_bed" id="sort_bed">
         <?php foreach (self::$sort_bed as $key => $value): ?>
             <option <?php echo ($active == $key) ? "selected" : "" ?> value="<?php echo $key ?>"><?php echo $value ?></option>
         <?php endforeach ?>
@@ -1098,7 +1098,7 @@ class HajjFieldHelper {
   public static function getListRelationship($active = ""){ 
     //var_dump(self::$sort_bed);
     ?>
-      <select name="relationship" id="relationship" required>
+      <select name="relationship" id="relationship">
         <?php foreach (self::$relationship as $key => $value): ?>
             <option <?php echo ($active == $key) ? "selected" : "" ?> value="<?php echo $key ?>"><?php echo $value ?></option>
         <?php endforeach ?>

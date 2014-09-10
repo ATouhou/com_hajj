@@ -85,12 +85,10 @@ class hajjViewPayments extends JViewLegacy
       $this->toEdit = "";
 
       if ($id) { // Get the info to edit
-        foreach ($this->data->results as $key => $value) {
-          if ($value->id == $id) {
-            $this->toEdit = $this->data->results[$key];
-            $this->idHajj = ($this->is_admin) ? $this->toEdit->id_hajj : $this->idHajj;
-            break;
-          }
+        $result = $model->getPayments('Payments.ID = '.$id)->results[0];
+        if ($result->register_status == 2) {
+          $this->toEdit = $result;
+          $this->idHajj=$this->toEdit->id_hajj;
         }
       }
 
