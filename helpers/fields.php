@@ -1041,7 +1041,7 @@ class HajjFieldHelper {
 */
   public static function getListHajjId($active = ""){
 
-    $where        = 'addon = 0 AND register_status = 2';
+    $where        = 'addon = 0 AND (register_status = 2 OR register_status = 4)';
     $data = JModelLegacy::getInstance('Admin', 'HajjModel')->getHajjs(0,0,$where);
 
     ?>
