@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 require_once JPATH_COMPONENT.'/helpers/' .'components.php';
-var_dump($this->sumPayments);
+
 $data          = $this->data->results;
 $nbRows        = $this->data->nbRows;
 $toEdit        = $this->toEdit;
