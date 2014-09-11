@@ -480,6 +480,9 @@ class HajjControllerAdmin extends JControllerLegacy
     $obj           = new stdClass();
     $obj->original = $jinput->get("original", '', 'STRING');
     $addons        = $jinput->get("addons",  '', 'ARRAY');
+    if ($addons == '') {
+      $app->redirect('index.php?option=com_hajj&view=admincombineaddons', 'يرجى تحديد رقم حجز المرافق', 'error');
+    }
     $obj->addons   = implode(', ', $addons);
 
     if($this->getModel('admin')->setCombineAddons($obj)){
