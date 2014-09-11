@@ -11,15 +11,6 @@ defined('_JEXEC') or die;
 
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
-require_once JPATH_COMPONENT.'/helpers/' .'hajj.php';
-require_once JPATH_COMPONENT.'/helpers/' .'components.php';
-
-$url  = 'index.php?option=com_hajj&task=admin.hajjs&Itemid='.$this->Itemid;
-$url .= ($this->register_status != "") ? '&register_status='.$this->register_status : '';
-$url .= ($this->office_branch != "") ? '&office_branch='.$this->office_branch : '';
-$url .= ($this->hajj_program != "") ? '&hajj_program='.$this->hajj_program : '';
-$url .= ($this->deny != "") ? '&deny='.$this->deny : '';
-$url .= '&p=';
 
 $data = $this->data;
 //var_dump($data);
@@ -50,14 +41,12 @@ ob_start();
       <th>برنامج الحج</th>
       <th>الجنسية</th>
       <th>حالة الحجز</th>
-      <!-- <th>توقيت التسجيل</th> -->
       <th>رقم حجز المرافق</th>
-      <!-- <th>التحويل</th> -->
     </tr>
   </thead>
   <?php foreach ($data as $key => $value): ?>
     <tr <?php echo ($value->register_status == 4) ? 'class="success"':''; ?>>
-      <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $value->id ?>"><?php echo $value->id ?></a></td>
+      <td><?php echo $value->id ?></td>
       <td><?php echo $value->first_name ?></td>
       <td><?php echo $value->familly_name ?></td>
       <td><?php echo $sexe[$value->sexe] ?></td>
@@ -67,9 +56,7 @@ ob_start();
       <td><?php echo $ProgramList[$value->hajj_program] ?></td>
       <td><?php echo HajjFieldHelper::getNationnality($value->nationality) ?></td>
       <td><?php echo HajjFieldHelper::status_register($value->register_status) ?></td>
-      <!-- <td><?php echo $value->date_register ?></td> -->
       <td><?php echo $value->addon ?></td>
-      <!-- <td><?php echo ($value->transfer_status)? 'موقف':'نشط'  ?></td> -->
     </tr>
   <?php endforeach ?>
 </table>

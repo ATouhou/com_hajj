@@ -61,9 +61,10 @@ if ($this->deny == "") {//
   HajjFieldHelper::getFormFilterHajjs($this->register_status, $this->hajj_program, $this->office_branch);
 }
 ?>
-<?php HajjComponentsHelper::export() ?>
+
 <a href="<?php echo $urlXLS  ?>" class="btn btn-info mt10 pull-left">تصدير الى إكسل</a>
 <div class="clearfix"></div>
+
 <table id="tblExport" class="allhajjs table table-condensed table-bordered mt30">
   <thead>
     <tr>

@@ -54,6 +54,7 @@ class hajjViewPayments extends JViewLegacy
       $this->hajj_program = $jinput->get('hajj_program','');
       $this->account      = $jinput->get('account','');
       $this->status       = $jinput->get('status','');
+      $form               = $jinput->get('form',NULL, 'STRING');
       
       $where = '1=1';
       $where .= ($this->id_hajj!='') ? ' AND id_hajj = '.$this->id_hajj: '';
@@ -72,9 +73,10 @@ class hajjViewPayments extends JViewLegacy
       // Get the DATA
       $model        = JModelLegacy::getInstance('Payments', 'HajjModel');
       if ($this->is_admin) { // An admin
-        $this->data = $model->getPayments($where, $start, $limit);
+        $this->data = (is_null($form)) ? $model->getPayments($where, $start, $limit) : $model->getPayments($where, 0, 0);
       }else if($this->is_manager){ // A manager
-        $this->data = $model->getPaymentsByBranch($where, $managerObject->office_branch, $start, $limit);
+        $this->data = (is_null($form)) ? $model->getPaymentsByBranch($where, $managerObject->office_branch, $start, $limit) :
+                      $model->getPaymentsByBranch($where, $managerObject->office_branch, 0, 0);
       }else{ // Simple hajj
         $this->data = $model->getMyPayments($this->idHajj, $start, $limit);
       }
@@ -97,7 +99,7 @@ class hajjViewPayments extends JViewLegacy
 
       
 
-      parent::display($tpl);
+      parent::display($form);
   }
 
 }

@@ -26,6 +26,8 @@ $url          .= ($this->account != "") ? '&account='.$this->account : '';
 $url          .= ($this->status != "") ? '&status='.$this->status : '';
 $url          .= '&p=';
 
+
+$urlXLS = $url . $this->start . '&form=xls';
 $ThePagination = HajjComponentsHelper::getPagination($url, $nbRows, 20, $this->start);
 $ThePager      = HajjComponentsHelper::getPager($this->start, sizeof($data), $url);
 
@@ -64,6 +66,9 @@ $ThePager      = HajjComponentsHelper::getPager($this->start, sizeof($data), $ur
 ?>
 <?php echo $ThePager ?>
 <?php echo $ThePagination; ?>
+
+<a href="<?php echo $urlXLS  ?>" class="btn btn-info mt10 pull-left">تصدير الى إكسل</a>
+<div class="clearfix"></div>
 
 <ul class="inline help">
   <li><span class="carret bg-red"></span> مرفوضة</li>
