@@ -31,6 +31,7 @@ $urlXLS = $url . $this->start . '&form=xls';
 $ThePagination = HajjComponentsHelper::getPagination($url, $nbRows, 20, $this->start);
 $ThePager      = HajjComponentsHelper::getPager($this->start, sizeof($data), $url);
 
+$codeColor = array("bg-orange", "bg-green", "bg-red")
 ?>
 <?php if (!$this->is_manager): ?>
   <?php if ($toEdit == ""): ?>
@@ -70,23 +71,27 @@ $ThePager      = HajjComponentsHelper::getPager($this->start, sizeof($data), $ur
 <?php echo $ThePagination; ?>
 
 
-<ul class="inline help">
-  <li><span class="carret bg-red"></span> مرفوضة</li>
-  <li><span class="carret bg-orange"></span> تحت التدقيق</li>
-  <li><span class="carret bg-green"></span> مقبولة</li>
-</ul>
 
 <!-- Display The Sum -->
 <?php
-$th = $td = '';
-setlocale(LC_MONETARY, 'en_US');
+$th = $td = $li = '';
+$sum = 0;
 foreach ($this->sumPayments as $key => $value):
   $x = intval($value->amount);
+  $sum += $x;
   $th .= '<th>'. HajjFieldHelper::$status_payment[$value->status-1] .'</th>';
-  $td .= '<td>'. number_format($x,0,",",".") .' ريال</td>';
-endforeach 
-
+  $td .= '<td class="'.$codeColor[$value->status-1].'">'. number_format($x,0,",",".") .' ريال</td>';
+  $li .= '<li><span class="carret '.$codeColor[$value->status-1].'"></span>'.  HajjFieldHelper::$status_payment[$value->status-1] .'</li>';
+endforeach;
+$th .= '<th>المجموع الكلي</th>';
+$td .= '<td>'.number_format($sum,0,",",".").' ريال</td>';
 ?>
+
+
+<ul class="inline help">
+  <?php echo $li ?>
+</ul>
+
 <table class="allhajjs table table-condensed table-bordered mt25">
   <thead>
     <tr>
