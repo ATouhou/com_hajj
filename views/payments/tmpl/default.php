@@ -64,11 +64,11 @@ $ThePager      = HajjComponentsHelper::getPager($this->start, sizeof($data), $ur
   // Get the Filter Form
   HajjFieldHelper::getFormFilterPayments($this->date_filter, $this->id_filter, $this->id_hajj, $this->hajj_program, $this->account, $this->status);
 ?>
+<a href="<?php echo $urlXLS  ?>" class="btn btn-info mt10 pull-left">تصدير الى إكسل</a>
+<div class="clearfix"></div>
 <?php echo $ThePager ?>
 <?php echo $ThePagination; ?>
 
-<a href="<?php echo $urlXLS  ?>" class="btn btn-info mt10 pull-left">تصدير الى إكسل</a>
-<div class="clearfix"></div>
 
 <ul class="inline help">
   <li><span class="carret bg-red"></span> مرفوضة</li>

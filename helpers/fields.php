@@ -793,7 +793,7 @@ class HajjFieldHelper {
           <label for="status">حالة الدفعة</label>
           <?php HajjFieldHelper::getListStatusPayment($status, $Required=false); ?>
         </div>
-        <div class="span3">
+        <div class="span3 text-right">
           <input type="submit" name="submit" value="تصفية" class="btn btn-success mt25">
           <a href="index.php?option=com_hajj&view=payments&Itemid=249" class="btn btn-default mt25">الطلبات</a>
         </div>
@@ -922,7 +922,7 @@ class HajjFieldHelper {
 */
   public static function getListStatusHajjs($active = "", $readonly="false"){
     ?>
-    <?php if ($active == 3 || $active == 5 || $readonly): ?>
+    <?php if (($active == 3 || $active == 5) && $readonly): ?>
       <select name="register_status" id="register_status" required >
         <option value="<?php echo $active ?>">
           <?php echo self::$status_hajjs[$active-1] ?>
@@ -1221,7 +1221,24 @@ class HajjFieldHelper {
 
     ?>
       <select name="hajj_program" id="hajj_program" <?php echo ($Required)? 'required' : '' ?> <?php echo ($readonly)? 'disabled':'' ?>>
+        <option value=""></option> 
         <?php foreach (self::getPrograms($is_admin) as $key => $value): ?>
+          <option <?php echo ($active == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
+        <?php endforeach ?>
+      </select>
+    <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
+|  Get Office Branch
+|------------------------------------------------------------------------------------
+*/
+  public static function GetOfficeBranch($active = "", $is_admin=false, $is_addon=false, $Required=true){
+    ?>
+      <select name="office_branch" id="office_branch"  <?php echo ($Required)? 'required' : '' ?> <?php echo ($is_addon)? 'disabled':'' ?>>
+        <option value=""></option>
+        <?php foreach (self::getBranchs($is_admin) as $key => $value): ?>
           <option <?php echo ($active == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
         <?php endforeach ?>
       </select>
@@ -1275,21 +1292,6 @@ class HajjFieldHelper {
       }
 
       return($array);
-  }
-
-/*
-|------------------------------------------------------------------------------------
-|  Get Office Branch
-|------------------------------------------------------------------------------------
-*/
-  public static function GetOfficeBranch($active = "", $is_admin=false, $is_addon=false, $Required=true){
-    ?>
-      <select name="office_branch" id="office_branch"  <?php echo ($Required)? 'required' : '' ?> <?php echo ($is_addon)? 'disabled':'' ?>>
-        <?php foreach (self::getBranchs($is_admin) as $key => $value): ?>
-          <option <?php echo ($active == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
-        <?php endforeach ?>
-      </select>
-    <?php
   }
 
 /*
