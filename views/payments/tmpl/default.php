@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 require_once JPATH_COMPONENT.'/helpers/' .'components.php';
-
+var_dump($this->sumPayments);
 $data          = $this->data->results;
 $nbRows        = $this->data->nbRows;
 $toEdit        = $this->toEdit;
@@ -76,7 +76,30 @@ $ThePager      = HajjComponentsHelper::getPager($this->start, sizeof($data), $ur
   <li><span class="carret bg-green"></span> مقبولة</li>
 </ul>
 
-<table class="allhajjs table table-condensed table-bordered">
+<!-- Display The Sum -->
+<?php
+$th = $td = '';
+setlocale(LC_MONETARY, 'en_US');
+foreach ($this->sumPayments as $key => $value):
+  $x = intval($value->amount);
+  $th .= '<th>'. HajjFieldHelper::$status_payment[$value->status-1] .'</th>';
+  $td .= '<td>'. number_format($x,0,",",".") .' ريال</td>';
+endforeach 
+
+?>
+<table class="allhajjs table table-condensed table-bordered mt25">
+  <thead>
+    <tr>
+      <?php echo $th ?>
+    </tr>
+    <tr>
+      <?php echo $td ?>
+    </tr>
+  </thead>
+
+</table>
+
+<table class="allhajjs table table-condensed table-bordered mt25">
   <thead>
     <tr>
       <th>الحجز</th>

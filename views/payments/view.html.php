@@ -82,6 +82,9 @@ class hajjViewPayments extends JViewLegacy
       }
       $this->start = $offset;
 
+      // Get the sum 
+      $this->sumPayments = $model->sumPayments();
+
       // If we select an id we sould edit it in the form
       $id           = $jinput->get('id', 0);
       $this->toEdit = "";

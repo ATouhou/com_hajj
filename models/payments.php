@@ -121,6 +121,26 @@ class HajjModelPayments extends JModelLegacy {
     $result = JFactory::getDbo()->updateObject('#__hajj_payments', $object, "id");
     return $result;
   }
+
+/*
+|------------------------------------------------------------------------------------
+| Get the Sum of payment
+|------------------------------------------------------------------------------------
+*/
+  public function sumPayments(){
+
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(true);        
+    $query
+        ->select(array('status', 'SUM(amount) AS amount'))
+        ->from($db->quoteName('#__hajj_payments'))
+        ->group($db->quoteName('status'));
+    
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+    return $results;
+    
+  }
   
 
 }
