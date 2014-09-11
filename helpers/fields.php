@@ -366,7 +366,7 @@ class HajjFieldHelper {
 
         <input type="hidden" name="id" value="<?php echo $data->id ?>">
         <input type="submit" value="حفظ التعديل" class="btn btn-success mt25">
-        <?php if ($data->register_status == 1): ?>
+        <?php if ($data->register_status == 1 && $isManager): ?>
           <a href="index.php?option=com_hajj&task=admin.acceptHajj&id=<?php echo $data->id ?>&mobile=<?php echo $data->mobile ?>" class="btn btn-success mt25">قبول الطلب</a>
         <?php endif ?>
       </form>
@@ -1077,10 +1077,10 @@ class HajjFieldHelper {
 | Get list of Nation
 |------------------------------------------------------------------------------------
 */
-  public static function getListSortBed($active = ""){ 
+  public static function getListSortBed($active = "", $readonly){ 
     //var_dump(self::$sort_bed);
     ?>
-      <select name="sort_bed" id="sort_bed">
+      <select name="sort_bed" id="sort_bed" <?php echo ($readonly) ? '': 'disabled'; ?>>
         <?php foreach (self::$sort_bed as $key => $value): ?>
             <option <?php echo ($active == $key) ? "selected" : "" ?> value="<?php echo $key ?>"><?php echo $value ?></option>
         <?php endforeach ?>
