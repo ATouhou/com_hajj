@@ -344,12 +344,10 @@ class HajjFieldHelper {
             <label for="observation">ملاحظات المسجل</label>
             <textarea name="observation" id="observation"><?php echo $data->observation ?></textarea>
           </div>
-        <?php if ($is_admin): ?>
           <div class="span4">
             <label for="sort_bed">ترتيب السرير</label>
-            <?php HajjFieldHelper::getListSortBed($data->sort_bed) ?>
+            <?php HajjFieldHelper::getListSortBed($data->sort_bed, $is_admin) ?>
           </div>
-        <?php endif ?>
         </div>
         <div class="row-fluid mt25">
           <div class="span4">
@@ -745,7 +743,7 @@ class HajjFieldHelper {
           </select>
         </div>
         
-        <div class="span3">
+        <div class="span3 text-right">
           <input type="submit" name="submit" value="تصفية" class="btn btn-success mt25">
           <a href="index.php?option=com_hajj&task=admin.hajjs&Itemid=241" class="btn btn-default mt25">الكل</a>
         </div>
@@ -1223,7 +1221,6 @@ class HajjFieldHelper {
 
     ?>
       <select name="hajj_program" id="hajj_program" <?php echo ($Required)? 'required' : '' ?> <?php echo ($readonly)? 'disabled':'' ?>>
-        <option value=""></option>
         <?php foreach (self::getPrograms($is_admin) as $key => $value): ?>
           <option <?php echo ($active == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
         <?php endforeach ?>
@@ -1288,7 +1285,6 @@ class HajjFieldHelper {
   public static function GetOfficeBranch($active = "", $is_admin=false, $is_addon=false, $Required=true){
     ?>
       <select name="office_branch" id="office_branch"  <?php echo ($Required)? 'required' : '' ?> <?php echo ($is_addon)? 'disabled':'' ?>>
-        <option value=""></option>
         <?php foreach (self::getBranchs($is_admin) as $key => $value): ?>
           <option <?php echo ($active == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
         <?php endforeach ?>

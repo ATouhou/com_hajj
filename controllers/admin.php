@@ -60,7 +60,8 @@ class HajjControllerAdmin extends JControllerLegacy
     $sexe            = $jinput->get('sexe','', 'STRING');
     $deny            = $jinput->get('deny','', 'STRING');
     $Itemid          = $jinput->get('Itemid','', 'STRING');
-    
+    $form            = $jinput->get('form',NULL, 'STRING');
+
     
     if ($deny != '') {// We display deny Hajjs
       $where = 'register_status = 3 OR register_status = 5';
@@ -86,7 +87,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $model   = $this->getModel("Admin");
     // Update all empty register status
     $model->updateEmptyStatus();
-    $result  = $model->getHajjs($start, $limit,$where);
+    $result  = (is_null($form)) ? $model->getHajjs($start, $limit,$where) :  $model->getHajjs(0, 0,$where);
     $nbHajjs = $model->getNbHajjs($where);
     
     $view    = $this->getView('adminhajjs', 'html'); //get the view
@@ -101,7 +102,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $view->assignRef('deny', $deny); // assign data from the model
     $view->assignRef('Itemid', $Itemid); // assign data from the model
 
-    $view->display(); // display the view
+    $view->display($form); // display the view
   }
 
 /*
@@ -120,7 +121,7 @@ class HajjControllerAdmin extends JControllerLegacy
     if ($this->group == 12) { // This is a Manager
       $isManager        = true;
     }
-    $view   = $this->getView('adminhajj', 'html'); //get the view
+    $view   = $this->getView('adminhajj', 'kossa'); //get the view
     $view->assignRef('data', $result); // assign data from the model
     $view->assignRef('isManager', $isManager); // assign data from the model
     $view->display(); // display the view

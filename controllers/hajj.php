@@ -40,15 +40,25 @@ class HajjControllerHajj extends JControllerLegacy
     $obj->address         = $jinput->get('address','','STRING');
     $obj->mobile          = $jinput->get('mobile','','STRING');
     $obj->email           = $jinput->get('email','','STRING');
-    $obj->office_branch   = $jinput->get('office_branch','','STRING');
-    $obj->hajj_program    = $jinput->get('hajj_program','','STRING');
+    $office_branch        = $jinput->get('office_branch','','STRING');
+    $hajj_program         = $jinput->get('hajj_program','','STRING');
     $obj->observation     = $jinput->get('observation','','STRING');
     $obj->sort_bed        = $jinput->get('sort_bed', 0);
     $obj->relationship    = $jinput->get('relationship', 0);
     $obj->register_status = $jinput->get('register_status','','STRING');
     $obj->expiration_date = $jinput->get('expiration_date1','','STRING') . '/';
-    $obj->expiration_date.= $jinput->get('expiration_date2','','STRING') . '/';
-    $obj->expiration_date.= $jinput->get('expiration_date3','','STRING');
+    $obj->expiration_date .= $jinput->get('expiration_date2','','STRING') . '/';
+    $obj->expiration_date .= $jinput->get('expiration_date3','','STRING');
+
+    if ($office_branch !='') {
+      $obj->office_branch= $office_branch;
+    }
+
+    if ($hajj_program !='') {
+      $obj->hajj_program= $hajj_program;
+    }
+
+    
 
     //$this->getModel('Hajj')->setEditHajj($obj);
     if ($obj->register_status == "") {// Not Admin

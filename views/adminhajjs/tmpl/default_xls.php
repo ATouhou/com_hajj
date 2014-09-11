@@ -21,49 +21,22 @@ $url .= ($this->hajj_program != "") ? '&hajj_program='.$this->hajj_program : '';
 $url .= ($this->deny != "") ? '&deny='.$this->deny : '';
 $url .= '&p=';
 
-$urlXLS = $url . $this->start . '&form=xls';
 $data = $this->data;
 //var_dump($data);
 
 $ProgramList      = HajjFieldHelper::getHajjProgramList($is_admin=true);
 $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList($is_admin=true);
-$ThePagination    = HajjComponentsHelper::getPagination($url, $this->nbHajjs, 20, $this->start);
-$ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($data), $url);
 $sexe = array(
   'm' => 'رجال',
   'f' => 'نساء',
   );
-?>
-<div class="accordion" id="accordion2">
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-        <span class="btn">اضافة</span>
-      </a>
-    </div>
-    <div id="collapseOne" class="accordion-body collapse">
-      <div class="accordion-inner">
-      
-      <?php
-        HajjFieldHelper::getFormHajj();
-      ?>
-      </div>
-    </div>
-  </div>
-</div>
-<h1>طلبات الحجز</h1>
-<?php echo $ThePager ?>
-<?php echo $ThePagination; ?>
 
-<?php 
-  // Get the Filter Form
-if ($this->deny == "") {// 
-  HajjFieldHelper::getFormFilterHajjs($this->register_status, $this->hajj_program, $this->office_branch);
-}
+$file="طلبات الحجز.xls";
+header("Content-type: application/vnd.ms-excel");
+header("Content-Disposition: attachment; filename=$file");
+
+ob_start(); 
 ?>
-<?php HajjComponentsHelper::export() ?>
-<a href="<?php echo $urlXLS  ?>" class="btn btn-info mt10 pull-left">تصدير الى إكسل</a>
-<div class="clearfix"></div>
 <table id="tblExport" class="allhajjs table table-condensed table-bordered mt30">
   <thead>
     <tr>
@@ -100,6 +73,8 @@ if ($this->deny == "") {//
     </tr>
   <?php endforeach ?>
 </table>
-
-<?php echo $ThePager ?>
-<?php echo $ThePagination ?>
+<?php
+$content = ob_get_contents();
+ob_get_clean();
+echo $content;
+exit ();
