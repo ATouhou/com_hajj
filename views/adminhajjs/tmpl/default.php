@@ -27,7 +27,7 @@ $data = $this->data;
 
 $ProgramList      = HajjFieldHelper::getHajjProgramList($is_admin=true);
 $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList($is_admin=true);
-$ThePagination    = HajjComponentsHelper::getPagination($url, $this->nbHajjs, 20, $this->start);
+$ThePagination    = HajjComponentsHelper::getPagination($url, $this->nbHajjs, $this->limit, $this->start);
 $ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($data), $url);
 $sexe = array(
   'm' => 'رجال',

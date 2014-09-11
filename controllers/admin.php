@@ -81,7 +81,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $where .= ($sexe!='') ? ' AND sexe = "'.$sexe.'"': '';
 
     // Pagination
-    $limit   = 20;
+    $limit   = 25;
     $start   = ($offset - 1) * $limit ;
     
     $model   = $this->getModel("Admin");
@@ -100,6 +100,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $view->assignRef('hajj_program', $hajj_program); // assign data from the model
     $view->assignRef('sexe', $sexe); // assign data from the model
     $view->assignRef('deny', $deny); // assign data from the model
+    $view->assignRef('limit', $limit); // assign data from the model
     $view->assignRef('Itemid', $Itemid); // assign data from the model
 
     $view->display($form); // display the view
