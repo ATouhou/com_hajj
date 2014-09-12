@@ -77,16 +77,12 @@ $codeColor = array("bg-orange", "bg-green", "bg-red")
       <!-- Display The Sum -->
       <?php
       $th = $td = $li = '';
-      $sum = 0;
       foreach ($this->sumPayments as $key => $value):
         $x = intval($value->amount);
-        $sum += $x;
         $th .= '<th>'. HajjFieldHelper::$status_payment[$value->status-1] .'</th>';
         $td .= '<td class="'.$codeColor[$value->status-1].'">'. number_format($x,0,",",".") .' ريال</td>';
         $li .= '<li><span class="carret '.$codeColor[$value->status-1].'"></span>'.  HajjFieldHelper::$status_payment[$value->status-1] .'</li>';
       endforeach;
-      $th .= '<th>المجموع الكلي</th>';
-      $td .= '<td>'.number_format($sum,0,",",".").' ريال</td>';
       ?>
 
       <ul class="inline help">
