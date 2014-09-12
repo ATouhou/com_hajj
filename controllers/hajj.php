@@ -283,7 +283,6 @@ class HajjControllerHajj extends JControllerLegacy
       }
 
       $allHajjs = $this->getModel('admin')->getHajjs(0,0,$where);
-      var_dump($allHajjs);
 
     // get the table of List Document
       // Construct the id list
