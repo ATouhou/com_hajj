@@ -283,6 +283,7 @@ class HajjControllerHajj extends JControllerLegacy
       }
 
       $allHajjs = $this->getModel('admin')->getHajjs(0,0,$where);
+      var_dump($allHajjs);
 
     // get the table of List Document
       // Construct the id list
@@ -293,7 +294,7 @@ class HajjControllerHajj extends JControllerLegacy
 
       $idsHajjsString = implode(', ', $idsHajjs);
       
-      $where = ($idsHajjsString == '') ? '': 'Documents.id_hajj IN ('.$idsHajjsString.')';
+      $where = ($idsHajjsString == '') ? 'Documents.id_hajj IN (0)': 'Documents.id_hajj IN ('.$idsHajjsString.')';
       $data = $this->getModel('Documents')->getDocuments($where);
       $view = $this->getView('addDocument', 'html'); //get the view
 
