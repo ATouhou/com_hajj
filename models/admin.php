@@ -17,7 +17,7 @@ class HajjModelAdmin extends JModelLegacy {
 | Get All Hajjs
 |------------------------------------------------------------------------------------
 */
-  public function getHajjs($offset=0, $limit=0, $where=''){
+  public function getHajjs($offset=0, $limit=0, $where='', $orderby=""){
     $db = JFactory::getDBO();
     
     $query = $db->getQuery(true);    
@@ -27,6 +27,10 @@ class HajjModelAdmin extends JModelLegacy {
         
     if ($where!='') {
       $query->where($where);
+    }
+
+    if ($orderby!='') {
+      $query->order($orderby);
     }
     
     $db->setQuery($query, $offset, $limit);

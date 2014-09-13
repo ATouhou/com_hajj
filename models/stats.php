@@ -46,6 +46,34 @@ class HajjModelStats extends JModelLegacy {
 | Get Status By Branch
 |------------------------------------------------------------------------------------
 */
+  public function getSimpleBranch($where=''){
+    $db = JFactory::getDBO();
+    
+    $query = $db->getQuery(true);    
+    $query
+        ->select(array('branch.id as id_branch','branch.name as office_branch', 'count(*) as count'))
+        ->from($db->quoteName('#__hajj_users', 'HU'))
+        ->where($db->quoteName('register_status') . ' = 1 OR ' . $db->quoteName('register_status') . ' = 2 OR ' . $db->quoteName('register_status') . ' = 4 ')
+        ->group($db->quoteName('office_branch'))
+        ;
+
+    if ($where != '') {
+        $query->innerJoin('#__hajj_branch as branch ON (branch.id=HU.office_branch AND '.$where.')');
+    }else{
+        $query->innerJoin('#__hajj_branch as branch ON (branch.id=HU.office_branch)');
+    }
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+    
+    return $results;
+  }
+
+
+/*
+|------------------------------------------------------------------------------------
+| Get Status By Branch
+|------------------------------------------------------------------------------------
+*/
   public function getBranch($where=''){
     $db = JFactory::getDBO();
     
@@ -110,7 +138,8 @@ class HajjModelStats extends JModelLegacy {
         ->select(array('sexe', 'count(sexe) as count'))
         ->from($db->quoteName('#__hajj_users'))
         ->where($db->quoteName('register_status') . ' = 1 OR ' . $db->quoteName('register_status') . ' = 2 OR ' . $db->quoteName('register_status') . ' = 4 ')
-        ->group($db->quoteName('sexe'));
+        ->group($db->quoteName('sexe'))
+        ->order($db->quoteName('sexe'). ' DESC');
     if ($where != '') {
         $query->where($where);
     }

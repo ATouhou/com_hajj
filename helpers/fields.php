@@ -514,7 +514,7 @@ class HajjFieldHelper {
         </div>
         <div class="span4">
           <label for="amount">مبلغ الدفعة</label>
-          <input type="number" name="amount" id="amount" value="<?php echo ($data != "") ? $data->amount : "" ?>" required <?php echo $readonly ?>>
+          <input type="number" name="amount" id="amount" value="<?php echo ($data != "") ? $data->amount : "" ?>" required >
         </div>
       </div>
       <div class="row-fluid">

@@ -55,8 +55,8 @@ $sexe = array(
       <td><?php echo $ProgramList[$value->hajj_program] ?></td>
       <td><?php echo $value->addon ?></td>
       <td><a class="btn btn-success" href="index.php?option=com_hajj&task=admin.acceptHajj&value=2&id=<?php echo $value->id ?>&mobile=<?php echo $value->mobile ?>">قبول الطلب </a></td>
-      <td><a class="btn btn-warning" href="index.php?option=com_hajj&task=admin.acceptHajj&value=3&id=<?php echo $value->id ?>&mobile=<?php echo $value->mobile ?>">رفض الطلب </a></td>
-      <td><a class="btn btn-danger" href="index.php?option=com_hajj&task=admin.acceptHajj&value=5&id=<?php echo $value->id ?>&mobile=<?php echo $value->mobile ?>">الغاء الطلب </a></td>
+      <td><a class="btn btn-danger" href="index.php?option=com_hajj&task=admin.acceptHajj&value=3&id=<?php echo $value->id ?>&mobile=<?php echo $value->mobile ?>">رفض الطلب </a></td>
+      <td><a class="btn btn-warning" href="index.php?option=com_hajj&task=admin.acceptHajj&value=5&id=<?php echo $value->id ?>&mobile=<?php echo $value->mobile ?>">الغاء الطلب </a></td>
     </tr>
   <?php endforeach ?>
 </table>
