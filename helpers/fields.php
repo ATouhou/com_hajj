@@ -28,6 +28,7 @@ class HajjFieldHelper {
     public static $relationship     = array("", "أعزب", "متزوج", "أرملة", "مطلقة", "أخرى");
     public static $current_payment  = array("لا يوجد مبلغ مطلوب", "لم يتم الدفع", "دفع جزئي");
     public static $status_addon     = array("أفراد", "مجموعات");
+    public static $gama_status      = array("لم يتم الرفع", "انتظار رد الوزارة", "السماح باخراج تصريح", "رفض اخراج تصريح");
 
 /*
 |------------------------------------------------------------------------------------
