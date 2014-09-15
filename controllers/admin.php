@@ -619,4 +619,52 @@ class HajjControllerAdmin extends JControllerLegacy
       $app->redirect('index.php?option=com_hajj&view=accepthajj&Itemid=298', 'Error!', 'error');
     }
 
+/*
+|------------------------------------------------------------------------------------
+| Change Status of Hajj
+|------------------------------------------------------------------------------------
+*/
+  public function MinistryRequests(){
+    $app    = JFactory::getApplication();
+    $jinput = $app->input;
+
+    $IDs = $jinput->get('IDs', '', 'ARRAY');
+    if ($IDs=='') {
+      $app->redirect('index.php?option=com_hajj&view=ministryrequests', 'يرجى تحديد عنصر واحد على الأقل', 'error');
+    }
+
+    $IDsString = implode(', ', $IDs);
+
+    // Set Gama Status to 1
+    $Model = $this->getModel("hajj"); 
+    //$Model->setGamaStatus($IDsString, 1);
+
+    // Get All Hajjs
+    $ModelAdmin = $this->getModel("Admin"); 
+    $where      =  'id in ('.$IDsString.')';
+    $hajjs      = $ModelAdmin->getHajjs(0, 0, $where);
+
+    // Bluid XML
+    require_once JPATH_COMPONENT.'/helpers/' .'components.php';
+    $XMLObject = HajjComponentsHelper::BuildXML($hajjs);
+
+    // Create the Object for saving
+    $obj                = new stdClass();
+    $obj->xml_content   = $XMLObject;
+    $obj->date_register = date('Y-m-d H:i:s');
+
+    // Save XML contect in the data base
+    $Model = $this->getModel("GamaXML"); 
+    $down = $Model->setXMLContent($obj);
+    if($down){
+      $file='Fawj-Makkah '.date('Y-m-d H:i:s').'.xml';
+      if(HajjComponentsHelper::exportXML($file, $XMLObject)){
+        $app->redirect('index.php?option=com_hajj&view=ministryrequests&down='.$down, 'تم حفظ البيانات بنجاح', 'success');
+      }
+    }
+
+
+  }
+        
+
 }

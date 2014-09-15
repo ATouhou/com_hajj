@@ -101,15 +101,17 @@ class HajjModelHajj extends JModelLegacy {
 | Edit Hajj
 |------------------------------------------------------------------------------------
 */
-  public function setEditHajj($object){
+  public function setEditHajj($object, $withUsersTable = true){
 
     JFactory::getDbo()->updateObject('#__hajj_users', $object, 'id_user');
 
-    $userObject           = new stdClass();
-    $userObject->id       = $object->id_user;
-    $userObject->email    = $object->email;
-    $userObject->password = md5($object->mobile);
-    JFactory::getDbo()->updateObject('#__users', $userObject, 'id');
+    if ($withUsersTable) {
+      $userObject           = new stdClass();
+      $userObject->id       = $object->id_user;
+      $userObject->email    = $object->email;
+      $userObject->password = md5($object->mobile);
+      JFactory::getDbo()->updateObject('#__users', $userObject, 'id');
+    }
   }
 
 /*
@@ -307,6 +309,34 @@ public function getAddons($ID){
     $db->setQuery($query);
     $results = $db->loadObject()->mobile;
     return $results;
-  }     
+  }   
+
+/*
+|------------------------------------------------------------------------------------
+| Set Gama Status to 1
+|------------------------------------------------------------------------------------
+*/
+  public function setGamaStatus($IDsString, $value=1){
+    $db = JFactory::getDbo();
+    $query = $db->getQuery(true);
+
+    // Fields to update.
+    $fields = array(
+        $db->quoteName('gama_status') . ' = ' . $value ,
+    );
+
+    // Conditions for which records should be updated.
+    $conditions = array(
+        $db->quoteName('id') . ' in (' . $IDsString . ')', 
+    );
+
+    $query->update($db->quoteName('#__hajj_users'))->set($fields)->where($conditions);
+
+    $db->setQuery($query);
+
+    $result = $db->query();
+    return $result;
+  }
+    
     
 }
