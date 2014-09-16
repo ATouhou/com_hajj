@@ -748,8 +748,8 @@ class HajjFieldHelper {
           <label for="sexe">الجنس</label>
           <select name="sexe" id="sexe">
             <option value=""></option>
+            <option <?php echo ($sexe == 'm') ? "selected" : "" ?> value="m">رجال</option>
             <option <?php echo ($sexe == 'f') ? "selected" : "" ?> value="f">نساء</option>
-            <option <?php echo ($sexe == 'fm') ? "selected" : "" ?> value="m">رجال</option>
           </select>
         </div>
       </div>
