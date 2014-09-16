@@ -23,16 +23,25 @@ class HajjModelGamaXML extends JModelLegacy {
     return $db->insertid();
   }
 
-  public function getXMLObject($id){
+  public function getXMLObject($id=0){
     $db = JFactory::getDBO();
     $query = $db->getQuery(true);    
     $query
         ->select('*')
-        ->from($db->quoteName('#__hajj_gama_xml'))
-        ->where($db->quoteName('id') . ' = '. $id);
-    
+        ->from($db->quoteName('#__hajj_gama_xml'));
+
+    if ($id) { // just one id
+      $query->where($db->quoteName('id') . ' = '. $id);
+    }
+        
     $db->setQuery($query);
-    $results = $db->loadObject();
+
+    if ($id) {
+      $results = $db->loadObject();
+    }else{
+      $results = $db->loadObjectList();
+    }
+    
     return $results;
   }
 

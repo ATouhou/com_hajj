@@ -657,7 +657,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $Model = $this->getModel("GamaXML"); 
     $down = $Model->setXMLContent($obj);
     if($down){
-      $app->redirect('index.php?option=com_hajj&view=gamafiles', 'تم حفظ البيانات بنجاح ورقم الملف : '.$down, 'success');
+      $app->redirect('index.php?option=com_hajj&view=gamafiles', 'تم تحديث حالة جاما للطلبات المختارة وحفظ الملف بنجاح ورقم الملف : '.$down, 'success');
     }
 
   }
