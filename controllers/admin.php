@@ -680,4 +680,26 @@ class HajjControllerAdmin extends JControllerLegacy
 
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Ministry Action
+|------------------------------------------------------------------------------------
+*/
+  public function ministryAction(){
+    $app                  = JFactory::getApplication();
+    $jinput               = $app->input;
+
+    $obj                  = new stdClass();
+    $obj->id              = $jinput->get('id', 0);
+    $obj->gama_status = $jinput->get('value', 0);
+
+    $model = $this->getModel('admin');
+    $url   = 'index.php?option=com_hajj&view=actionministry';
+    if ($model->updateHajj($obj)) {
+      $app->redirect($url, 'تم تحديث حالة جاما بنجاح', 'success');
+    }
+    $app->redirect($url, 'error', 'error');
+  }
+
+    
 }
