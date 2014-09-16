@@ -694,7 +694,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $obj->gama_status = $jinput->get('value', 0);
 
     $model = $this->getModel('admin');
-    $url   = 'index.php?option=com_hajj&view=actionministry';
+    $url   = 'index.php?option=com_hajj&view=actionministry&Itemid=293';
     if ($model->updateHajj($obj)) {
       $app->redirect($url, 'تم تحديث حالة جاما بنجاح', 'success');
     }
