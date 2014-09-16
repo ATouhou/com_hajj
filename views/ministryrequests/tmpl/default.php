@@ -18,7 +18,7 @@ $hajjs = $this->hajjs;
 $sexe = array(
   'm' => 'ذكر',
   'f' => 'انثى',
-  );
+);
 
 //index.php?option=com_hajj&task=admin.ministryrequests
 
@@ -27,6 +27,11 @@ $TotalPages   = ceil(sizeof($hajjs)/$NbperPage); // Total of page
 
 ?>
 <h1>طلبات الرفع للوزارة</h1>
+
+<?php 
+  $url = "index.php?option=com_hajj&view=ministryrequests&Itemid=294";
+  HajjFieldHelper::getFormFilterHajjs($this->register_status, $this->hajj_program, $this->office_branch, $this->sexe, $url);
+ ?>
 
 <!-- Create the pagination -->
 <div class="text-center">

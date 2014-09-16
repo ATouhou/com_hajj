@@ -705,9 +705,9 @@ class HajjFieldHelper {
 | Get Form Filter
 |------------------------------------------------------------------------------------
 */
-  public static function getFormFilterHajjs($register_status="", $hajj_program="", $office_branch="", $sexe=""){
+  public static function getFormFilterHajjs($register_status="", $hajj_program="", $office_branch="", $sexe="", $url=""){
   ?>
-    <form class="fawj-makkah" action="index.php?option=com_hajj&task=admin.hajjs&Itemid=241" method="post" accept-charset="utf-8">
+    <form class="fawj-makkah" action="<?php echo $url ?>" method="post" accept-charset="utf-8">
       <div class="row-fluid">
 
         <div class="span3">
@@ -754,10 +754,10 @@ class HajjFieldHelper {
         </div>
       </div>
         
-        <div class=" text-right">
-          <input type="submit" name="submit" value="تصفية" class="btn btn-success">
-          <a href="index.php?option=com_hajj&task=admin.hajjs&Itemid=241" class="btn btn-default ">الكل</a>
-        </div>
+      <div class=" text-right">
+        <input type="submit" name="submit" value="تصفية" class="btn btn-success">
+        <a href="<?php echo $url ?>" class="btn btn-default ">الكل</a>
+      </div>
 
 
     </form>

@@ -59,7 +59,8 @@ $sexe = array(
 <?php 
   // Get the Filter Form
 if ($this->deny == "") {// 
-  HajjFieldHelper::getFormFilterHajjs($this->register_status, $this->hajj_program, $this->office_branch, $this->sexe);
+  $url = "index.php?option=com_hajj&task=admin.hajjs&Itemid=241";
+  HajjFieldHelper::getFormFilterHajjs($this->register_status, $this->hajj_program, $this->office_branch, $this->sexe, $url);
 }
 ?>
 <div class="clearfix"></div>
