@@ -24,6 +24,9 @@ class hajjViewMinistryRequests extends JViewLegacy
   public function display($tpl = null)
   {   
       
+      $app         = JFactory::getApplication();
+      $jinput      = $app->input;
+
       // construct my where
       $where       = 'gama_status = 0 AND register_status = 6';
       $model       = JModelLegacy::getInstance('admin', 'HajjModel');

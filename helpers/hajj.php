@@ -7,7 +7,6 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  * @author      Kouceyla Hadji <hadjikouceyla@gmail.com> - http
  */
-defined('_JEXEC') or die;
 
 class HajjFrontendHelper {
 
@@ -48,7 +47,6 @@ class HajjFrontendHelper {
 |------------------------------------------------------------------------------------
 */
   public static function autologin($username, $password){
-
     $credentials = array();
     $credentials['username'] = $username;
     $credentials['password'] = $password;

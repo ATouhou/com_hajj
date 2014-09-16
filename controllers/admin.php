@@ -637,7 +637,7 @@ class HajjControllerAdmin extends JControllerLegacy
 
     // Set Gama Status to 1
     $Model = $this->getModel("hajj"); 
-    //$Model->setGamaStatus($IDsString, 1);
+    $Model->setGamaStatus($IDsString, 1);
 
     // Get All Hajjs
     $ModelAdmin = $this->getModel("Admin"); 
@@ -657,14 +657,27 @@ class HajjControllerAdmin extends JControllerLegacy
     $Model = $this->getModel("GamaXML"); 
     $down = $Model->setXMLContent($obj);
     if($down){
-      $file='Fawj-Makkah '.date('Y-m-d H:i:s').'.xml';
-      if(HajjComponentsHelper::exportXML($file, $XMLObject)){
-        $app->redirect('index.php?option=com_hajj&view=ministryrequests&down='.$down, 'تم حفظ البيانات بنجاح', 'success');
-      }
+      $app->redirect('index.php?option=com_hajj&view=gamafiles', 'تم حفظ البيانات بنجاح ورقم الملف : '.$down, 'success');
     }
-
 
   }
         
+/*
+|------------------------------------------------------------------------------------
+| Download the XML
+|------------------------------------------------------------------------------------
+*/
+  public function DownXML(){
+    $app = JFactory::getApplication();
+    $jinput    = $app->input;
+    $id        = $jinput->get('id');
+    $XMLObject = $this->getModel('GamaXML')->getXMLObject($id);
+
+    // Launch the Donloading
+    $fileName = 'Fawj-makkah '.$XMLObject->date_register . '.xml';
+    require_once JPATH_COMPONENT.'/helpers/' .'components.php';
+    HajjComponentsHelper::exportXML($fileName, $XMLObject->xml_content);
+
+  }
 
 }

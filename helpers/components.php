@@ -165,7 +165,7 @@ class HajjComponentsHelper {
 | Function to Export XML
 |------------------------------------------------------------------------------------
 */
-  public function exportXML($fileName="file", $XMLObject=''){
+  public function exportXML($fileName="file.xml", $XMLObject=''){
     header("Content-type: text/xml");
     header("Content-Disposition: attachment; filename=$fileName");
     echo $XMLObject;
