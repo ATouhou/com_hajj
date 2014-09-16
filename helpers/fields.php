@@ -705,7 +705,7 @@ class HajjFieldHelper {
 | Get Form Filter
 |------------------------------------------------------------------------------------
 */
-  public static function getFormFilterHajjs($register_status="", $hajj_program="", $office_branch=""){
+  public static function getFormFilterHajjs($register_status="", $hajj_program="", $office_branch="", $sexe=""){
   ?>
     <form class="fawj-makkah" action="index.php?option=com_hajj&task=admin.hajjs&Itemid=241" method="post" accept-charset="utf-8">
       <div class="row-fluid">
@@ -743,13 +743,22 @@ class HajjFieldHelper {
             <?php endforeach ?>
           </select>
         </div>
+
+        <div class="span3">
+          <label for="sexe">الجنس</label>
+          <select name="sexe" id="sexe">
+            <option value=""></option>
+            <option <?php echo ($sexe == 'f') ? "selected" : "" ?> value="f">نساء</option>
+            <option <?php echo ($sexe == 'fm') ? "selected" : "" ?> value="m">رجال</option>
+          </select>
+        </div>
+      </div>
         
-        <div class="span3 text-right">
-          <input type="submit" name="submit" value="تصفية" class="btn btn-success mt25">
-          <a href="index.php?option=com_hajj&task=admin.hajjs&Itemid=241" class="btn btn-default mt25">الكل</a>
+        <div class=" text-right">
+          <input type="submit" name="submit" value="تصفية" class="btn btn-success">
+          <a href="index.php?option=com_hajj&task=admin.hajjs&Itemid=241" class="btn btn-default ">الكل</a>
         </div>
 
-      </div>
 
     </form>
   <?php 

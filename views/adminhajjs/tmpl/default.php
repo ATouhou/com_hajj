@@ -18,6 +18,7 @@ $url  = 'index.php?option=com_hajj&task=admin.hajjs&Itemid='.$this->Itemid;
 $url .= ($this->register_status != "") ? '&register_status='.$this->register_status : '';
 $url .= ($this->office_branch != "") ? '&office_branch='.$this->office_branch : '';
 $url .= ($this->hajj_program != "") ? '&hajj_program='.$this->hajj_program : '';
+$url .= ($this->sexe != "") ? '&sexe='.$this->sexe : '';
 $url .= ($this->deny != "") ? '&deny='.$this->deny : '';
 $url .= '&p=';
 
@@ -58,11 +59,11 @@ $sexe = array(
 <?php 
   // Get the Filter Form
 if ($this->deny == "") {// 
-  HajjFieldHelper::getFormFilterHajjs($this->register_status, $this->hajj_program, $this->office_branch);
+  HajjFieldHelper::getFormFilterHajjs($this->register_status, $this->hajj_program, $this->office_branch, $this->sexe);
 }
 ?>
-
-<a href="<?php echo $urlXLS  ?>" class="btn btn-info mt10 pull-left">تصدير الى إكسل</a>
+<div class="clearfix"></div>
+<a href="<?php echo $urlXLS  ?>" class="btn btn-info mt25 pull-left">تصدير الى إكسل</a>
 <div class="clearfix"></div>
 
 <table id="tblExport" class="allhajjs table table-condensed table-bordered mt30">
