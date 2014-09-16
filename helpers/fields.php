@@ -923,7 +923,7 @@ class HajjFieldHelper {
 */
   public static function getListStatusHajjs($active = "", $readonly="false"){
     ?>
-    <?php if (($active == 3 || $active == 5) && $readonly): ?>
+    <?php if ($readonly): ?>
       <select name="register_status" id="register_status" required >
         <option value="<?php echo $active ?>">
           <?php echo self::$status_hajjs[$active-1] ?>
