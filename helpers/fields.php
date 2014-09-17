@@ -764,6 +764,56 @@ class HajjFieldHelper {
   <?php 
   } 
 
+
+/*
+|------------------------------------------------------------------------------------
+| Get Form Filter
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormFilterMinistryRequests($register_status="", $hajj_program="", $office_branch="", $sexe="", $url=""){
+  ?>
+    <form class="fawj-makkah" action="<?php echo $url ?>" method="post" accept-charset="utf-8">
+      <div class="row-fluid">
+
+        <div class="span3">
+          <label for="office_branch">فرع التسجيل</label>
+          <select name="office_branch" id="office_branch">
+            <option value=""></option>
+            <?php foreach (self::getBranchs($is_admin) as $key => $value): ?>
+              <option <?php echo ($office_branch == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
+            <?php endforeach ?>
+          </select>
+        </div>
+
+        <div class="span3">
+          <label for="hajj_program">برنامج الحج</label>
+          <select name="hajj_program" id="hajj_program">
+            <option value=""></option>
+            <?php foreach (self::getPrograms(true) as $key => $value): ?>
+              <option <?php echo ($hajj_program == $value->id) ? "selected" : "" ?> value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
+            <?php endforeach ?>
+          </select>
+        </div>
+
+        <div class="span3">
+          <label for="sexe">الجنس</label>
+          <select name="sexe" id="sexe">
+            <option value=""></option>
+            <option <?php echo ($sexe == 'm') ? "selected" : "" ?> value="m">رجال</option>
+            <option <?php echo ($sexe == 'f') ? "selected" : "" ?> value="f">نساء</option>
+          </select>
+        </div>
+
+        <div class="span3">
+          <input type="submit" name="submit" value="تصفية" class="btn btn-success">
+          <a href="<?php echo $url ?>" class="btn btn-default ">الكل</a>
+        </div>
+        
+      </div>
+    </form>
+  <?php 
+  } 
+
 /*
 |------------------------------------------------------------------------------------
 | Get Form Filter 
