@@ -770,10 +770,15 @@ class HajjFieldHelper {
 | Get Form Filter
 |------------------------------------------------------------------------------------
 */
-  public static function getFormFilterMinistryRequests($register_status="", $hajj_program="", $office_branch="", $sexe="", $url=""){
+  public static function getFormFilterMinistryRequests($id_number="",$register_status="", $hajj_program="", $office_branch="", $sexe="", $url=""){
   ?>
     <form class="fawj-makkah" action="<?php echo $url ?>" method="post" accept-charset="utf-8">
       <div class="row-fluid">
+
+        <div class="span3">
+          <label for="id_number">رقم الهوية/اقامة</label>
+          <input type="text" name="id_number" value="<?php echo $id_number ?>" placeholder="">
+        </div>
 
         <div class="span3">
           <label for="office_branch">فرع التسجيل</label>
@@ -795,6 +800,13 @@ class HajjFieldHelper {
           </select>
         </div>
 
+        <div class="span3 mt23">
+          <input type="submit" name="submit" value="تصفية" class="btn btn-success">
+          <a href="<?php echo $url ?>" class="btn btn-default ">الكل</a>
+        </div>
+      </div>
+
+      <div class="row-fluid">
         <div class="span3">
           <label for="sexe">الجنس</label>
           <select name="sexe" id="sexe">
@@ -802,11 +814,6 @@ class HajjFieldHelper {
             <option <?php echo ($sexe == 'm') ? "selected" : "" ?> value="m">رجال</option>
             <option <?php echo ($sexe == 'f') ? "selected" : "" ?> value="f">نساء</option>
           </select>
-        </div>
-
-        <div class="span3">
-          <input type="submit" name="submit" value="تصفية" class="btn btn-success">
-          <a href="<?php echo $url ?>" class="btn btn-default ">الكل</a>
         </div>
         
       </div>

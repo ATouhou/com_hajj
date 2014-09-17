@@ -27,6 +27,7 @@ class hajjViewMinistryRequests extends JViewLegacy
       $app         = JFactory::getApplication();
       $jinput      = $app->input;
 
+      $this->id_number       = $jinput->get('id_number','', 'STRING');
       $this->register_status = $jinput->get('register_status','', 'STRING');
       $this->office_branch   = $jinput->get('office_branch','', 'STRING');
       $this->hajj_program    = $jinput->get('hajj_program','', 'STRING');
@@ -34,6 +35,7 @@ class hajjViewMinistryRequests extends JViewLegacy
 
       // construct my where
       $where  = '1 = 1';
+      $where .= ($this->id_number!='') ? ' AND id_number = '.$this->id_number: '';
       $where .= ($this->register_status!='') ? ' AND register_status = '.$this->register_status: '';
       $where .= ($this->office_branch!='') ? ' AND office_branch = '.$this->office_branch: '';
       $where .= ($this->hajj_program!='') ? ' AND hajj_program = '.$this->hajj_program: '';

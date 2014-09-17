@@ -30,7 +30,7 @@ $TotalPages   = ceil(sizeof($hajjs)/$NbperPage); // Total of page
 
 <?php 
   $url = "index.php?option=com_hajj&view=ministryrequests&Itemid=294";
-  HajjFieldHelper::getFormFilterMinistryRequests($this->register_status, $this->hajj_program, $this->office_branch, $this->sexe, $url);
+  HajjFieldHelper::getFormFilterMinistryRequests($this->id_number, $this->register_status, $this->hajj_program, $this->office_branch, $this->sexe, $url);
  ?>
 
 <!-- Create the pagination -->
