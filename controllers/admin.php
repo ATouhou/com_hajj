@@ -701,5 +701,89 @@ class HajjControllerAdmin extends JControllerLegacy
     $app->redirect($url, 'error', 'error');
   }
 
-    
+/*
+|------------------------------------------------------------------------------------
+| Add new Passes
+|------------------------------------------------------------------------------------
+*/
+
+/*
+|------------------------------------------------------------------------------------
+| Set the Documents 
+|------------------------------------------------------------------------------------
+*/
+  public function setNewPasses(){
+    $app = JFactory::getApplication();
+    $jinput = $app->input;
+    $jfiles = $jinput->files;
+
+    $obj           = new stdClass();
+    $obj->id       = $jinput->get('id', '0');
+    $obj->id_hajj  = $jinput->get('id_hajj', '0');
+    $obj->document = $jinput->get('document', '0');
+    $attachment    = $jfiles->get('attachment');
+
+    // Define errorMSG
+    $errorMSG = "";
+    $fileUploaded = ($attachment['name'] == '') ? False : True ; 
+
+    // If new item and no file
+    if ($obj->id == 0 && !$fileUploaded) {
+      $errorMSG = "يرجى ارفاق السند (png/jpg)";
+    }
+
+    // Check Errors
+    if ($attachment['error'] != 0) {
+      $errorMSG = "خطأ في ملف";
+    }
+
+    //check for filesize
+    if ($attachment['size'] > 2000000) {
+      $errorMSG = "ملف أكبر من 2MB";
+    }
+
+    // Check for Extension
+    if ($attachment['type'] != "" && $attachment['type'] != "application/pdf" && $attachment['type'] != "image/jpeg" && $attachment['type'] != "image/png" ) {
+      $errorMSG = "يرجى ارفاق السند (png/jpg)";
+    }
+
+   
+    // Make the redirection
+    if ($errorMSG != "" && $obj->id == 0) { // Error and new Item
+      $app->redirect("index.php?option=com_hajj&task=hajj.adddocument", $errorMSG, 'error');
+    }else{// No error
+      if ($obj->id == 0) { // New Item
+        $obj->id = $this->getModel('Documents')->setDocument($obj);
+        $txt     = "تمت الإضافة بنجاح";
+      }else{ // Edit Item
+        $this->getModel('Documents')->editDocument($obj);
+        $txt = "تم التعديل بنجاح";
+      }
+    }
+
+    // Move the file
+    if ($fileUploaded) {
+      jimport('joomla.filesystem.file');
+      jimport('joomla.filesystem.folder');
+      $name         = $obj->id_hajj.'-'.$obj->document;// idhhaj-document    Ex : 102-2
+      $originalname = $attachment['name'];
+      $fileTemp     = $attachment['tmp_name'];
+      $ext          = array_pop(explode('.', $originalname));
+      $fileName     = $name . "." . $ext;
+      $uploadPath   = JPATH_SITE.'/media/com_hajj/passes/img-'.$fileName;
+      if(!JFile::upload($fileTemp, $uploadPath)){
+        echo JText::_( 'ERROR MOVING FILE' );
+        $txt .= ", ولم يتم ارفاق السند";
+      }else{
+        $obj->link = 'img-' . $fileName;
+        $this->getModel('Documents')->editDocument($obj);
+        $txt .= ", و تم ارفاق السند";
+      }
+    }
+
+    $app->redirect("index.php?option=com_hajj&task=hajj.adddocument", $txt, 'success');
+
+  }
+
+
 }

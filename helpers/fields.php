@@ -968,6 +968,44 @@ class HajjFieldHelper {
 
 /*
 |------------------------------------------------------------------------------------
+| get Form 
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormAddPasses($Hajjs, $toEdit=''){
+    //var_dump($Hajjs);
+    ?>
+
+    <form class="fawj-makkah" action="index.php?option=com_hajj&task=hajj.setPasse" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+      <div class="row-fluid">
+        <div class="span4">
+          <label for="id_hajj">رقم الحجز</label>
+          <select name="id_hajj" id="id_hajj" required>
+            <option value=""></option>
+            <?php foreach ($Hajjs as $key => $hajj): ?>
+              <option value="<?php echo $hajj->id ?>" <?php echo ($toEdit!='' && $toEdit->id_hajj == $hajj->id) ? 'selected' : '' ?>><?php echo $hajj->id . ' - ' . $hajj->first_name . ' ' .$hajj->familly_name  ?></option>
+            <?php endforeach ?>
+          </select>
+        </div>
+        <div class="span4">
+          <label for="pass_num">رقم التصريح</label>
+          <input type="text" name="pass_num" value="<?php echo ($toEdit!='')? $toEdit->pass_num : '' ?>" placeholder="">
+        </div>
+        <div class="span4">
+          <label for="attachment">ارفاق ملف التصريح</label>
+          <input type="file" name="attachment" id="attachment" value="" placeholder="" <?php echo ($toEdit == '') ? 'required' : '' ?>>
+        </div>
+      </div>
+
+      <br>
+      <input type="hidden" name="id" value="<?php echo ($toEdit !='' ) ? $toEdit->id : '' ?>" placeholder="">
+      <input type="submit" name="" value="حفظ" class="btn btn-success">
+    </form>
+
+    <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
 | Get Hajj Program
 |------------------------------------------------------------------------------------
 */
