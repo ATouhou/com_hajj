@@ -56,8 +56,8 @@ $sexe = array(
       <td><?php echo $value->familly_name ?></td>
       <td><?php echo $sexe[$value->sexe] ?></td>
       <td><?php echo HajjFieldHelper::$Nationnality[$value->nationality-1] ?></td>
-      <td><a class="btn btn-success" href="index.php?option=com_hajj&task=admin.ministryAction&value=2&id=<?php echo $value->id ?>">اخراج تصريح </a></td>
-      <td><a class="btn btn-danger" href="index.php?option=com_hajj&task=admin.ministryAction&value=3&id=<?php echo $value->id ?>">رفض تصريح </a></td>
+      <td><a class="btn btn-success" href="index.php?option=com_hajj&task=admin.ministryAction&value=7&id=<?php echo $value->id ?>">اخراج تصريح </a></td>
+      <td><a class="btn btn-danger" href="index.php?option=com_hajj&task=admin.ministryAction&value=9&id=<?php echo $value->id ?>">رفض تصريح </a></td>
     </tr>
   <?php endforeach ?>
 </table>
