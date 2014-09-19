@@ -706,12 +706,6 @@ class HajjControllerAdmin extends JControllerLegacy
 | Add new Passes
 |------------------------------------------------------------------------------------
 */
-
-/*
-|------------------------------------------------------------------------------------
-| Set the Documents 
-|------------------------------------------------------------------------------------
-*/
   public function setNewPasses(){
     $app = JFactory::getApplication();
     $jinput = $app->input;
@@ -785,5 +779,25 @@ class HajjControllerAdmin extends JControllerLegacy
 
   }
 
+/*
+|------------------------------------------------------------------------------------
+| set 
+|------------------------------------------------------------------------------------
+*/
+  public function setMoneyBack(){
+    $app             = JFactory::getApplication();
+    $jinput          = $app->input;
+    
+    $obj             = new stdClass();
+    $obj->id         = $jinput->get('id', 0);
+    $obj->money_back = $jinput->get('value', 0);
+
+    $model = $this->getModel('admin');
+    $url   = 'index.php?option=com_hajj&view=RetrieveMoney';
+    if ($model->updateHajj($obj)) {
+      $app->redirect($url, 'تم حفظ البيانات بنجاح', 'success');
+    }
+    $app->redirect($url, 'error', 'error');
+  }
 
 }
