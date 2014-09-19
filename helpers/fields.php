@@ -423,7 +423,7 @@ class HajjFieldHelper {
     <form class="fawj-makkah" action="index.php?option=com_hajj&task=admin.setTents" method="post" accept-charset="utf-8">
       <div class="row-fluid">
         <div class="span4">
-          <label for="id">رقم الخيمة</label>
+          <label for="id">رقم الجناح</label>
           <input type="text" name="id" id="id" value="<?php echo ($toEdit != "") ? $toEdit->id : "0" ?>" disabled>
         </div>
         <div class="span4">
@@ -446,7 +446,7 @@ class HajjFieldHelper {
           <?php HajjFieldHelper::GetSexeTents($sexe) ?>
         </div>
         <div class="span4">
-          <label for="status">حالة الخيمة</label>
+          <label for="status">حالة الجناح</label>
           <?php HajjFieldHelper::GetStatusTents($status) ?>
         </div>
       </div>

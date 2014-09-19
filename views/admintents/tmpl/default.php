@@ -49,18 +49,18 @@ $toEdit = $this->toEdit;
 
 
 
-<h1>شاشة الخيام</h1>
+<h1>شاشة الأجنحة</h1>
 <table class="allhajjs table table-condensed table-bordered">
   <thead>
     <tr>
-      <th>رقم الخيمة</th>
+      <th>رقم الجناح</th>
       <th>المخيم</th>
       <th>برنامج الحج</th>
       <th>مخصص الى</th>
       <th>عدد الأسرة</th>
       <th>أسرة شاغرة</th>
       <th>أسرة محجوزة</th>
-      <th>حالة الخيمة</th>
+      <th>حالة الجناح</th>
     </tr>
   </thead>
   <?php foreach ($data as $key => $value): ?>
