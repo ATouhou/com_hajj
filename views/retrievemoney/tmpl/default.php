@@ -19,7 +19,8 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList($is_admin=true);
 //var_dump($Hajjs);
 
 ?>
-<h1> طلبات استرجاع المبلغ</h1>
+
+<h1>طلبات استرجاع المبلغ</h1>
 
  
 <table class="allhajjs table table-condensed table-bordered mt30">
@@ -36,7 +37,7 @@ $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList($is_admin=true);
   </thead>
   <?php foreach ($Hajjs as $key => $hajj): ?>
     <tr>
-      <td><a href="index.php?option=com_hajj&task=hajj.addPasse&id=<?php echo $hajj->id ?>"><?php echo $hajj->id ?></a></td>
+      <td><a href="index.php?option=com_hajj&task=task=admin.hajj&id=<?php echo $hajj->id ?>"><?php echo $hajj->id ?></a></td>
       <td><?php echo $hajj->first_name ?></td>
       <td><?php echo $hajj->familly_name ?></td>
       <td><?php echo $OfficeBranchList[$hajj->office_branch] ?></td>

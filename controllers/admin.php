@@ -793,7 +793,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $obj->money_back = $jinput->get('value', 0);
 
     $model = $this->getModel('admin');
-    $url   = 'index.php?option=com_hajj&view=RetrieveMoney';
+    $url   = 'index.php?option=com_hajj&view=RetrieveMoney&Itemid=311';
     if ($model->updateHajj($obj)) {
       $app->redirect($url, 'تم حفظ البيانات بنجاح', 'success');
     }
