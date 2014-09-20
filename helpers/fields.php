@@ -968,7 +968,7 @@ class HajjFieldHelper {
 
 /*
 |------------------------------------------------------------------------------------
-| get Form 
+| get Form Add Passe
 |------------------------------------------------------------------------------------
 */
   public static function getFormAddPasses($Hajjs, $toEdit=''){
@@ -993,6 +993,52 @@ class HajjFieldHelper {
         <div class="span4">
           <label for="attachment">ارفاق ملف التصريح</label>
           <input type="file" name="attachment" id="attachment" value="" placeholder="" <?php echo ($toEdit == '') ? 'required' : '' ?>>
+        </div>
+      </div>
+
+      <br>
+      <input type="hidden" name="id" value="<?php echo ($toEdit !='' ) ? $toEdit->id : '' ?>" placeholder="">
+      <input type="submit" name="" value="حفظ" class="btn btn-success">
+    </form>
+
+    <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| get Form Add Contracts
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormAddContracts($Hajjs, $toEdit=''){
+    //var_dump($Hajjs);
+    ?>
+
+    <form class="fawj-makkah" action="index.php?option=com_hajj&task=hajj.setContract" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+      <div class="row-fluid">
+        <div class="span4">
+          <label for="id_hajj">رقم الحجز</label>
+          <select name="id_hajj" id="id_hajj" required>
+            <option value=""></option>
+            <?php foreach ($Hajjs as $key => $hajj): ?>
+              <option value="<?php echo $hajj->id ?>" <?php echo ($toEdit!='' && $toEdit->id_hajj == $hajj->id) ? 'selected' : '' ?>><?php echo $hajj->id . ' - ' . $hajj->first_name . ' ' .$hajj->familly_name  ?></option>
+            <?php endforeach ?>
+          </select>
+        </div>
+        <div class="span4">
+          <label for="contract_num">رقم العقد</label>
+          <input type="text" name="contract_num" value="<?php echo ($toEdit!='')? $toEdit->contract_num : '' ?>" placeholder="">
+        </div>
+        <div class="span4">
+          <label for="attachment">ارفاق ملف العقد</label>
+          <input type="file" name="attachment" id="attachment" value="" placeholder="" <?php echo ($toEdit == '') ? 'required' : '' ?>>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span4">
+          <?php require_once JPATH_COMPONENT.'/helpers/' .'components.php'; ?>
+          <?php HajjComponentsHelper::loadDatePicker() ?>
+          <label for="date_contract">رقم العقد</label>
+          <input type="text" class="datepicker" name="date_contract" value="<?php echo ($toEdit!='')? $toEdit->date_contract : '' ?>" placeholder="">
         </div>
       </div>
 

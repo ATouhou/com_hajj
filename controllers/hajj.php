@@ -410,7 +410,7 @@ class HajjControllerHajj extends JControllerLegacy
 
 /*
 |------------------------------------------------------------------------------------
-| Add Documents View
+| Add Passe View
 |------------------------------------------------------------------------------------
 */
   public function addPasse(){
@@ -470,7 +470,7 @@ class HajjControllerHajj extends JControllerLegacy
 
 /*
 |------------------------------------------------------------------------------------
-| Set the Documents 
+| Set the Passe 
 |------------------------------------------------------------------------------------
 */
   public function setPasse(){
@@ -549,7 +549,7 @@ class HajjControllerHajj extends JControllerLegacy
 
 /*
 |------------------------------------------------------------------------------------
-| Get the attachment for Pass
+| Get the attachment for Passe
 |------------------------------------------------------------------------------------
 */
   public function getImgPasse(){
@@ -558,6 +558,160 @@ class HajjControllerHajj extends JControllerLegacy
     $imgName = $jinput->get("pdf");
     header('Content-Type: application/pdf');
     readfile(JPATH_SITE.'/media/com_hajj/passes/' . $imgName);
+    exit;
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Add contract
+|------------------------------------------------------------------------------------
+*/
+  public function addContract(){
+    /*
+      02 -> Hajj
+      08 -> Super Users
+      10 -> HajjAdmin
+      11 -> HajjFinance
+      12 -> HajjManager
+    */
+
+    // Get the type of user
+      $app   = JFactory::getApplication();
+      $ID    = JFactory::getUser()->id;
+      $group = JAccess::getGroupsByUser($ID, false)[0];
+
+      if ($group==1 || $group == 2) {
+        exit(0);
+      }
+      $is_manager = ($group  == 12) ? true : false;
+
+      $where = 'register_status = 7'; // Only Tasrih Hajj
+
+      $allHajjs = $this->getModel('admin')->getHajjs(0,0,$where);
+
+    // get the table of List Document
+      // Construct the id list
+      $idsHajjs = array();
+      foreach ($allHajjs as $key => $hajj) {
+        array_push($idsHajjs, $hajj->id);
+      }
+
+      $idsHajjsString = implode(', ', $idsHajjs);
+      
+      $where = ($idsHajjsString == '') ? 'Contracts.id_hajj IN (0)': 'Contracts.id_hajj IN ('.$idsHajjsString.')';
+      $data = $this->getModel('Contracts')->getContracts($where);
+      $view = $this->getView('contract', 'html'); //get the view
+
+      // Check if we have something to edit
+      $id = $app->input->get('id','');
+      $toEdit='';
+      if ($id != '') { // Something to edit
+        foreach ($data as $key => $value) {
+          if ($value->id == $id) {
+            $toEdit = $value;
+          }
+        }
+      }
+      
+      $view->assignRef('data', $data); // assign data from the model
+      $view->assignRef('allHajjs', $allHajjs); // assign idsHajjs from the model
+      $view->assignRef('toEdit', $toEdit); // assign idsHajjs from the model
+      $view->assignRef('is_manager', $is_manager); // assign idsHajjs from the model
+      $view->display(); // display the view
+
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Set the Documents 
+|------------------------------------------------------------------------------------
+*/
+  public function setContract(){
+    $app = JFactory::getApplication();
+    $jinput = $app->input;
+    $jfiles = $jinput->files;
+
+    $obj                = new stdClass();
+    $obj->id            = $jinput->get('id', '0');
+    $obj->id_hajj       = $jinput->get('id_hajj', '0');
+    $obj->contract_num  = $jinput->get('contract_num', '0');
+    $obj->date_contract = $jinput->get('date_contract', '0');
+    $attachment         = $jfiles->get('attachment');
+
+    // Define errorMSG
+    $errorMSG = "";
+    $fileUploaded = ($attachment['name'] == '') ? False : True ; 
+
+    // If new item and no file
+    if ($obj->id == 0 && !$fileUploaded) {
+      $errorMSG = "يرجى ارفاق التصريح (pdf)";
+    }
+
+    // Check Errors
+    if ($attachment['error'] != 0) {
+      $errorMSG = "خطأ في ملف";
+    }
+
+    //check for filesize
+    if ($attachment['size'] > 20000000) {
+      $errorMSG = "ملف أكبر من 20MB";
+    }
+
+    // Check for Extension
+    if ($attachment['type'] != "" && $attachment['type'] != "application/pdf" ) {
+      $errorMSG = "يرجى ارفاق ملف التصريح (pdf)";
+    }
+
+   
+    // Make the redirection
+    if ($errorMSG != "" && $obj->id == 0) { // Error and new Item
+      $app->redirect("index.php?option=com_hajj&task=hajj.addcontract", $errorMSG, 'error');
+    }else{// No error
+      if ($obj->id == 0) { // New Item
+        $obj->id = $this->getModel('Contracts')->setContract($obj);
+        $txt     = "تمت الإضافة بنجاح";
+      }else{ // Edit Item
+        $this->getModel('Contracts')->editContract($obj);
+        $txt = "تم التعديل بنجاح";
+      }
+    }
+
+    // Move the file
+    if ($fileUploaded) {
+      jimport('joomla.filesystem.file');
+      jimport('joomla.filesystem.folder');
+      $name         = $obj->id_hajj;
+      $originalname = $attachment['name'];
+      $fileTemp     = $attachment['tmp_name'];
+      $ext          = array_pop(explode('.', $originalname));
+      $fileName     = $name . "." . $ext;
+      $uploadPath   = JPATH_SITE.'/media/com_hajj/contracts/pdf-'.$fileName;
+      if(!JFile::upload($fileTemp, $uploadPath)){
+        echo JText::_( 'ERROR MOVING FILE' );
+        $txt .= ", ولم يتم ارفاق السند";
+      }else{
+        $obj->link = 'pdf-' . $fileName;
+        $this->getModel('Contracts')->editContract($obj);
+        $txt .= ", و تم ارفاق التصريح";
+      }
+    }
+
+    $app->redirect("index.php?option=com_hajj&task=hajj.addcontract", $txt, 'success');
+
+
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Get the attachment for Pass
+|------------------------------------------------------------------------------------
+*/
+  public function getImgContract(){
+    $app     = JFactory::getApplication();
+    $jinput  = $app->input;
+    $imgName = $jinput->get("pdf");
+    header('Content-Type: application/pdf');
+    readfile(JPATH_SITE.'/media/com_hajj/contracts/' . $imgName);
     exit;
   }
 
