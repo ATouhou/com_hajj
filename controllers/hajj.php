@@ -669,6 +669,11 @@ class HajjControllerHajj extends JControllerLegacy
     }else{// No error
       if ($obj->id == 0) { // New Item
         $obj->id = $this->getModel('Contracts')->setContract($obj);
+        // Update the Field sign_contract
+        $HajjObj                = new stdClass();
+        $HajjObj->id            = $obj->id_hajj;
+        $HajjObj->sign_contract = 1;
+        $this->getModel('Admin')->updateHajj($HajjObj);
         $txt     = "تمت الإضافة بنجاح";
       }else{ // Edit Item
         $this->getModel('Contracts')->editContract($obj);
