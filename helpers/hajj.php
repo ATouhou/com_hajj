@@ -62,6 +62,7 @@ class HajjFrontendHelper {
 |------------------------------------------------------------------------------------
 */
   public static function sendTheSMS($numbers = "966555528620", $msg = ""){
+    return true;
     $mobile     = "966555528620";
     $password   = "0555528620";
     $sender     = "FawjMakkah";
