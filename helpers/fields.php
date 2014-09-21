@@ -1037,7 +1037,7 @@ class HajjFieldHelper {
         <div class="span4">
           <?php require_once JPATH_COMPONENT.'/helpers/' .'components.php'; ?>
           <?php HajjComponentsHelper::loadDatePicker() ?>
-          <label for="date_contract">رقم العقد</label>
+          <label for="date_contract">تاريخ العقد</label>
           <input type="text" class="datepicker" name="date_contract" value="<?php echo ($toEdit!='')? $toEdit->date_contract : '' ?>" placeholder="">
         </div>
       </div>

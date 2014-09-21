@@ -432,7 +432,7 @@ class HajjControllerHajj extends JControllerLegacy
       }
       $is_manager = ($group  == 12) ? true : false;
 
-      $where = 'register_status = 7'; // Only Tasrih Hajj
+      $where = 'register_status = 7 AND register_status = 8'; // Only Tasrih Hajj
 
       $allHajjs = $this->getModel('admin')->getHajjs(0,0,$where);
 
