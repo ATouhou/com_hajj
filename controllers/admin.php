@@ -202,8 +202,31 @@ class HajjControllerAdmin extends JControllerLegacy
       $this->getModel('admin')->setProgram($obj);
     }
 
-    
     $app->redirect('index.php?option=com_hajj&view=adminPrograms', 'تم حفظ البيانات بنجاح', 'success');
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Admin set Group
+|------------------------------------------------------------------------------------
+*/
+  public function setGroup(){
+    $app = JFactory::getApplication();
+    $jinput = $app->input;
+
+    $obj = new stdClass();
+    $obj->id = $jinput->get('id','','STRING');
+    $obj->num_group = $jinput->get('num_group','','STRING');
+    $obj->name = $jinput->get('name','','STRING');
+    $obj->status = $jinput->get('status','','STRING');
+
+    if ($obj->id != "") { // Edit
+      $this->getModel('Groups')->setEditGroup($obj);
+    }else{ // New Group
+      $this->getModel('Groups')->setGroup($obj);
+    }
+
+    $app->redirect('index.php?option=com_hajj&view=groups', 'تم حفظ البيانات بنجاح', 'success');
   }
 
 /*
