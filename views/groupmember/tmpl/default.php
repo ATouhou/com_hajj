@@ -11,10 +11,12 @@ defined('_JEXEC') or die;
 
 // Call list fields
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
-$data = $this->data;
+$data   = $this->data;
+$hajjs  = $this->hajjs;
+$groups = $this->groups;
 $toEdit = $this->toEdit;
 
-//var_dump($toEdit);
+//var_dump($data);
 
 ?>
 
@@ -31,7 +33,7 @@ $toEdit = $this->toEdit;
           
           <?php
             require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
-            HajjFieldHelper::getFormGroup($toEdit);
+            HajjFieldHelper::getFormGroupMember($groups,$hajjs, $toEdit);
           ?>
           </div>
         </div>
@@ -40,26 +42,28 @@ $toEdit = $this->toEdit;
 <?php 
   else: 
     require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
-    HajjFieldHelper::getFormGroup($toEdit);
+    HajjFieldHelper::getFormGroupMember($groups, $hajjs);
   endif 
 ?>
 
-<h1>المجموعات</h1>
+<h1>أعضاء المجموعة</h1>
 <table class="allhajjs table table-condensed table-bordered">
   <thead>
     <tr>
-      <th>رقم المجموعة</th>
+      <th>المجموعة</th>
       <th>اسم المجموعة</th>
-      <th>حالة المجموعة</th>
-      <th>عدد الأفراد</th>
+      <th>رقم الهوية</th>
+      <th>الاسم</th>
+      <th>ترتيب العضو</th>
     </tr>
   </thead>
   <?php foreach ($data as $key => $value): ?>
     <tr>
-      <td><a href="index.php?option=com_hajj&view=groups&Itemid=<?php echo $this->Itemid ?>&id=<?php echo $value->id ?>"><?php echo $value->num_group ?></a></td>
+      <td><?php echo $value->num_group ?></td>
       <td><?php echo $value->name ?></td>
-      <td><?php echo ($value->status == 0) ? "ايقاف" : "نشط" ?></td>
-      <td><?php echo $value->count ?></td>
+      <td><?php echo $value->id_number ?></td>
+      <td><?php echo $value->first_name ?></td>
+      <td><?php echo $value->order_in_group ?></td>
     </tr>
   <?php endforeach ?>
 </table>

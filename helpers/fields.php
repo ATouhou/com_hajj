@@ -443,6 +443,46 @@ class HajjFieldHelper {
     <?php
   }
 
+
+/*
+|------------------------------------------------------------------------------------
+| Get the Form of Programs
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormGroupMember($groups="", $hajjs="", $toEdit = ""){
+    ?>
+    <form class="fawj-makkah" action="index.php?option=com_hajj&task=admin.setGroupMember" method="post" accept-charset="utf-8">
+      <div class="row-fluid">
+        <div class="span4">
+          <label for="group_id">المجموعة</label>
+          <select name="group_id" id="group_id">
+            <?php foreach ($groups as $key => $group): ?>
+              <option value="<?php echo $group->num_group ?>"><?php echo $group->name ?></option>
+            <?php endforeach ?>
+          </select>
+        </div>
+        <div class="span4">
+          <label for="idhajj">رقم الهوية</label>
+          <select name="idhajj" id="idhajj">
+            <?php foreach ($hajjs as $key => $hajj): ?>
+              <option value="<?php echo $hajj->id ?>"><?php echo $hajj->id . ' - ' . $hajj->first_name . ' - ' . $hajj->familly_name?></option>
+            <?php endforeach ?>
+          </select>
+        </div>
+        <div class="span4">
+          <label for="order_in_group">ترتيب العضو</label>
+          <input type="number" min="1" max="50" name="order_in_group" id="order_in_group" value="">
+        </div>
+      </div>
+
+      <input type="hidden" name="id" value="<?php echo ($toEdit != "") ? $toEdit->id : "" ?>">
+      <input type="submit" name="" value="حفظ" class="btn btn-success">
+
+    </form>
+
+    <?php
+  }
+
 /*
 |------------------------------------------------------------------------------------
 | Get the Form of Programs
