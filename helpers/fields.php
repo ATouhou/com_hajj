@@ -905,6 +905,43 @@ class HajjFieldHelper {
   <?php 
   } 
 
+
+/*
+|------------------------------------------------------------------------------------
+| Get Form Filter
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormFilterGroupMember($groups='', $thegroup='', $id_number=''){
+  ?>
+    <form class="fawj-makkah" action="index.php?option=com_hajj&view=groupmember&Itemid=313" method="post" accept-charset="utf-8">
+      <div class="row-fluid">
+
+        <div class="span3">
+          <label for="idnumber">رقم الهوية/اقامة</label>
+          <input type="text" name="idnumber" value="<?php echo $id_number ?>" placeholder="">
+        </div>
+
+
+        <div class="span3">
+          <label for="group">المجموعة</label>
+          <select name="group" id="group">
+            <option value=""></option>
+            <?php foreach ($groups as $key => $group): ?>
+              <option <?php echo ($thegroup == $group->num_group)?'selected':'' ?> value="<?php echo $group->num_group ?>"><?php echo $group->name ?></option>
+            <?php endforeach ?>
+          </select>
+        </div>
+
+        <div class="span3 mt25">
+          <input type="submit" name="submit" value="تصفية" class="btn btn-success">
+          <a href="index.php?option=com_hajj&view=groupmember&Itemid=313" class="btn btn-default ">الكل</a>
+        </div>
+      </div>
+
+    </form>
+  <?php 
+  } 
+
 /*
 |------------------------------------------------------------------------------------
 | Get Form Filter 

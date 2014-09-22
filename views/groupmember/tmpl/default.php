@@ -16,6 +16,8 @@ $hajjs  = $this->hajjs;
 $groups = $this->groups;
 $toEdit = $this->toEdit;
 
+$id_number = $this->id_number;
+$group = $this->group;
 //var_dump($data);
 
 ?>
@@ -45,6 +47,10 @@ $toEdit = $this->toEdit;
     HajjFieldHelper::getFormGroupMember($groups, $hajjs);
   endif 
 ?>
+
+<?php 
+HajjFieldHelper::getFormFilterGroupMember($groups, $group, $id_number);
+ ?>
 
 <h1>أعضاء المجموعة</h1>
 <table class="allhajjs table table-condensed table-bordered">

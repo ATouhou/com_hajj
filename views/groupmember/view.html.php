@@ -23,20 +23,29 @@ class hajjViewGroupMember extends JViewLegacy
    */
   public function display($tpl = null)
   {   
-      $model        = JModelLegacy::getInstance('Groups', 'HajjModel');
-      $this->groups = $model->getGroups();
-      $this->data   = $model->getGroupsMember();
+      $model           = JModelLegacy::getInstance('Groups', 'HajjModel');
+      $this->groups    = $model->getGroups();
+      $jinput          = JFactory::getApplication()->input;
       
-      $modelHajj    = JModelLegacy::getInstance('Admin', 'HajjModel');
-      $where        = 'register_status != 3 AND register_status != 5 AND register_status != 9';
-      $this->hajjs  = $modelHajj->getHajjs(0, 0, $where);
+      // Get the filter
+      $this->id_number = $jinput->get('idnumber');
+      $this->group     = $jinput->get('group');
+      
+      // Contruct the where
+      $where           = '1=1';
+      $where          .= ($this->id_number!=0)? ' AND users.id_number = '.$this->id_number : '';
+      $where          .= ($this->group!=0)? ' AND users.group_id = '.$this->group : '';
+      $this->data      = $model->getGroupsMember($where);
+      
+      $modelHajj       = JModelLegacy::getInstance('Admin', 'HajjModel');
+      $where           = 'register_status != 3 AND register_status != 5 AND register_status != 9';
+      $this->hajjs     = $modelHajj->getHajjs(0, 0, $where);
       
       
-      $jinput       = JFactory::getApplication()->input;
-      $id           = $jinput->get('id', 0);
-      $this->toEdit = "";
+      $id              = $jinput->get('id', 0);
+      $this->toEdit    = "";
       
-      $this->Itemid = $jinput->get("Itemid", 0);
+      $this->Itemid    = $jinput->get("Itemid", 0);
       
       if ($id) { // Get the info to edit
         foreach ($this->data as $key => $value) {
