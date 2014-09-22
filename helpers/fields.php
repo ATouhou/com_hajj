@@ -471,7 +471,7 @@ class HajjFieldHelper {
         </div>
         <div class="span3">
           <label for="order_in_group">ترتيب العضو</label>
-          <input type="number" min="1" max="50" name="order_in_group" id="order_in_group" value="">
+          <input type="number" min="1" max="50" name="order_in_group" id="order_in_group" value="" required>
         </div>
       </div>
 
