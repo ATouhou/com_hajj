@@ -23,9 +23,11 @@ class hajjViewGroups extends JViewLegacy
    */
   public function display($tpl = null)
   {   
-      $model        = JModelLegacy::getInstance('Groups', 'HajjModel');
-      $this->data   = $model->getGroups();
       $jinput       = JFactory::getApplication()->input;
+      $model        = JModelLegacy::getInstance('Groups', 'HajjModel');
+      $num_group    = $jinput->get("group", "");
+      $where        = ($num_group != "") ? 'Group.num_group = '.$num_group: '';
+      $this->data   = $model->getGroups($where);
       $id           = $jinput->get('id', 0);
       $this->toEdit = "";
       

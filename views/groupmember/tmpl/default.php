@@ -60,7 +60,7 @@ $toEdit = $this->toEdit;
   </thead>
   <?php foreach ($data as $key => $value): ?>
     <tr>
-      <td><?php echo $value->num_group ?></td>
+      <td><a href="index.php?option=com_hajj&view=groups&Itemid=312&group=<?php echo $value->num_group ?>"><?php echo $value->num_group ?></a></td>
       <td><?php echo $value->name ?></td>
       <td><?php echo $value->order_in_group ?></td>
       <td><?php echo $value->id ?></td>
