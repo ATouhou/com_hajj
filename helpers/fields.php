@@ -461,15 +461,15 @@ class HajjFieldHelper {
             <?php endforeach ?>
           </select>
         </div>
-        <div class="span4">
+        <div class="span5">
           <label for="idhajj">رقم الهوية</label>
-          <select name="idhajj" id="idhajj">
+          <select name="idhajj" id="idhajj" style="width: 90%;">
             <?php foreach ($hajjs as $key => $hajj): ?>
-              <option value="<?php echo $hajj->id ?>"><?php echo $hajj->id . ' - ' . $hajj->first_name . ' - ' . $hajj->familly_name?></option>
+              <option value="<?php echo $hajj->id ?>"><?php echo $hajj->id . ' - ' . $hajj->first_name . ' ' . $hajj->familly_name. ' - ' . $hajj->id_number?></option>
             <?php endforeach ?>
           </select>
         </div>
-        <div class="span4">
+        <div class="span3">
           <label for="order_in_group">ترتيب العضو</label>
           <input type="number" min="1" max="50" name="order_in_group" id="order_in_group" value="">
         </div>
