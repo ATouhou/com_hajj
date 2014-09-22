@@ -54,6 +54,7 @@ $toEdit = $this->toEdit;
     <tr>
       <th>رقم الفرع</th>
       <th>اسم الفرع</th>
+      <th>رقم المدينة في جاما</th>
       <th>حالة الفرع</th>
     </tr>
   </thead>
@@ -61,6 +62,7 @@ $toEdit = $this->toEdit;
     <tr>
       <td><a href="index.php?option=com_hajj&view=adminbranchs&Itemid=<?php echo $this->Itemid ?>&id=<?php echo $value->id ?>"><?php echo $value->id ?></a></td>
       <td><?php echo $value->name ?></td>
+      <td><?php echo $value->gama_city_id ?></td>
       <td><?php echo ($value->status == 0) ? "ايقاف" : "نشط" ?></td>
     </tr>
   <?php endforeach ?>

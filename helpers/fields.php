@@ -684,6 +684,10 @@ class HajjFieldHelper {
           <input type="text" name="name" id="name" value="<?php echo ($toEdit != "") ? $toEdit->name : "" ?>" required <?php echo ($readonly) ? "disabled" : "" ?>>
         </div>
         <div class="span4">
+          <label for="gama_city_id">رقم المدينة في جاما</label>
+          <input type="text" name="gama_city_id" id="gama_city_id" value="<?php echo ($toEdit != "") ? $toEdit->gama_city_id : "" ?>" required <?php echo ($readonly) ? "disabled" : "" ?>>
+        </div>
+        <div class="span4">
           <label for="status">حالة الفرع</label>
           <select name="status">
             <option value="1" <?php echo ($toEdit != "" && $toEdit->status == "1") ? "selected" : "" ?>>نشط</option>

@@ -363,6 +363,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $obj = new stdClass();
     $obj->id = $jinput->get('id','','STRING');
     $obj->name = $jinput->get('name','','STRING');
+    $obj->gama_city_id = $jinput->get('gama_city_id','','STRING');
     $obj->status = $jinput->get('status','','STRING');
 
     if ($obj->id != "") { // Edit
