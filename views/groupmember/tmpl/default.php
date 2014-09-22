@@ -52,8 +52,9 @@ $toEdit = $this->toEdit;
     <tr>
       <th>المجموعة</th>
       <th>اسم المجموعة</th>
-      <th>رقم الهوية</th>
+      <th>رقم الحجز</th>
       <th>الاسم</th>
+      <th>رقم الهوية</th>
       <th>ترتيب العضو</th>
     </tr>
   </thead>
@@ -61,8 +62,9 @@ $toEdit = $this->toEdit;
     <tr>
       <td><?php echo $value->num_group ?></td>
       <td><?php echo $value->name ?></td>
-      <td><?php echo $value->id_number ?></td>
+      <td><?php echo $value->id ?></td>
       <td><?php echo $value->first_name ?></td>
+      <td><?php echo $value->id_number ?></td>
       <td><?php echo $value->order_in_group ?></td>
     </tr>
   <?php endforeach ?>

@@ -25,7 +25,7 @@ class HajjModelGroups extends JModelLegacy {
         ->select(array('Group.id', 'Group.num_group', 'Group.name', 'Group.status', 'count(users.group_id) as count' ))
         ->from($db->quoteName('#__hajj_group', 'Group'))
         ->leftJoin('#__hajj_users as users ON Group.num_group = users.group_id')
-        ->group($db->quoteName('users.group_id'))
+        ->group($db->quoteName('Group.num_group'))
         ->order($db->quoteName('Group.num_group'));
 
     if ($where!='') {
@@ -69,7 +69,7 @@ class HajjModelGroups extends JModelLegacy {
 
     $query = $db->getQuery(true);
     $query
-        ->select(array('Group.num_group', 'Group.name', 'users.id_number', 'users.first_name', 'users.order_in_group'))
+        ->select(array('Group.num_group', 'Group.name', 'users.id', 'users.id_number', 'users.first_name', 'users.order_in_group'))
         ->from($db->quoteName('#__hajj_group' , 'Group'))
         ->innerJoin('#__hajj_users as users ON users.group_id = Group.num_group');
 
