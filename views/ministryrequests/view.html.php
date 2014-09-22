@@ -23,7 +23,6 @@ class hajjViewMinistryRequests extends JViewLegacy
    */
   public function display($tpl = null)
   {   
-      
       $app         = JFactory::getApplication();
       $jinput      = $app->input;
 
@@ -50,6 +49,13 @@ class hajjViewMinistryRequests extends JViewLegacy
       $model        = JModelLegacy::getInstance('groups', 'HajjModel');
       $where        = 'Group.status = 1';
       $this->groups = $model->getAllGroups($where);
+
+      $groups_array = array();
+      foreach ($this->groups as $key => $group) {
+        $groups_array[$group->num_group] = $group->name;
+      }
+
+      $this->groups_array = $groups_array;
 
       parent::display();
   }

@@ -13,9 +13,9 @@ defined('_JEXEC') or die;
 require_once JPATH_COMPONENT.'/helpers/' .'fields.php';
 require_once JPATH_COMPONENT.'/helpers/' .'components.php';
 HajjComponentsHelper::getMinistryRequests();
-$hajjs = $this->hajjs;
-
-$sexe = array(
+$hajjs  = $this->hajjs;
+$groups = $this->groups;
+$sexe   = array(
   'm' => 'ذكر',
   'f' => 'انثى',
 );
@@ -30,7 +30,7 @@ $TotalPages   = ceil(sizeof($hajjs)/$NbperPage); // Total of page
 
 <?php 
   $url = "index.php?option=com_hajj&view=ministryrequests&Itemid=294";
-  HajjFieldHelper::getFormFilterMinistryRequests($this->groups, $this->group_id, $this->id_number, $this->register_status, $this->hajj_program, $this->office_branch, $this->sexe, $url);
+  HajjFieldHelper::getFormFilterMinistryRequests($groups, $this->group_id, $this->id_number, $this->register_status, $this->hajj_program, $this->office_branch, $this->sexe, $url);
  ?>
 
 <!-- Create the pagination -->
@@ -58,6 +58,7 @@ $TotalPages   = ceil(sizeof($hajjs)/$NbperPage); // Total of page
         <th>العائلة</th>
         <th>الجنسية</th>
         <th>الجنس</th>
+        <th>اسم المجموعة</th>
         <th>الحالة الاجتماعية</th>
       </tr>
     </thead>
@@ -75,6 +76,7 @@ $TotalPages   = ceil(sizeof($hajjs)/$NbperPage); // Total of page
         <td><?php echo $hajj->familly_name ?></td>
         <td><?php echo HajjFieldHelper::$Nationnality[$hajj->nationality-1] ?></td>
         <td><?php echo $sexe[$hajj->sexe] ?></td>
+        <td><?php echo $this->groups_array[$hajj->group_id] ?></td>
         <td><?php echo ($hajj->relationship) ? HajjFieldHelper::$relationship[$hajj->relationship] : '' ?></td>
       </tr>
     <?php endforeach ?>
