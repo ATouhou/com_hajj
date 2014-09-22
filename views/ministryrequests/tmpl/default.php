@@ -59,7 +59,6 @@ $TotalPages   = ceil(sizeof($hajjs)/$NbperPage); // Total of page
         <th>الجنسية</th>
         <th>الجنس</th>
         <th>الحالة الاجتماعية</th>
-        <th>صورة شخصية‎</th>
       </tr>
     </thead>
 
@@ -77,7 +76,6 @@ $TotalPages   = ceil(sizeof($hajjs)/$NbperPage); // Total of page
         <td><?php echo HajjFieldHelper::$Nationnality[$hajj->nationality-1] ?></td>
         <td><?php echo $sexe[$hajj->sexe] ?></td>
         <td><?php echo ($hajj->relationship) ? HajjFieldHelper::$relationship[$hajj->relationship] : '' ?></td>
-        <td></td>
       </tr>
     <?php endforeach ?>
   </table>
