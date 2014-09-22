@@ -121,9 +121,9 @@ class HajjComponentsHelper {
   foreach ($hajjs as $key => $hajj) {
     $XMLcontent .='
   <HAJJ_DATA>
-    <HD_GROUP_NO>7</HD_GROUP_NO>
+    <HD_GROUP_NO>'.$hajj->group_id.'</HD_GROUP_NO>
     <HD_FAMILY_TAG_ID>0</HD_FAMILY_TAG_ID>
-    <HD_NO>1</HD_NO>
+    <HD_NO>'.$hajj->order_in_group.'</HD_NO>
     <HD_FULL_NAME>'.$hajj->first_name.' '.$hajj->second_name.'</HD_FULL_NAME>
     <HD_FIRST_NAME_AR>'.$hajj->first_name.'</HD_FIRST_NAME_AR>
     <HD_SECOND_NAME_AR>'.$hajj->second_name.'</HD_SECOND_NAME_AR>
