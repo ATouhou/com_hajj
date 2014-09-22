@@ -24,9 +24,31 @@ class HajjModelGroups extends JModelLegacy {
     $query
         ->select(array('Group.id', 'Group.num_group', 'Group.name', 'Group.status', 'count(users.group_id) as count' ))
         ->from($db->quoteName('#__hajj_group', 'Group'))
-        ->leftJoin('#__hajj_users as users ON users.group_id = Group.num_group')
+        ->leftJoin('#__hajj_users as users ON Group.num_group = users.group_id')
         ->group($db->quoteName('users.group_id'))
         ->order($db->quoteName('Group.num_group'));
+
+    if ($where!='') {
+      $query->where($where);
+    }
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+    
+    return $results;
+  }
+  
+/*
+|------------------------------------------------------------------------------------
+| Get All Groups
+|------------------------------------------------------------------------------------
+*/
+  public function getAllGroups($where=''){
+    $db = JFactory::getDBO();
+    
+    $query = $db->getQuery(true);    
+    $query
+        ->select('*')
+        ->from($db->quoteName('#__hajj_group', 'Group'));
 
     if ($where!='') {
       $query->where($where);

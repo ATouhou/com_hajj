@@ -845,7 +845,7 @@ class HajjFieldHelper {
 | Get Form Filter
 |------------------------------------------------------------------------------------
 */
-  public static function getFormFilterMinistryRequests($id_number="",$register_status="", $hajj_program="", $office_branch="", $sexe="", $url=""){
+  public static function getFormFilterMinistryRequests($Groups="", $thegroup="", $id_number="",$register_status="", $hajj_program="", $office_branch="", $sexe="", $url=""){
   ?>
     <form class="fawj-makkah" action="<?php echo $url ?>" method="post" accept-charset="utf-8">
       <div class="row-fluid">
@@ -875,7 +875,7 @@ class HajjFieldHelper {
           </select>
         </div>
 
-        <div class="span3 mt23">
+        <div class="span3 mt25">
           <input type="submit" name="submit" value="تصفية" class="btn btn-success">
           <a href="<?php echo $url ?>" class="btn btn-default ">الكل</a>
         </div>
@@ -888,6 +888,15 @@ class HajjFieldHelper {
             <option value=""></option>
             <option <?php echo ($sexe == 'm') ? "selected" : "" ?> value="m">رجال</option>
             <option <?php echo ($sexe == 'f') ? "selected" : "" ?> value="f">نساء</option>
+          </select>
+        </div>
+        <div class="span3">
+          <label for="group_id">المجموعات</label>
+          <select name="group_id" id="group_id">
+            <option value=""></option>
+            <?php foreach ($Groups as $key => $group): ?>
+              <option value="<?php echo $group->num_group ?>" <?php echo ($group->num_group == $thegroup) ? "selected" : "" ?>><?php echo $group->name ?></option>
+            <?php endforeach ?>
           </select>
         </div>
         

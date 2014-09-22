@@ -32,6 +32,7 @@ class hajjViewMinistryRequests extends JViewLegacy
       $this->office_branch   = $jinput->get('office_branch','', 'STRING');
       $this->hajj_program    = $jinput->get('hajj_program','', 'STRING');
       $this->sexe            = $jinput->get('sexe','', 'STRING');
+      $this->group_id        = $jinput->get('group_id','', 'STRING');
 
       // construct my where
       $where  = '1 = 1';
@@ -40,10 +41,15 @@ class hajjViewMinistryRequests extends JViewLegacy
       $where .= ($this->office_branch!='') ? ' AND office_branch = '.$this->office_branch: '';
       $where .= ($this->hajj_program!='') ? ' AND hajj_program = '.$this->hajj_program: '';
       $where .= ($this->sexe!='') ? ' AND sexe = "'.$this->sexe.'"': '';
+      $where .= ($this->group_id!='') ? ' AND group_id = "'.$this->group_id.'"': '';
 
-      $where      .= ' AND gama_status = 0 AND register_status = 6';
-      $model       = JModelLegacy::getInstance('admin', 'HajjModel');
-      $this->hajjs = $model->getHajjs(0, 0, $where);
+      $where       .= ' AND gama_status = 0 AND register_status = 6';
+      $model        = JModelLegacy::getInstance('admin', 'HajjModel');
+      $this->hajjs  = $model->getHajjs(0, 0, $where);
+      
+      $model        = JModelLegacy::getInstance('groups', 'HajjModel');
+      $where        = 'Group.status = 1';
+      $this->groups = $model->getAllGroups($where);
 
       parent::display();
   }
