@@ -65,7 +65,7 @@ $toEdit = $this->toEdit;
       <td><?php echo $value->order_in_group ?></td>
       <td><?php echo $value->id ?></td>
       <td><?php echo $value->first_name ?></td>
-      <td><?php echo $value->id_number ?></td>
+      <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $value->id ?>"><?php echo $value->id_number ?></a></td>
     </tr>
   <?php endforeach ?>
 </table>
