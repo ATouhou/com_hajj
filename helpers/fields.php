@@ -379,6 +379,40 @@ class HajjFieldHelper {
 | Get the Form of Programs
 |------------------------------------------------------------------------------------
 */
+  public static function getFormUpdateHajjId($toEdit = ""){
+    ?>
+    <form class="fawj-makkah" action="index.php?option=com_hajj&task=admin.updateHajjId" method="post" accept-charset="utf-8">
+      <div class="row-fluid">
+        <div class="span3">
+          <label for="id">الحجز</label>
+          <input type="text" name="id" id="id" value="<?php echo $toEdit->id  ?>" disabled>
+        </div>
+        <div class="span3">
+          <label for="first_name">الاسم الأول</label>
+          <input type="text" name="first_name" id="first_name" value="<?php echo $toEdit->first_name  ?>" disabled>
+        </div>
+        <div class="span3">
+          <label for="familly_name">العائلة</label>
+          <input type="text" name="familly_name" id="familly_name" value="<?php echo $toEdit->familly_name  ?>" disabled>
+        </div>
+        <div class="span3">
+          <label for="id_number">رقم الهوية/الإقامة</label>
+          <input type="text" name="id_number" id="id_number" value="<?php echo $toEdit->id_number  ?>">
+        </div>
+      </div>
+      <input type="hidden" name="id" value="<?php echo $toEdit->id  ?>">
+      <input type="submit" name="" value="تعديل" class="btn btn-success">
+
+    </form>
+
+    <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Get the Form of Programs
+|------------------------------------------------------------------------------------
+*/
   public static function getFormProgram($toEdit = "", $readonly = TRUE){
     ?>
     <form class="fawj-makkah" action="index.php?option=com_hajj&task=admin.setProgram" method="post" accept-charset="utf-8">

@@ -845,4 +845,25 @@ class HajjControllerAdmin extends JControllerLegacy
     $app->redirect($url, 'error', 'error');
   }
 
+/*
+|------------------------------------------------------------------------------------
+| update HajjId
+|------------------------------------------------------------------------------------
+*/
+  public function updateHajjId(){
+    $app            = JFactory::getApplication();
+    $jinput         = $app->input;
+    
+    $obj            = new stdClass();
+    $obj->id        = $jinput->get('id', 0);
+    $obj->id_number = $jinput->get('id_number', 0);
+
+    $model = $this->getModel('admin');
+    $url   = 'index.php?option=com_hajj&view=UpdateHajjId&Itemid=296';
+    if ($model->updateHajj($obj)) {
+      $app->redirect($url, 'تم حفظ البيانات بنجاح', 'success');
+    }
+    $app->redirect($url, 'error', 'error');
+  }
+
 }

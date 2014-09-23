@@ -478,8 +478,31 @@ class HajjModelAdmin extends JModelLegacy {
 |------------------------------------------------------------------------------------
 */
   public function updateHajj($obj){
-    
     return JFactory::getDbo()->updateObject('#__hajj_users', $obj, 'id');
-    
   }   
+
+/*
+|------------------------------------------------------------------------------------
+| get Hajjs with Document 
+|------------------------------------------------------------------------------------
+*/
+  public function getHajjWithDocument($where=""){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(true);
+    $query
+        ->select(array('HU.*', 'Documents.document', 'Documents.link'))
+        ->from($db->quoteName('#__hajj_users', 'HU'))
+        ->innerjoin('#__hajj_documents as Documents ON (Documents.id_hajj = HU.id)')
+        ->order('HU.id');
+    
+    if ($where!="") {
+      $query->where($where);
+    }
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+
+    return $results;
+  }
+
+
 }
