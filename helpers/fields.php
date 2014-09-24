@@ -410,6 +410,37 @@ class HajjFieldHelper {
 
 /*
 |------------------------------------------------------------------------------------
+| Get the Form of Proposed Group
+|------------------------------------------------------------------------------------
+*/
+  public static function getFormProposedGroup($toEdit = ""){
+
+    ?>
+    <form class="fawj-makkah" action="index.php?option=com_hajj&task=admin.updateHajjId" method="post" accept-charset="utf-8">
+      <div class="row-fluid">
+        <div class="span3">
+          <label for="id">حجز الأصل</label>
+          <input type="text" name="id" id="id" value="<?php echo $toEdit->id  ?>" disabled>
+        </div>
+        <div class="span6">
+          <label for="name_group">اسم المجموعة</label>
+          <input class="w100" type="text" name="name_group" id="name_group" value="<?php echo $toEdit->familly_name . " " .$toEdit->program_name . " " .$toEdit->branch_name  ?>" required>
+        </div>
+        <div class="span3">
+          <label for="num_group">رقم المجموعة</label>
+          <input type="number" name="num_group" id="num_group" value="" required>
+        </div>
+      </div>
+      <input type="hidden" name="id" value="<?php echo $toEdit->id  ?>">
+      <input type="submit" name="" value="تعديل" class="btn btn-success">
+
+    </form>
+
+    <?php
+  }
+
+/*
+|------------------------------------------------------------------------------------
 | Get the Form of Programs
 |------------------------------------------------------------------------------------
 */

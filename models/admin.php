@@ -504,5 +504,46 @@ class HajjModelAdmin extends JModelLegacy {
     return $results;
   }
 
+/*
+|------------------------------------------------------------------------------------
+| Get addon
+|------------------------------------------------------------------------------------
+*/
+  public function getAddonHajjs($where){
+    $db = JFactory::getDBO();    
+
+    // Get the list of HAJJS with the addons
+    $query = $db->getQuery(true);    
+    $query
+        ->select(array('HU.*', 'COUNT(fils.id) AS nb_addon', 'HP.name AS program_name', 'HB.name AS branch_name' ))
+        ->from($db->quoteName('#__hajj_users', 'HU'))
+        ->join('INNER', $db->quoteName('#__hajj_program', 'HP') . 
+          ' ON (' . $db->quoteName('HP.id') . ' = ' . $db->quoteName('HU.hajj_program') . ')')
+        ->join('INNER', $db->quoteName('#__hajj_branch', 'HB') . 
+          ' ON (' . $db->quoteName('HB.id') . ' = ' . $db->quoteName('HU.office_branch') . ')')
+
+        ->leftJoin('#__hajj_users as fils ON (fils.addon = HU.id AND fils.register_status != 5 AND fils.register_status != 3)')
+        ->where($db->quoteName('HU.addon') . ' = 0')
+        ->where($db->quoteName('HU.group_id') . ' = 0')
+        ->group($db->quoteName('HU.id'));
+
+    if ($where!='') {
+      $query->where($where);
+    }
+
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+
+    $Hajjs=array();
+    // select only nb_addon>0
+    foreach ($results as $key => $value) {
+      if ($value->nb_addon!=0) {
+       array_push( $Hajjs, $value);
+      }
+    }
+
+    return $Hajjs;
+    
+  }
 
 }
