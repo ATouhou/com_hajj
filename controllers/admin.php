@@ -866,4 +866,43 @@ class HajjControllerAdmin extends JControllerLegacy
     $app->redirect($url, 'error', 'error');
   }
 
+/*
+|------------------------------------------------------------------------------------
+| When we click to create a new group Suggestion
+|------------------------------------------------------------------------------------
+*/
+  public function setProposedGroup(){
+    $app        = JFactory::getApplication();
+    $jinput     = $app->input;
+    $idHajj     = $jinput->get('id', 0);
+    $name_group = $jinput->get('name_group', '', 'STRING');
+    $num_group  = $jinput->get('num_group', 0);
+
+    // Set new group 
+    $group            = new stdClass();
+    $group->name      = $name_group;
+    $group->num_group = $num_group;
+    $group->status    = 1;
+    var_dump($group);
+    $this->getModel('Groups')->setGroup($group);
+
+    // Set Group + order for hajjs
+    // get all hajjs with id or addon = $idHajj
+    $where = "id = ".$idHajj." OR addon = ".$idHajj;
+    $modelAdmin = $this->getModel('Admin');
+    $allHajjs = $modelAdmin->getHajjs(0, 0, $where);
+    var_dump($allHajjs);
+
+    // set the new group id
+    foreach ($allHajjs as $key => $hajj) {
+      $hajjObj                 = new stdClass();
+      $hajjObj->id             = $hajj->id;
+      $hajjObj->group_id       = $num_group;
+      $hajjObj->order_in_group = $key+1;
+      $modelAdmin->updateHajj($hajjObj);// edit in the data base
+    }
+
+    $app->redirect('index.php?option=com_hajj&view=proposedGroup&Itemid=297', 'تم حفظ البيانات بنجاح', 'success');
+  }
+  
 }

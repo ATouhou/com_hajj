@@ -416,7 +416,7 @@ class HajjFieldHelper {
   public static function getFormProposedGroup($toEdit = ""){
 
     ?>
-    <form class="fawj-makkah" action="index.php?option=com_hajj&task=admin.updateHajjId" method="post" accept-charset="utf-8">
+    <form class="fawj-makkah" action="index.php?option=com_hajj&task=admin.setProposedGroup" method="post" accept-charset="utf-8">
       <div class="row-fluid">
         <div class="span3">
           <label for="id">حجز الأصل</label>
