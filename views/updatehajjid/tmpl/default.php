@@ -45,7 +45,7 @@ $toEdit = $this->toEdit;
       <td><?php echo $hajj->first_name ?></td>
       <td><?php echo $hajj->familly_name ?></td>
       <td><?php echo $hajj->id_number ?></td>
-      <td><a href="http://kossa.local/fawj-makkah/index.php?option=com_hajj&task=hajj.getImgDocument&img=<?php echo $hajj->link ?>" title="">صورة الهوية/الإقامة</a></td>
+      <td><a href="index.php?option=com_hajj&task=hajj.getImgDocument&img=<?php echo $hajj->link ?>" title="">صورة الهوية/الإقامة</a></td>
       <td><a href="index.php?option=com_hajj&view=UpdateHajjId&Itemid=296&id=<?php echo $hajj->id ?>" class="btn btn-success">تحديث</a></td>
     </tr>
   <?php endforeach ?>
