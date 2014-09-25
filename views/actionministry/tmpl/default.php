@@ -21,6 +21,8 @@ $data = $this->result;
 
 $ProgramList      = HajjFieldHelper::getHajjProgramList($is_admin=true);
 $OfficeBranchList = HajjFieldHelper::getHajjOfficeBranchList($is_admin=true);
+$getGroupList     = HajjFieldHelper::getHajjGroupList($is_admin=true);
+
 $ThePagination    = HajjComponentsHelper::getPagination($url, $this->nbHajjs, 20, $this->start);
 $ThePager         = HajjComponentsHelper::getPager($this->start, sizeof($data), $url);
 $sexe = array(
@@ -38,8 +40,13 @@ $sexe = array(
   <thead>
     <tr>
       <th>الحجز</th>
-      <th>الاسم الثالث</th>
       <th>العائلة</th>
+      <th>رقم الهوية/الإقامة</th>
+
+      <th>اسم المجموعة</th>
+      <th>برنامج الحج</th>
+      <th>فرع التسجيل</th>
+
       <th>الجنس</th>
       <th>الجنسية</th>
       <th colspan="2">الإجراءات</th>
@@ -48,8 +55,13 @@ $sexe = array(
   <?php foreach ($data as $key => $value): ?>
     <tr <?php echo ($value->register_status == 4) ? 'class="success"':''; ?>>
       <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $value->id ?>"><?php echo $value->id ?></a></td>
-      <td><?php echo $value->third_name ?></td>
       <td><?php echo $value->familly_name ?></td>
+      <td><?php echo $value->id_number ?></td>
+
+      <td><?php echo isset($getGroupList[$value->group_id]) ? $getGroupList[$value->group_id]: ''; ?></td>
+      <td><?php echo $ProgramList[$value->hajj_program] ?></td>
+      <td><?php echo $OfficeBranchList[$value->office_branch] ?></td>
+
       <td><?php echo $sexe[$value->sexe] ?></td>
       <td><?php echo HajjFieldHelper::$Nationnality[$value->nationality-1] ?></td>
       <td><a class="btn btn-success" href="index.php?option=com_hajj&task=admin.ministryAction&value=7&id=<?php echo $value->id ?>">اخراج تصريح </a></td>

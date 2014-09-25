@@ -75,6 +75,27 @@ class HajjFieldHelper {
 
 /*
 |------------------------------------------------------------------------------------
+| Get list of Branchs
+|------------------------------------------------------------------------------------
+*/
+  public static function getGroups($is_admin=false){
+    $db = JFactory::getDBO();
+    $query = $db->getQuery(TRUE);
+    $query
+        ->select($db->quoteName(array('num_group', 'name')))
+        ->from($db->quoteName('#__hajj_group'));
+    if (!$is_admin) {
+      $query->where('status=1');
+    }
+    
+    $db->setQuery($query);
+    $results = $db->loadObjectList();
+    
+    return ($results);
+  } 
+
+/*
+|------------------------------------------------------------------------------------
 | Get the Form of Hajj register
 |------------------------------------------------------------------------------------
 */
@@ -1644,6 +1665,20 @@ class HajjFieldHelper {
       $array = array();
       foreach (self::getBranchs($is_admin) as $key => $value){
         $array[$value->id] = $value->name;
+      }
+
+      return($array);
+  }
+
+/*
+|------------------------------------------------------------------------------------
+| Get Group List
+|------------------------------------------------------------------------------------
+*/
+  public static function getHajjGroupList($is_admin=false){    
+      $array = array();
+      foreach (self::getGroups($is_admin) as $key => $value){
+        $array[$value->num_group] = $value->name;
       }
 
       return($array);
