@@ -38,8 +38,6 @@ $sexe = array(
   <thead>
     <tr>
       <th>الحجز</th>
-      <th>الاسم الاول</th>
-      <th>الاسم الثاني</th>
       <th>الاسم الثالث</th>
       <th>العائلة</th>
       <th>الجنس</th>
@@ -50,8 +48,6 @@ $sexe = array(
   <?php foreach ($data as $key => $value): ?>
     <tr <?php echo ($value->register_status == 4) ? 'class="success"':''; ?>>
       <td><a href="index.php?option=com_hajj&task=admin.hajj&id=<?php echo $value->id ?>"><?php echo $value->id ?></a></td>
-      <td><?php echo $value->first_name ?></td>
-      <td><?php echo $value->second_name ?></td>
       <td><?php echo $value->third_name ?></td>
       <td><?php echo $value->familly_name ?></td>
       <td><?php echo $sexe[$value->sexe] ?></td>
