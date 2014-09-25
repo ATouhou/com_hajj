@@ -102,6 +102,7 @@ class HajjControllerAdmin extends JControllerLegacy
     $view->assignRef('deny', $deny); // assign data from the model
     $view->assignRef('limit', $limit); // assign data from the model
     $view->assignRef('Itemid', $Itemid); // assign data from the model
+    $view->assignRef('group', $this->group); // assign data from the model
 
     $view->display($form); // display the view
   }
