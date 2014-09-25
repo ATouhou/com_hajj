@@ -483,6 +483,30 @@ class HajjModelAdmin extends JModelLegacy {
 
 /*
 |------------------------------------------------------------------------------------
+| Accept a Hajj
+|------------------------------------------------------------------------------------
+*/
+  public function updateHajjByNumGroup($old_num, $group_num){
+    $db = JFactory::getDbo();
+    $query = $db->getQuery(true);
+     
+    // Fields to update.
+    $fields = array(
+        $db->quoteName('group_id') . ' = ' . $group_num
+    );
+     
+    // Conditions for which records should be updated.
+    $conditions = array(
+        $db->quoteName('group_id') . ' = ' . $old_num
+    );
+     
+    $query->update($db->quoteName('#__hajj_users'))->set($fields)->where($conditions);
+    $db->setQuery($query);
+    $result = $db->query();
+  }   
+
+/*
+|------------------------------------------------------------------------------------
 | get Hajjs with Document 
 |------------------------------------------------------------------------------------
 */

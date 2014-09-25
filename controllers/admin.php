@@ -211,20 +211,30 @@ class HajjControllerAdmin extends JControllerLegacy
 |------------------------------------------------------------------------------------
 */
   public function setGroup(){
-    $app = JFactory::getApplication();
-    $jinput = $app->input;
-
-    $obj = new stdClass();
-    $obj->id = $jinput->get('id','','STRING');
+    $app            = JFactory::getApplication();
+    $jinput         = $app->input;
+    
+    $obj            = new stdClass();
+    $obj->id        = $jinput->get('id','','STRING');
+    $old_num_group  = $jinput->get('old_num_group','','STRING');
     $obj->num_group = $jinput->get('num_group','','STRING');
-    $obj->name = $jinput->get('name','','STRING');
-    $obj->status = $jinput->get('status','','STRING');
+    $obj->name      = $jinput->get('name','','STRING');
+    $obj->status    = $jinput->get('status','','STRING');
+
+    var_dump($old_num_group);
+    var_dump($obj);
 
     if ($obj->id != "") { // Edit
       $this->getModel('Groups')->editGroup($obj);
+      // check if we changed the num group
+      if ($old_num_group != $obj->num_group) {
+        $this->getModel('Admin')->updateHajjByNumGroup($old_num_group, $obj->num_group);
+      }
+
     }else{ // New Group
       $this->getModel('Groups')->setGroup($obj);
     }
+    //exit();
 
     $app->redirect('index.php?option=com_hajj&view=groups', 'تم حفظ البيانات بنجاح', 'success');
   }

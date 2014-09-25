@@ -501,6 +501,7 @@ class HajjFieldHelper {
       </div>
 
       <input type="hidden" name="id" value="<?php echo ($toEdit != "") ? $toEdit->id : "" ?>">
+      <input type="hidden" name="old_num_group" value="<?php echo ($toEdit != "") ? $toEdit->num_group : "" ?>">
       <input type="submit" name="" value="حفظ" class="btn btn-success">
 
     </form>
