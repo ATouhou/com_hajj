@@ -59,7 +59,7 @@ $toEdit = $this->toEdit;
       <td><a href="index.php?option=com_hajj&view=groups&Itemid=<?php echo $this->Itemid ?>&id=<?php echo $value->id ?>"><?php echo $value->num_group ?></a></td>
       <td><?php echo $value->name ?></td>
       <td><?php echo ($value->status == 0) ? "ايقاف" : "نشط" ?></td>
-      <td><?php echo $value->count ?></td>
+      <td><a href="index.php?option=com_hajj&task=admin.hajjs&Itemid=241"><?php echo $value->count ?></a></td>
     </tr>
   <?php endforeach ?>
 </table>
